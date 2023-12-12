@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'Ola mundo',
             ),
             Text(
-              'Samir Fernandes',
+              'Samir Fernandess',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
