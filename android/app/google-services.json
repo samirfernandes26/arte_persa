@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "21665336984",
+    "project_id": "arte-persa-ab168",
+    "storage_bucket": "arte-persa-ab168.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21665336984:android:97f7dfc43b0e04509c4aed",
+        "android_client_info": {
+          "package_name": "br.com.arte_persa.arte_persa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjw-gCE66Rbi9s1MAqvph0meZ4pTMLXkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

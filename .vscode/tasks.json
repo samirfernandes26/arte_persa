@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Coverage Report",
+            "command": "genhtml coverage/lcov.info --output=./coverage && open coverage/index.html",
+            "type": "shell",
+        },
+        {
+            "label": "Run all devices",
+            "command": "flutter run -d all",
+            "type": "shell",
+        }
+    ]
+}

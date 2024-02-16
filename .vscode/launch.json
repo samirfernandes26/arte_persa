@@ -1,0 +1,41 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "arte_persa",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "arte_persa (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "arte_persa (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "Run Tests",
+            "request": "launch",
+            "type": "dart",
+            "program": "test/",
+            "args": [
+                "--coverage"
+            ],
+            "postDebugTask": "Coverage Report"
+        },
+        {
+            "name": "Run All Device",
+            "request": "launch",
+            "type": "dart",
+            "postDebugTask": "Run all devices"
+        }
+    ]
+}
