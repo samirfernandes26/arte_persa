@@ -24,14 +24,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> loginUser() async {
-    final rest = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text, password: senha.text);
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text, password: senha.text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

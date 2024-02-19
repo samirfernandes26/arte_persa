@@ -26,7 +26,7 @@ sealed class AppTheme {
         color: Colors.white,
       ),
     ),
-    scaffoldBackgroundColor: Color.fromRGBO(18, 18, 18, 1),
+    scaffoldBackgroundColor: const Color.fromRGBO(18, 18, 18, 1),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,
@@ -53,7 +53,7 @@ sealed class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
-        backgroundColor: Color.fromRGBO(18, 18, 18, 1),
+        backgroundColor: const Color.fromRGBO(18, 18, 18, 1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -77,14 +77,14 @@ sealed class AppTheme {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.zero,
       ),
-      collapsedBackgroundColor: Color.fromRGBO(18, 18, 18, 1),
+      collapsedBackgroundColor: const Color.fromRGBO(18, 18, 18, 1),
       collapsedShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
         side: BorderSide.none,
       ),
-      iconColor: Color.fromRGBO(18, 18, 18, 1),
+      iconColor: const Color.fromRGBO(18, 18, 18, 1),
       collapsedIconColor: Colors.white,
-      textColor: Color.fromRGBO(18, 18, 18, 1),
+      textColor: const Color.fromRGBO(18, 18, 18, 1),
       collapsedTextColor: Colors.white,
       clipBehavior: Clip.antiAliasWithSaveLayer,
     ),
