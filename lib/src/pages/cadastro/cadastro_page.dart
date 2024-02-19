@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -57,48 +58,73 @@ class _CadastroPageState extends State<CadastroPage> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                // Lottie.asset(
-                //   'register_arte_persa.json',
-                //   // width: 140,
-                //   fit: BoxFit.fill,
-                // ),
+                Lottie.asset(
+                  'assets/lotties/register_arte_persa.json',
+                  height: 160,
+                  fit: BoxFit.fill,
+                ),
+                
+                const SizedBox(
+                  height: 32,
+                ),
+
                 Row(
                   children: [
                     Flexible(
                       child: TextFormField(
                         controller: nome,
-                        // onTapOutside: (_) => context.unfocus(),
-                        decoration:
-                            const InputDecoration(labelText: 'Seu nome'),
-                        keyboardType: TextInputType.number,
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: InputDecoration(
+                            labelText: 'Nome',
+                            labelStyle: const TextStyle(
+                              color: Colors.white,
+                            ),
+                            hintText: 'Nome',
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade600,
+                            )),
+                        keyboardType: TextInputType.name,
                         validator: Validatorless.required('Nome é obrigatório'),
                       ),
                     ),
-                    const SizedBox(width: 16),
+
+                    const SizedBox(
+                      width: 16,
+                    ),
+
                     Flexible(
                       child: TextFormField(
                         controller: sobrenome,
-                        // onTapOutside: (_) => context.unfocus(),
-                        decoration:
-                            const InputDecoration(labelText: 'Seu nome'),
-                        keyboardType: TextInputType.number,
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: const InputDecoration(
+                          labelText: 'Sobrenome',
+                          hintText: 'Sobrenome',
+                          labelStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        keyboardType: TextInputType.name,
                         validator: Validatorless.required('Nome é obrigatório'),
                       ),
                     ),
                   ],
                 ),
-                
                 const SizedBox(
                   height: 16,
                 ),
-                
                 Row(
                   children: [
                     Flexible(
                       child: TextFormField(
                         controller: cpf,
-                        // onTapOutside: (_) => context.unfocus(),
-                        decoration: const InputDecoration(labelText: 'CPF*'),
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: const InputDecoration(
+                          labelText: 'CPF*',
+                          hintText: 'xxx.xxx.xxx-xx',
+                          labelStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                         keyboardType: TextInputType.number,
                         validator: Validatorless.required('CPF é obrigatório'),
                       ),
@@ -109,9 +135,14 @@ class _CadastroPageState extends State<CadastroPage> {
                     Flexible(
                       child: TextFormField(
                         controller: dataNascimento,
-                        // onTapOutside: (_) => context.unfocus(),
+                        onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
-                            labelText: 'Data de nascimento*'),
+                          labelText: 'Data de nascimento*',
+                          hintText: 'xx/xx/xxxx',
+                          labelStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                         keyboardType: TextInputType.number,
                         validator: Validatorless.required(
                             'Data de nascimento é obrigatório'),
@@ -119,20 +150,23 @@ class _CadastroPageState extends State<CadastroPage> {
                     ),
                   ],
                 ),
-                
                 const SizedBox(
                   height: 16,
                 ),
-                
                 Row(
                   children: [
                     Expanded(
                       child: TextFormField(
                         controller: telefoneContatoUm,
-                        // onTapOutside: (_) => context.unfocus(),
-                        decoration:
-                            const InputDecoration(labelText: 'Telefone'),
-                        keyboardType: TextInputType.number,
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: const InputDecoration(
+                          labelText: 'Telefone',
+                          hintText: '(xx)9xxxx-xxxx',
+                          labelStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        keyboardType: TextInputType.phone,
                         validator:
                             Validatorless.required('Número é obrigatório'),
                       ),
@@ -161,20 +195,23 @@ class _CadastroPageState extends State<CadastroPage> {
                     ),
                   ],
                 ),
-                
                 const SizedBox(
                   height: 16,
                 ),
-               
                 Row(
                   children: [
                     Expanded(
                       child: TextFormField(
                         controller: telefoneContatoDois,
-                        // onTapOutside: (_) => context.unfocus(),
+                        onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
-                            labelText: 'Telefone alternativo'),
-                        keyboardType: TextInputType.number,
+                          labelText: 'Telefone alternativo',
+                          hintText: '(xx)9xxxx-xxxx',
+                          labelStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        keyboardType: TextInputType.phone,
                         validator:
                             Validatorless.required('Número é obrigatório'),
                       ),
@@ -190,8 +227,8 @@ class _CadastroPageState extends State<CadastroPage> {
                         });
                       },
                       child: Container(
-                        width: 48, // Ajuste conforme necessário
-                        height: 48, // Ajuste conforme necessário
+                        width: 48,
+                        height: 48,
                         child: Opacity(
                           opacity: isChecked ? 0.25 : 1.0,
                           child: Image.asset(
@@ -203,31 +240,38 @@ class _CadastroPageState extends State<CadastroPage> {
                     ),
                   ],
                 ),
-                
                 const SizedBox(
                   height: 16,
                 ),
-
                 TextFormField(
                   controller: email,
-                  // onTapOutside: (_) => context.unfocus(),
-                  decoration: const InputDecoration(labelText: 'E-mail'),
+                  onTapOutside: (_) => context.unfocus(),
+                  decoration: const InputDecoration(
+                    labelText: 'E-mail',
+                    hintText: 'exemplo@exemplo.com',
+                    labelStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                   keyboardType: TextInputType.number,
                   validator: Validatorless.required('Senha é obrigatório.'),
                 ),
-
                 const SizedBox(
                   height: 16,
                 ),
-
                 TextFormField(
                   controller: senha,
-                  // onTapOutside: (_) => context.unfocus(),
-                  decoration: const InputDecoration(labelText: 'Senha'),
+                  onTapOutside: (_) => context.unfocus(),
+                  decoration: const InputDecoration(
+                    labelText: 'Senha',
+                    hintText: '******',
+                    labelStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                   obscureText: true,
                   validator: Validatorless.required('Senha é obrigatório.'),
                 ),
-
                 const SizedBox(
                   height: 16,
                 ),

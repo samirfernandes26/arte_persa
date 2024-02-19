@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 sealed class AppTheme {
   static const _defaultInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(
-      Radius.circular(8),
+      Radius.circular(16),
     ),
     borderSide: BorderSide(
       color: Colors.white,
@@ -18,7 +18,7 @@ sealed class AppTheme {
       backgroundColor: Color.fromRGBO(18, 18, 18, 1),
       titleTextStyle: TextStyle(
         color: Colors.white,
-        fontSize: 16,
+        fontSize: 12,
         overflow: TextOverflow.ellipsis,
       ),
       scrolledUnderElevation: 0,
@@ -29,22 +29,25 @@ sealed class AppTheme {
     scaffoldBackgroundColor: const Color.fromRGBO(18, 18, 18, 1),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: Colors.white,
+      fillColor: Colors.grey.shade400,
       labelStyle: const TextStyle(color: Color.fromRGBO(18, 18, 18, 1)),
       contentPadding: const EdgeInsets.all(16),
       border: _defaultInputBorder,
-      enabledBorder: _defaultInputBorder.copyWith(
-        borderSide: const BorderSide(color: Color.fromRGBO(18, 18, 18, 1)),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.grey.shade800,
+          width: 2.0,
+        ),
       ),
-      focusedBorder: _defaultInputBorder.copyWith(
-        borderSide: const BorderSide(
-          color: Color.fromRGBO(18, 18, 18, 1),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.deepPurple.shade500,
           width: 2.0,
         ),
       ),
       errorBorder: _defaultInputBorder.copyWith(
-        borderSide: const BorderSide(
-          color: Colors.red,
+        borderSide: BorderSide(
+          color: Colors.redAccent.shade700,
           width: 2.0,
         ),
       ),
@@ -84,7 +87,7 @@ sealed class AppTheme {
       ),
       iconColor: const Color.fromRGBO(18, 18, 18, 1),
       collapsedIconColor: Colors.white,
-      textColor: const Color.fromRGBO(18, 18, 18, 1),
+      textColor: Colors.white,
       collapsedTextColor: Colors.white,
       clipBehavior: Clip.antiAliasWithSaveLayer,
     ),
@@ -105,7 +108,7 @@ sealed class AppTheme {
               return const TextStyle(color: Colors.white);
             }
 
-            return const TextStyle(color: Color.fromRGBO(18, 18, 18, 1));
+            return const TextStyle(color: Colors.white);
           },
         ),
       ),
