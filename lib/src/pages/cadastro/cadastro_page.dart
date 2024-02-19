@@ -1,5 +1,6 @@
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/pages/cadastro/cadastro_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
@@ -25,6 +26,8 @@ class _CadastroPageState extends State<CadastroPage> {
   final dataNascimento = TextEditingController();
   bool isChecked = false;
 
+  late CadastroVm cadastroVm;
+
   @override
   void dispose() {
     email.dispose();
@@ -38,10 +41,16 @@ class _CadastroPageState extends State<CadastroPage> {
   }
 
   @override
+  void initState() {
+    cadastroVm = CadastroVm();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de usuário'),
+        title: Text('Cadastro de usuário ${cadastroVm.teste}'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -63,11 +72,10 @@ class _CadastroPageState extends State<CadastroPage> {
                   height: 160,
                   fit: BoxFit.fill,
                 ),
-                
                 const SizedBox(
                   height: 32,
                 ),
-
+                Text(cadastroVm.teste.toString()),
                 Row(
                   children: [
                     Flexible(
@@ -87,11 +95,9 @@ class _CadastroPageState extends State<CadastroPage> {
                         validator: Validatorless.required('Nome é obrigatório'),
                       ),
                     ),
-
                     const SizedBox(
                       width: 16,
                     ),
-
                     Flexible(
                       child: TextFormField(
                         controller: sobrenome,
@@ -286,7 +292,11 @@ class _CadastroPageState extends State<CadastroPage> {
           style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(60),
               backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-          onPressed: () {}, //loginUser,
+          onPressed: () {
+            setState(() {
+              cadastroVm.soma(1, 1);
+            });
+          }, //loginUser,
           child: const Text('Cadastrar'),
         ),
       ),
