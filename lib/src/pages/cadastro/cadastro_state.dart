@@ -48,6 +48,7 @@ class CadastroForm {
     this.id,
     this.email,
     this.token,
+    this.senha,
     this.nome,
     this.sobrenome,
     this.cpf,
@@ -61,6 +62,7 @@ class CadastroForm {
   int? id;
   String? email;
   String? token;
+  String? senha;
   String? nome;
   String? sobrenome;
   String? cpf;

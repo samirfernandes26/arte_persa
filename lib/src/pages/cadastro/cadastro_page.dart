@@ -5,7 +5,6 @@ import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/pages/cadastro/cadastro_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:validatorless/validatorless.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +31,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
   }
 
   // Future<void> redisterUser() async {
-  //   await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //       email: email.text, password: senha.text);
+
   // }
 
   @override
@@ -46,24 +44,23 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
     final CadastroVm(
       :salvaUsuario,
     ) = ref.read(cadastroVmProvider.notifier);
-    final cadastroVm = ref.watch(cadastroVmProvider);
 
-    // ref.listen(cadastroVmProvider, (_, state) async {
-    //   switch (state.status) {
-    //     case CadastroStatus.initial:
-    //       break;
-    //     case CadastroStatus.loaded:
-    //       break;
-    //     case CadastroStatus.error:
-    //       Messages.showErrors(state.message!, context);
-    //       Navigator.of(context).pop(true);
-    //     case CadastroStatus.success:
-    //       Messages.showSuccess(state.message!, context);
-    //       Navigator.of(context).popAndPushNamed(
-    //         RouteGeneratorKeys.authLogin,
-    //       );
-    //   }
-    // });
+    ref.listen(cadastroVmProvider, (_, state) async {
+      switch (state.status) {
+        case CadastroStatus.initial:
+          break;
+        case CadastroStatus.loaded:
+          break;
+        case CadastroStatus.error:
+          Messages.showErrors(state.message!, context);
+          Navigator.of(context).pop(true);
+        case CadastroStatus.success:
+          Messages.showSuccess(state.message!, context);
+          Navigator.of(context).popAndPushNamed(
+            RouteGeneratorKeys.authLogin,
+          );
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -227,7 +224,8 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                       onTap: () {
                         // Atualiza o estado do checkbox quando clicado
                         setState(() {
-                          checkTeleconeConatatoDois = !checkTeleconeConatatoDois;
+                          checkTeleconeConatatoDois =
+                              !checkTeleconeConatatoDois;
                         });
                       },
                       child: SizedBox(
@@ -284,7 +282,16 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
           style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(60),
               backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-          onPressed: () {salvaUsuario();}, //loginUser,
+          onPressed: () async {
+            switch (formKey.currentState?.saveAndValidate()) {
+              case (false || null):
+                break;
+              case (true):
+                await salvaUsuario(formKey.currentState!.value);
+                // navigator.pop();
+                break;
+            }
+          }, //loginUser,
           child: const Text('Cadastrar'),
         ),
       ),

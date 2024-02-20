@@ -10,6 +10,7 @@ CadastroModel _$CadastroModelFromJson(Map<String, dynamic> json) =>
     CadastroModel(
       id: json['id'] as int?,
       email: json['email'] as String,
+      senha: json['senha'] as String,
       token: json['token'] as String?,
       nome: json['nome'] as String?,
       sobrenome: json['sobrenome'] as String?,
@@ -32,6 +33,7 @@ Map<String, dynamic> _$CadastroModelToJson(CadastroModel instance) =>
       'id': instance.id,
       'email': instance.email,
       'token': instance.token,
+      'senha': instance.senha,
       'nome': instance.nome,
       'sobrenome': instance.sobrenome,
       'cpf': instance.cpf,

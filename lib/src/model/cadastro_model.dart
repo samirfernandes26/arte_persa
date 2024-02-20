@@ -7,6 +7,7 @@ class CadastroModel {
   CadastroModel({
     this.id,
     required this.email,
+    required this.senha,
     this.token,
     this.nome,
     this.sobrenome,
@@ -21,6 +22,7 @@ class CadastroModel {
   int? id;
   String email;
   String? token;
+  String senha;
   String? nome;
   String? sobrenome;
   String? cpf;
