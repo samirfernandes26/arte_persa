@@ -1,3 +1,6 @@
+import 'package:arte_persa/src/core/helpers/messages.dart';
+import 'package:arte_persa/src/pages/cadastro/cadastro_state.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/pages/cadastro/cadastro_vm.dart';
@@ -6,51 +9,64 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:validatorless/validatorless.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CadastroPage extends StatefulWidget {
-  const CadastroPage({super.key});
+class CadastroPage extends ConsumerStatefulWidget {
+  const CadastroPage({
+    super.key,
+  });
 
   @override
-  State<CadastroPage> createState() => _CadastroPageState();
+  ConsumerState<CadastroPage> createState() => _CadastroPageState();
 }
 
-class _CadastroPageState extends State<CadastroPage> {
-  final formKey = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final senha = TextEditingController();
-  final nome = TextEditingController();
-  final sobrenome = TextEditingController();
-  final cpf = TextEditingController();
-  final telefoneContatoUm = TextEditingController();
-  final telefoneContatoDois = TextEditingController();
-  final dataNascimento = TextEditingController();
-  bool isChecked = false;
+class _CadastroPageState extends ConsumerState<CadastroPage> {
+  final formKey = GlobalKey<FormBuilderState>();
 
-  late CadastroVm cadastroVm;
+  bool isChecked = false;
 
   @override
   void dispose() {
-    email.dispose();
-    senha.dispose();
     super.dispose();
   }
 
-  Future<void> redisterUser() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email.text, password: senha.text);
-  }
+  // Future<void> redisterUser() async {
+  //   await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //       email: email.text, password: senha.text);
+  // }
 
   @override
   void initState() {
-    cadastroVm = CadastroVm();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // final CadastroVm(
+    //   :salvaUsuario,
+    // ) = ref.read(cadastroVmProvider.notifier);
+    // final registroImovelVm = ref.watch(cadastroVmProvider);
+
+    // ref.listen(cadastroVmProvider, (_, state) async {
+    //   switch (state.status) {
+    //     case CadastroStatus.initial:
+    //       break;
+    //     case CadastroStatus.loaded:
+    //       break;
+    //     case CadastroStatus.error:
+    //       Messages.showErrors(state.message!, context);
+    //       Navigator.of(context).pop(true);
+    //     case CadastroStatus.success:
+    //       Messages.showSuccess(state.message!, context);
+    //       Navigator.of(context).popAndPushNamed(
+    //         RouteGeneratorKeys.authLogin,
+    //       );
+    //   }
+    // });
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro de usuário ${cadastroVm.teste}'),
+        title: const Text('Cadastro de usuário'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -62,7 +78,7 @@ class _CadastroPageState extends State<CadastroPage> {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(32.0),
-          child: Form(
+          child: FormBuilder(
             key: formKey,
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -75,18 +91,14 @@ class _CadastroPageState extends State<CadastroPage> {
                 const SizedBox(
                   height: 32,
                 ),
-                Text(cadastroVm.teste.toString()),
                 Row(
                   children: [
                     Flexible(
-                      child: TextFormField(
-                        controller: nome,
+                      child: FormBuilderTextField(
+                        name: 'nome',
                         onTapOutside: (_) => context.unfocus(),
                         decoration: InputDecoration(
                             labelText: 'Nome',
-                            labelStyle: const TextStyle(
-                              color: Colors.white,
-                            ),
                             hintText: 'Nome',
                             hintStyle: TextStyle(
                               color: Colors.grey.shade600,
@@ -99,15 +111,12 @@ class _CadastroPageState extends State<CadastroPage> {
                       width: 16,
                     ),
                     Flexible(
-                      child: TextFormField(
-                        controller: sobrenome,
+                      child: FormBuilderTextField(
+                        name: 'sobrenome',
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Sobrenome',
                           hintText: 'Sobrenome',
-                          labelStyle: TextStyle(
-                            color: Colors.white,
-                          ),
                         ),
                         keyboardType: TextInputType.name,
                         validator: Validatorless.required('Nome é obrigatório'),
@@ -121,15 +130,12 @@ class _CadastroPageState extends State<CadastroPage> {
                 Row(
                   children: [
                     Flexible(
-                      child: TextFormField(
-                        controller: cpf,
+                      child: FormBuilderTextField(
+                        name: 'cpf',
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'CPF*',
                           hintText: 'xxx.xxx.xxx-xx',
-                          labelStyle: TextStyle(
-                            color: Colors.white,
-                          ),
                         ),
                         keyboardType: TextInputType.number,
                         validator: Validatorless.required('CPF é obrigatório'),
@@ -139,15 +145,12 @@ class _CadastroPageState extends State<CadastroPage> {
                       width: 16,
                     ),
                     Flexible(
-                      child: TextFormField(
-                        controller: dataNascimento,
+                      child: FormBuilderTextField(
+                        name: 'dataNascimento',
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Data de nascimento*',
                           hintText: 'xx/xx/xxxx',
-                          labelStyle: TextStyle(
-                            color: Colors.white,
-                          ),
                         ),
                         keyboardType: TextInputType.number,
                         validator: Validatorless.required(
@@ -162,15 +165,12 @@ class _CadastroPageState extends State<CadastroPage> {
                 Row(
                   children: [
                     Expanded(
-                      child: TextFormField(
-                        controller: telefoneContatoUm,
+                      child: FormBuilderTextField(
+                        name: 'telefoneContatoUm',
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Telefone',
                           hintText: '(xx)9xxxx-xxxx',
-                          labelStyle: TextStyle(
-                            color: Colors.white,
-                          ),
                         ),
                         keyboardType: TextInputType.phone,
                         validator:
@@ -187,7 +187,7 @@ class _CadastroPageState extends State<CadastroPage> {
                           isChecked = !isChecked;
                         });
                       },
-                      child: Container(
+                      child: SizedBox(
                         width: 48, // Ajuste conforme necessário
                         height: 48, // Ajuste conforme necessário
                         child: Opacity(
@@ -207,15 +207,12 @@ class _CadastroPageState extends State<CadastroPage> {
                 Row(
                   children: [
                     Expanded(
-                      child: TextFormField(
-                        controller: telefoneContatoDois,
+                      child: FormBuilderTextField(
+                        name: 'telefoneContatoDois',
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Telefone alternativo',
                           hintText: '(xx)9xxxx-xxxx',
-                          labelStyle: TextStyle(
-                            color: Colors.white,
-                          ),
                         ),
                         keyboardType: TextInputType.phone,
                         validator:
@@ -232,7 +229,7 @@ class _CadastroPageState extends State<CadastroPage> {
                           isChecked = !isChecked;
                         });
                       },
-                      child: Container(
+                      child: SizedBox(
                         width: 48,
                         height: 48,
                         child: Opacity(
@@ -249,15 +246,12 @@ class _CadastroPageState extends State<CadastroPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
-                  controller: email,
+                FormBuilderTextField(
+                  name: 'email',
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'E-mail',
                     hintText: 'exemplo@exemplo.com',
-                    labelStyle: TextStyle(
-                      color: Colors.white,
-                    ),
                   ),
                   keyboardType: TextInputType.number,
                   validator: Validatorless.required('Senha é obrigatório.'),
@@ -265,15 +259,12 @@ class _CadastroPageState extends State<CadastroPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
-                  controller: senha,
+                FormBuilderTextField(
+                  name: 'senha',
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'Senha',
                     hintText: '******',
-                    labelStyle: TextStyle(
-                      color: Colors.white,
-                    ),
                   ),
                   obscureText: true,
                   validator: Validatorless.required('Senha é obrigatório.'),
@@ -293,9 +284,7 @@ class _CadastroPageState extends State<CadastroPage> {
               minimumSize: const Size.fromHeight(60),
               backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
           onPressed: () {
-            setState(() {
-              cadastroVm.soma(1, 1);
-            });
+            setState(() {});
           }, //loginUser,
           child: const Text('Cadastrar'),
         ),

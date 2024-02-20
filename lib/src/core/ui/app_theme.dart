@@ -30,7 +30,7 @@ sealed class AppTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.grey.shade400,
-      labelStyle: const TextStyle(color: Color.fromRGBO(18, 18, 18, 1)),
+      labelStyle: const TextStyle(color: Colors.white),
       contentPadding: const EdgeInsets.all(16),
       border: _defaultInputBorder,
       enabledBorder: OutlineInputBorder(

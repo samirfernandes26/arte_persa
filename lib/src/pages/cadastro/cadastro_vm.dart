@@ -9,7 +9,8 @@ part 'cadastro_vm.g.dart';
 
 @riverpod
 class CadastroVm extends _$CadastroVm {
-  // CadastroState state = CadastroState.initial();
+
+  @override
   CadastroState build() => CadastroState.initial();
 
   int teste = 0;
