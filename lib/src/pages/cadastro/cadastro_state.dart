@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/model/cadastro_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:json_annotation/json_annotation.dart';
@@ -16,6 +17,7 @@ class CadastroState {
     required this.status,
     this.form,
     this.message,
+    this.usuario,
   });
 
   CadastroState.initial()
@@ -26,6 +28,19 @@ class CadastroState {
   CadastroStatus status;
   CadastroForm? form;
   String? message;
+  CadastroModel? usuario;
+
+  CadastroState copyWith({
+    CadastroStatus? status,
+    CadastroForm? form,
+    String? message,
+    CadastroModel? usuario,
+  }) => CadastroState(
+    status: status ?? this.status,
+    form: form ?? this.form,
+    message: message ?? this.message,
+    usuario: usuario ?? this.usuario,
+  );
 }
 
 @JsonSerializable()
