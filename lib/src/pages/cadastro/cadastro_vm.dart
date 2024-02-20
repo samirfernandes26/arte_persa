@@ -23,11 +23,11 @@ class CadastroVm extends _$CadastroVm {
     late Either<ServiceException, CadastroModel> response;
     response = await ref.read(cadastroServiceProvider).execute(user);
 
-    if (user['id'] == null) {
-      // response = await ref.read(cadastroServiceProvider).execute(user);
-    } else {
-      // chamo a função de update de usuario
-    }
+    // if (user['id'] == null) {
+    //   // response = await ref.read(cadastroServiceProvider).execute(user);
+    // } else {
+    //   // chamo a função de update de usuario
+    // }
 
     switch (response) {
       case Success(value: final usuario):

@@ -23,7 +23,8 @@ class CadastroPage extends ConsumerStatefulWidget {
 class _CadastroPageState extends ConsumerState<CadastroPage> {
   final formKey = GlobalKey<FormBuilderState>();
 
-  bool isChecked = false;
+  bool checkTeleconeConatatoUm = false;
+  bool checkTeleconeConatatoDois = false;
 
   @override
   void dispose() {
@@ -42,10 +43,10 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final CadastroVm(
-    //   :salvaUsuario,
-    // ) = ref.read(cadastroVmProvider.notifier);
-    // final registroImovelVm = ref.watch(cadastroVmProvider);
+    final CadastroVm(
+      :salvaUsuario,
+    ) = ref.read(cadastroVmProvider.notifier);
+    final cadastroVm = ref.watch(cadastroVmProvider);
 
     // ref.listen(cadastroVmProvider, (_, state) async {
     //   switch (state.status) {
@@ -184,14 +185,14 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                       onTap: () {
                         // Atualiza o estado do checkbox quando clicado
                         setState(() {
-                          isChecked = !isChecked;
+                          checkTeleconeConatatoUm = !checkTeleconeConatatoUm;
                         });
                       },
                       child: SizedBox(
-                        width: 48, // Ajuste conforme necessário
-                        height: 48, // Ajuste conforme necessário
+                        width: 48,
+                        height: 48,
                         child: Opacity(
-                          opacity: isChecked ? 0.25 : 1.0,
+                          opacity: checkTeleconeConatatoUm ? 0.25 : 1.0,
                           child: Image.asset(
                             ImagesConstants.whatsapp,
                             fit: BoxFit.cover,
@@ -226,14 +227,14 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                       onTap: () {
                         // Atualiza o estado do checkbox quando clicado
                         setState(() {
-                          isChecked = !isChecked;
+                          checkTeleconeConatatoDois = !checkTeleconeConatatoDois;
                         });
                       },
                       child: SizedBox(
                         width: 48,
                         height: 48,
                         child: Opacity(
-                          opacity: isChecked ? 0.25 : 1.0,
+                          opacity: checkTeleconeConatatoDois ? 0.25 : 1.0,
                           child: Image.asset(
                             ImagesConstants.whatsapp,
                             fit: BoxFit.cover,
