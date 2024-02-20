@@ -254,7 +254,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     labelText: 'E-mail',
                     hintText: 'exemplo@exemplo.com',
                   ),
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.emailAddress,
                   validator: Validatorless.required('Senha é obrigatório.'),
                 ),
                 const SizedBox(
@@ -284,9 +284,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
           style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(60),
               backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-          onPressed: () {
-            setState(() {});
-          }, //loginUser,
+          onPressed: () {salvaUsuario();}, //loginUser,
           child: const Text('Cadastrar'),
         ),
       ),

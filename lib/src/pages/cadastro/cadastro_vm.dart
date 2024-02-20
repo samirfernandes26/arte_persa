@@ -19,9 +19,11 @@ class CadastroVm extends _$CadastroVm {
     teste += a + b;
   }
 
-  Future<CadastroModel?> salvaUsuario(Map<String, dynamic> user) async {
+  Future<CadastroModel?> salvaUsuario() async {
     late Either<ServiceException, CadastroModel> response;
-    response = await ref.read(cadastroServiceProvider).execute(user);
+    final form = state.form;
+    final batata = '';
+    // response = await ref.read(cadastroServiceProvider).execute(form);
 
     // if (user['id'] == null) {
     //   // response = await ref.read(cadastroServiceProvider).execute(user);
@@ -29,22 +31,23 @@ class CadastroVm extends _$CadastroVm {
     //   // chamo a função de update de usuario
     // }
 
-    switch (response) {
-      case Success(value: final usuario):
-        state = state.copyWith(
-          status: CadastroStatus.success,
-          message: 'Usuário cadastrado com sucesso',
-          usuario: usuario,
-        );
+    // switch (response) {
+    //   case Success(value: final usuario):
+    //     state = state.copyWith(
+    //       status: CadastroStatus.success,
+    //       message: 'Usuário cadastrado com sucesso',
+    //       usuario: usuario,
+    //     );
 
-        return usuario;
-      case Failure(exception: ServiceException(:final message)):
-        state = state.copyWith(
-          status: CadastroStatus.error,
-          message: message,
-        );
+    //     return usuario;
+    //   case Failure(exception: ServiceException(:final message)):
+    //     state = state.copyWith(
+    //       status: CadastroStatus.error,
+    //       message: message,
+    //     );
 
-        return null;
-    }
+    //     return null;
+    // }
+    return null;
   }
 }
