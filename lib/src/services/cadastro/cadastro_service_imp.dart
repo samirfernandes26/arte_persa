@@ -4,7 +4,9 @@ import 'package:arte_persa/src/core/exceptions/service_exception.dart';
 import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/model/cadastro_model.dart';
 import 'package:arte_persa/src/services/cadastro/cadastro_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
 
 class CadastroServiceImp implements CadastroService {
   @override
@@ -14,10 +16,17 @@ class CadastroServiceImp implements CadastroService {
     try {
       Map<String, dynamic> form = Map.from(data);
       CadastroModel usuario = CadastroModel.fromJson(form);
+
+      usuario.id = const Uuid().v1();
+
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: usuario.email,
         password: usuario.senha,
       );
+      
+      FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
+      fireStore.collection('usuarios').doc(usuario.id).set(data);
 
       return Success(usuario);
     } on Exception catch (e) {

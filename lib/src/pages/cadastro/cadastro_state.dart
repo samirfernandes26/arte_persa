@@ -59,7 +59,7 @@ class CadastroForm {
     this.updatedAt,
   });
 
-  int? id;
+  String? id;
   String? email;
   String? token;
   String? senha;

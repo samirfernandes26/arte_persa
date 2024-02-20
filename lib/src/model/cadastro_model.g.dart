@@ -8,7 +8,7 @@ part of 'cadastro_model.dart';
 
 CadastroModel _$CadastroModelFromJson(Map<String, dynamic> json) =>
     CadastroModel(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       email: json['email'] as String,
       senha: json['senha'] as String,
       token: json['token'] as String?,

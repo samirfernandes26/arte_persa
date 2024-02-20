@@ -7,7 +7,7 @@ part of 'cadastro_state.dart';
 // **************************************************************************
 
 CadastroForm _$CadastroFormFromJson(Map<String, dynamic> json) => CadastroForm(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       email: json['email'] as String?,
       token: json['token'] as String?,
       senha: json['senha'] as String?,
