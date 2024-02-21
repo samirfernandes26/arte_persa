@@ -95,6 +95,16 @@ dev_dependencies:
   riverpod_lint: ^2.0.3
   riverpod_generator: ^2.3.1
   json_serializable: ^6.7.1
+  names_launcher: ^0.0.1
+
+names_launcher:
+  name: Arte Persa
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+
 
 
 
