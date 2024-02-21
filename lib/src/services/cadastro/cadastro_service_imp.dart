@@ -21,14 +21,12 @@ class CadastroServiceImp implements CadastroService {
         password: usuario.senha,
       );
 
-      data = data.remove('senha');
-
       rest.user?.updateDisplayName(usuario.nome);
       usuario.id = rest.user?.uid;
 
       FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
-      fireStore.collection('usuarios').doc(usuario.id).set(data);
+      fireStore.collection('usuarios').doc(usuario.id).set({...data, 'id': rest.user?.uid, 'senha': null});
 
       return Success(usuario);
     } on Exception catch (e) {

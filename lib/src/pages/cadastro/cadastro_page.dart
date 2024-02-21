@@ -178,8 +178,9 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                           labelText: 'Telefone',
                         ),
                         keyboardType: TextInputType.phone,
-                        validator:
-                            Validatorless.required('Número é obrigatório',),
+                        validator: Validatorless.required(
+                          'Número é obrigatório',
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -221,7 +222,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                         decoration: const InputDecoration(
                           labelText: 'Telefone alternativo',
                         ),
-                        keyboardType: TextInputType.phone,                        
+                        keyboardType: TextInputType.phone,
                       ),
                     ),
                     const SizedBox(
@@ -295,7 +296,8 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                 break;
               case (true):
                 await salvaUsuario(formKey.currentState!.value);
-                // navigator.pop();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteGeneratorKeys.authLogin, (route) => false);
                 break;
             }
           }, //loginUser,

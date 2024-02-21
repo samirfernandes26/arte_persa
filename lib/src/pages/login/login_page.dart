@@ -1,34 +1,26 @@
+import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/pages/login/login_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:validatorless/validatorless.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final formKey = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final senha = TextEditingController();
-
-  @override
-  void dispose() {
-    email.dispose();
-    senha.dispose();
-    super.dispose();
-  }
-
-  Future<void> loginUser() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text, password: senha.text);
-  }
+class _LoginPageState extends ConsumerState<LoginPage> {
+  final formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
+    final LoginVm(:login) = ref.read(loginVmProvider.notifier);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
@@ -63,37 +55,56 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Form(
+                  child: FormBuilder(
                     key: formKey,
                     child: Column(
                       children: [
-                        TextFormField(
-                          controller: email,
-                          // onTapOutside: (_) => context.unfocus(),
-                          decoration:
-                              const InputDecoration(labelText: 'Usuário'),
-                          keyboardType: TextInputType.number,
-                          validator:Validatorless.required('Senha é obrigatório.'),
+                        FormBuilderTextField(
+                          name: 'email',
+                          onTapOutside: (_) => context.unfocus(),
+                          decoration: InputDecoration(
+                              labelText: 'Email',
+                              hintText: 'exemplo@exemplo.com',
+                              hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                              )),
+                          keyboardType: TextInputType.emailAddress,
+                          validator:
+                              Validatorless.required('Email é obrigatório.'),
                         ),
                         const SizedBox(
                           height: 16,
                         ),
-                        TextFormField(
-                          controller: senha,
-                          // onTapOutside: (_) => context.unfocus(),
-                          decoration: const InputDecoration(labelText: 'Senha'),
+                        FormBuilderTextField(
+                          name: 'senha',
+                          onTapOutside: (_) => context.unfocus(),
+                          decoration: const InputDecoration(
+                            labelText: 'Senha',
+                            hintText: '******',
+                          ),
                           obscureText: true,
-                          validator: Validatorless.required('Senha é obrigatório.'),
+                          validator:
+                              Validatorless.required('Senha é obrigatório.'),
                         ),
                         const SizedBox(
                           height: 16,
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(56),
-                            backgroundColor: const Color.fromRGBO(0, 128, 0, 1)
-                          ),
-                          onPressed: (){},//loginUser,
+                              minimumSize: const Size.fromHeight(56),
+                              backgroundColor:
+                                  const Color.fromRGBO(0, 128, 0, 1)),
+                          onPressed: () async {
+                            switch (formKey.currentState?.saveAndValidate()) {
+                              case (false || null):
+                                break;
+                              case (true):
+                                await login(
+                                  formKey.currentState!.value['email'], formKey.currentState!.value['senha'],);
+                                // navigator.pop();
+                                break;
+                            }
+                          }, //loginUser,
                           child: const Text('Entrar'),
                         ),
                         const SizedBox(
@@ -101,12 +112,14 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            minimumSize: const Size.fromHeight(46),
-                            backgroundColor: const Color.fromRGBO(231, 64, 74, 1)
-                          ),
-                          onPressed: (){
-                            Navigator.of(context).pushNamedAndRemoveUntil(RouteGeneratorKeys.cadastrar, (route) => false);
-                          },//loginUser,
+                              minimumSize: const Size.fromHeight(56),
+                              backgroundColor:
+                                  const Color.fromRGBO(231, 64, 74, 1)),
+                          onPressed: () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                RouteGeneratorKeys.cadastrar,
+                                (route) => false);
+                          }, //loginUser,
                           child: const Text('Cadastrar'),
                         ),
                       ],
