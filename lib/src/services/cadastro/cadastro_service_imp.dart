@@ -6,7 +6,6 @@ import 'package:arte_persa/src/model/cadastro_model.dart';
 import 'package:arte_persa/src/services/cadastro/cadastro_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:uuid/uuid.dart';
 
 class CadastroServiceImp implements CadastroService {
   @override
@@ -17,8 +16,6 @@ class CadastroServiceImp implements CadastroService {
       Map<String, dynamic> form = Map.from(data);
       CadastroModel usuario = CadastroModel.fromJson(form);
 
-      usuario.id = const Uuid().v1();
-
       final rest = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: usuario.email,
         password: usuario.senha,
@@ -27,6 +24,7 @@ class CadastroServiceImp implements CadastroService {
       data = data.remove('senha');
 
       rest.user?.updateDisplayName(usuario.nome);
+      usuario.id = rest.user?.uid;
 
       FirebaseFirestore fireStore = FirebaseFirestore.instance;
 

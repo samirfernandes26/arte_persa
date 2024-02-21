@@ -135,7 +135,10 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                           labelText: 'CPF*',
                         ),
                         keyboardType: TextInputType.number,
-                        validator: Validatorless.required('CPF é obrigatório'),
+                        validator: Validatorless.multiple([
+                          Validatorless.required('CPF é obrigatório'),
+                          Validatorless.cpf('CPF inválido'),
+                        ]),
                       ),
                     ),
                     const SizedBox(
