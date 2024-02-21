@@ -6,6 +6,7 @@ import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/pages/cadastro/cadastro_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:validatorless/validatorless.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,10 +30,6 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
   void dispose() {
     super.dispose();
   }
-
-  // Future<void> redisterUser() async {
-
-  // }
 
   @override
   void initState() {
@@ -130,10 +127,12 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'cpf',
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: '###.###.###-##')
+                        ],
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'CPF*',
-                          hintText: 'xxx.xxx.xxx-xx',
                         ),
                         keyboardType: TextInputType.number,
                         validator: Validatorless.required('CPF é obrigatório'),
@@ -145,14 +144,17 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'dataNascimento',
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: '##/##/####')
+                        ],
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Data de nascimento*',
-                          hintText: 'xx/xx/xxxx',
                         ),
                         keyboardType: TextInputType.number,
                         validator: Validatorless.required(
-                            'Data de nascimento é obrigatório'),
+                          'Data de nascimento é obrigatório',
+                        ),
                       ),
                     ),
                   ],
@@ -165,14 +167,16 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     Expanded(
                       child: FormBuilderTextField(
                         name: 'telefoneContatoUm',
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: '(##) #####-####')
+                        ],
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Telefone',
-                          hintText: '(xx)9xxxx-xxxx',
                         ),
                         keyboardType: TextInputType.phone,
                         validator:
-                            Validatorless.required('Número é obrigatório'),
+                            Validatorless.required('Número é obrigatório',),
                       ),
                     ),
                     const SizedBox(
@@ -207,14 +211,14 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     Expanded(
                       child: FormBuilderTextField(
                         name: 'telefoneContatoDois',
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: '(##) #####-####')
+                        ],
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Telefone alternativo',
-                          hintText: '(xx)9xxxx-xxxx',
                         ),
-                        keyboardType: TextInputType.phone,
-                        validator:
-                            Validatorless.required('Número é obrigatório'),
+                        keyboardType: TextInputType.phone,                        
                       ),
                     ),
                     const SizedBox(

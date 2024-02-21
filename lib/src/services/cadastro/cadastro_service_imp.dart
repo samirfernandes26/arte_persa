@@ -19,11 +19,15 @@ class CadastroServiceImp implements CadastroService {
 
       usuario.id = const Uuid().v1();
 
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final rest = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: usuario.email,
         password: usuario.senha,
       );
-      
+
+      data = data.remove('senha');
+
+      rest.user?.updateDisplayName(usuario.nome);
+
       FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
       fireStore.collection('usuarios').doc(usuario.id).set(data);
