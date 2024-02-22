@@ -37,5 +37,22 @@ final authServiceProvider = Provider<AuthService>.internal(
 );
 
 typedef AuthServiceRef = ProviderRef<AuthService>;
+String _$cadastroServicoServiceHash() =>
+    r'ec68252557680f3b80da6d6d4b68dd2dafaa4f19';
+
+/// See also [cadastroServicoService].
+@ProviderFor(cadastroServicoService)
+final cadastroServicoServiceProvider =
+    Provider<CadastroServicoService>.internal(
+  cadastroServicoService,
+  name: r'cadastroServicoServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$cadastroServicoServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CadastroServicoServiceRef = ProviderRef<CadastroServicoService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

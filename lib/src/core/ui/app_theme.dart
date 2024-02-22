@@ -29,8 +29,8 @@ sealed class AppTheme {
     scaffoldBackgroundColor: const Color.fromRGBO(18, 18, 18, 1),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: Colors.grey.shade400,
-      labelStyle: const TextStyle(color: Colors.white),
+      fillColor: Colors.grey.shade600,
+      labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500,),
       contentPadding: const EdgeInsets.all(16),
       border: _defaultInputBorder,
       enabledBorder: OutlineInputBorder(
