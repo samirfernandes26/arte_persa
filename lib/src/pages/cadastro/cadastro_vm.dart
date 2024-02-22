@@ -3,6 +3,7 @@ import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/core/providers/application_providers.dart';
 import 'package:arte_persa/src/model/cadastro_model.dart';
 import 'package:arte_persa/src/pages/cadastro/cadastro_state.dart';
+import 'package:asyncstate/asyncstate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cadastro_vm.g.dart';
@@ -19,6 +20,7 @@ class CadastroVm extends _$CadastroVm {
   }
 
   Future<CadastroModel?> salvaUsuario(Map<String, dynamic> user) async {
+    final loaderHandler = AsyncLoaderHandler()..start();
     late Either<ServiceException, CadastroModel> response;
 
     if (user['id'] == null) {
@@ -34,14 +36,14 @@ class CadastroVm extends _$CadastroVm {
           message: 'Usuário cadastrado com sucesso',
           usuario: usuario,
         );
-
+        loaderHandler.close();
         return usuario;
       case Failure(exception: ServiceException(:final message)):
         state = state.copyWith(
           status: CadastroStatus.error,
           message: message,
         );
-
+        loaderHandler.close();
         return null;
     }
   }

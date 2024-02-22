@@ -15,15 +15,15 @@ class CadastroServicoServiceImp extends CadastroServicoService {
     Map<String, dynamic> data,
   ) async {
     try {
-      final sharedPreferences = await SharedPreferences.getInstance();
       FirebaseFirestore fireStore = FirebaseFirestore.instance;
+      final sharedPreferences = await SharedPreferences.getInstance();
       final collecion = fireStore.collection('servicos');
-      final restUser = sharedPreferences.get(LocalStorageKeys.userInfo);
-      // final user = json.decoder(restUser);
-      
+      final restUser = sharedPreferences.getString(LocalStorageKeys.userInfo);
+      final user = json.decode(restUser!);
 
-      CadastroServicoModel cadastroServicoForm =
-          CadastroServicoModel.fromJson(data);
+      collecion.doc().set({...data, 'userId': user['id']});
+
+      CadastroServicoModel cadastroServicoForm = CadastroServicoModel.fromJson({...data, 'userId': user['id']});
 
       return Success(cadastroServicoForm);
     } on Exception catch (e) {

@@ -79,7 +79,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Lottie.asset(
-                  'assets/lotties/register_arte_persa.json',
+                  LottieConstants.registerArtePersa,
                   height: 160,
                   fit: BoxFit.fill,
                 ),

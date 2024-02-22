@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -21,7 +20,7 @@ class SplashVm extends _$SplashVm {
   Future<SplashState> build() async {
     try {
       FirebaseAuth fireStore = FirebaseAuth.instance;
-      final rest = await fireStore.currentUser;
+      final rest = fireStore.currentUser;
 
       if(rest != null) {
         return SplashState.logged;

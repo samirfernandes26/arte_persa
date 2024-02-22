@@ -1,8 +1,10 @@
 import 'package:arte_persa/src/core/helpers/form_help.dart';
+import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
 import 'package:validatorless/validatorless.dart';
 
 class CadastroServicoPage extends ConsumerStatefulWidget {
@@ -31,9 +33,8 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final CadastroServicoVm(:salvarNovoServico, :state) =
+    final CadastroServicoVm(:salvarNovoServico) =
         ref.read(cadastroServicoVmProvider.notifier);
-    final cadastroServicoVm = ref.watch(cadastroServicoVmProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,6 +52,11 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
+                Lottie.asset(
+                  LottieConstants.phoneListAnimation,
+                  height: 200,
+                  fit: BoxFit.fill,
+                ),
                 FormBuilderTextField(
                   name: 'nome_do_servico',
                   onTapOutside: (_) => context.unfocus(),
@@ -176,7 +182,6 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                       checkPorcentagem = value ?? false;
                     });
                     // state.form
-                    final batat = '';
                   },
                 ),
                 Visibility(

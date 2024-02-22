@@ -18,7 +18,7 @@ class CadastroServicoVm extends _$CadastroServicoVm {
   ) async {
     late Either<ServiceException, CadastroServicoModel> response;
 
-    if(dadosCadastraisServico['id'] != null){
+    if(dadosCadastraisServico['id'] == null){
       response = await ref.read(cadastroServicoServiceProvider).execute(dadosCadastraisServico);
     }else{
 
