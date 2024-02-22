@@ -10,7 +10,7 @@ CadastroModel _$CadastroModelFromJson(Map<String, dynamic> json) =>
     CadastroModel(
       id: json['id'] as String?,
       email: json['email'] as String,
-      senha: json['senha'] as String,
+      senha: json['senha'] as String?,
       token: json['token'] as String?,
       nome: json['nome'] as String?,
       sobrenome: json['sobrenome'] as String?,
