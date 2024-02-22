@@ -13,7 +13,7 @@ class LoginVm extends _$LoginVm {
   @override
   LoginState build() => LoginState.initial();
 
-  Future<void> login(String login, String senha) async {
+  Future<bool> login(String login, String senha) async {
     final loaderHandler = AsyncLoaderHandler()..start();
     late Either<ServiceException, CadastroModel> response;
 
@@ -26,14 +26,16 @@ class LoginVm extends _$LoginVm {
           message: 'Usuário cadastrado com sucesso',
           usuario: usuario,
         );
+        loaderHandler.close();
+        return true;
 
       case Failure(exception: ServiceException(:final message)):
         state = state.copyWith(
           status: LoginStateStatus.error,
           message: message,
         );
+        loaderHandler.close();
+        return false;
     }
-    
-    loaderHandler.close();
   }
 }

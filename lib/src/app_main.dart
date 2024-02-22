@@ -29,8 +29,8 @@ class AppMain extends StatelessWidget{
           theme: AppTheme.themeData,
           navigatorKey: AppNavGlobalKey.instance.navKey,
           navigatorObservers: [asyncNavigatorObserver],
-          // initialRoute: RouteGeneratorKeys.path,
-          initialRoute: RouteGeneratorKeys.cadastroServico,
+          initialRoute: RouteGeneratorKeys.path,
+          // initialRoute: RouteGeneratorKeys.cadastroServico,
           onGenerateRoute: RouteGenerator.generateRoute,
         );
       }

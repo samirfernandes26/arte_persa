@@ -99,8 +99,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               case (false || null):
                                 break;
                               case (true):
-                                await login(
-                                  formKey.currentState!.value['email'], formKey.currentState!.value['senha'],);
+                                bool rest = await login(
+                                  formKey.currentState!.value['email'],
+                                  formKey.currentState!.value['senha'],
+                                );
+
+                                if (rest) {
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      RouteGeneratorKeys.cadastroServico,
+                                      (route) => false);
+                                }
                                 // navigator.pop();
                                 break;
                             }
@@ -117,8 +125,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   const Color.fromRGBO(231, 64, 74, 1)),
                           onPressed: () {
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                                RouteGeneratorKeys.cadastrar,
-                                (route) => false);
+                                RouteGeneratorKeys.cadastrar, (route) => false);
                           }, //loginUser,
                           child: const Text('Cadastrar'),
                         ),

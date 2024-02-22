@@ -248,7 +248,16 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
           style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(60),
               backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-          onPressed: () {}, //loginUser,
+          onPressed: () async {
+            switch (formKey.currentState?.saveAndValidate()) {
+              case (false || null):
+                break;
+              case (true):
+                await salvarNovoServico(formKey.currentState!.value);
+                // Navigator.of(context).pop();
+                break;
+            }
+          }, //loginUser,
           child: const Text('Cadastrar'),
         ),
       ),
