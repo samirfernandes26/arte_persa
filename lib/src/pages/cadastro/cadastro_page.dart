@@ -1,4 +1,4 @@
-import 'package:arte_persa/src/core/helpers/messages.dart';
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/pages/cadastro/cadastro_state.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:arte_persa/src/core/extension/context_extension.dart';

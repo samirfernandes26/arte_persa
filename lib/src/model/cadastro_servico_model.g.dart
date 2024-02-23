@@ -18,9 +18,10 @@ CadastroServicoModel _$CadastroServicoModelFromJson(
       valorManual: json['valor_manual'] as bool?,
       porcentagemServico: json['porcentagem_servico'] as bool?,
       servicoSelecionando: json['servico_selecionado'] as String?,
-      porcentagem: json['porcentagem'] as int?,
-      userId: json['user_id'] as String,
-      valor: (json['valor'] as num?)?.toDouble(),
+      porcentagem: _$JsonConverterFromJson<String, int>(
+          json['porcentagem'], const StringToIntConverter().fromJson),
+      userId: json['user_id'] as String?,
+      valor: const StringToDoubleConverter().fromJson(json['valor'] as String?),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -33,8 +34,9 @@ Map<String, dynamic> _$CadastroServicoModelToJson(
         CadastroServicoModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'porcentagem': instance.porcentagem,
-      'valor': instance.valor,
+      'porcentagem': _$JsonConverterToJson<String, int>(
+          instance.porcentagem, const StringToIntConverter().toJson),
+      'valor': const StringToDoubleConverter().toJson(instance.valor),
       'user_id': instance.userId,
       'nome_do_servico': instance.nomeDoServico,
       'categoria_selecionada': instance.categoriaSelecionada,
@@ -47,3 +49,15 @@ Map<String, dynamic> _$CadastroServicoModelToJson(
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

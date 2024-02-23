@@ -42,11 +42,11 @@ class ServicoTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Text(
-                  '348,00',
+                Text(
+                  servico.valor?.toString().replaceAll('.', ',') ?? '0,00',
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     color: Colors.black87,

@@ -1,6 +1,7 @@
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/core/ui/widgets/tiles/servico_tile/servico_tile.dart';
 import 'package:arte_persa/src/model/cadastro_servico_model.dart';
+import 'package:arte_persa/src/pages/servicos/servicos_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,25 +48,9 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final CadastroServicoVm(:salvarNovoServico) =
-    //     ref.read(cadastroServicoVmProvider.notifier);
+    final ServicosVm(:loadData) = ref.read(servicosVmProvider.notifier);
 
-    // ref.listen(listaImoveisVmProvider, (_, state) {
-    //   switch (state.status) {
-    //     case ListaImoveisStatus.initial:
-    //       break;
-    //     case ListaImoveisStatus.loaded:
-    //       break;
-    //     case ListaImoveisStatus.success:
-    //       Messages.showSuccess(state.message!, context);
-    //       Future(() async {
-    //         await loadData();
-    //       });
-    //       break;
-    //     case ListaImoveisStatus.error:
-    //       break;
-    //   }
-    // });
+    final stateVm = ref.watch(servicosVmProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -77,30 +62,30 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(16),
-          child: ServicoTile(servico: servico)
-          // decoration: const BoxDecoration(
-          //   color: Colors.white,
-          //   borderRadius: BorderRadius.only(
-          //     topLeft: Radius.circular(24),
-          //     topRight: Radius.circular(24),
-          //   ),
-          // ),
-          // child: Expanded(
-          //   child: RefreshIndicator(
-          //     onRefresh: () async {
-          //       await loadData().asyncLoader();
-          //     },
-          //     child: ListView.separated(
-          //       separatorBuilder: (context, index) =>
-          //           const SizedBox(height: 16),
-          //       itemCount: listaImoveisVm.imoveisFiltred?.length ?? 0,
-          //       itemBuilder: (context, index) =>
-          //           ImovelTile(imovel: listaImoveisVm.imoveisFiltred![index]),
-          //     ),
-          //   ),
-          // ),
-        ),
+            padding: const EdgeInsets.all(16),
+            child: ServicoTile(servico: servico)
+            // decoration: const BoxDecoration(
+            //   color: Colors.white,
+            //   borderRadius: BorderRadius.only(
+            //     topLeft: Radius.circular(24),
+            //     topRight: Radius.circular(24),
+            //   ),
+            // ),
+            // child: Expanded(
+            //   child: RefreshIndicator(
+            //     onRefresh: () async {
+            //       await loadData().asyncLoader();
+            //     },
+            //     child: ListView.separated(
+            //       separatorBuilder: (context, index) =>
+            //           const SizedBox(height: 16),
+            //       itemCount: listaImoveisVm.imoveisFiltred?.length ?? 0,
+            //       itemBuilder: (context, index) =>
+            //           ImovelTile(imovel: listaImoveisVm.imoveisFiltred![index]),
+            //     ),
+            //   ),
+            // ),
+            ),
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16.0),
@@ -108,7 +93,9 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
           style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(60),
               backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-          onPressed: () async {}, //loginUser,
+          onPressed: () async {
+            await loadData({'teste': 'teste'});
+          }, //loginUser,
           child: const Text('Cadastrar'),
         ),
       ),

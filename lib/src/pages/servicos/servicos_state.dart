@@ -9,33 +9,38 @@ enum ServicosStateStatus {
 }
 
 class ServicosState {
+  ServicosState.initial()
+      : this(
+          status: ServicosStateStatus.initial,
+          servicos: [],
+        );
+
   ServicosState({
     required this.status,
     this.servicos,
     this.message,
     this.usuario,
+    this.loading,
   });
-
-  ServicosState.initial()
-      : this(
-          status: ServicosStateStatus.initial,
-          servicos:[],
-        );
 
   ServicosStateStatus status;
   List<CadastroServicoModel>? servicos;
   String? message;
   CadastroModel? usuario;
+  bool? loading;
 
   ServicosState copyWith({
     ServicosStateStatus? status,
-     List<CadastroServicoModel>? servicos,
+    List<CadastroServicoModel>? servicos,
     String? message,
     CadastroModel? usuario,
-  }) => ServicosState(
-    status: status ?? this.status,
-    servicos: servicos ?? this.servicos,
-    message: message ?? this.message,
-    usuario: usuario ?? this.usuario,
-  );
+    bool? loading,
+  }) =>
+      ServicosState(
+        status: status ?? this.status,
+        loading: loading ?? this.loading,
+        servicos: servicos ?? this.servicos,
+        message: message ?? this.message,
+        usuario: usuario ?? this.usuario,
+      );
 }

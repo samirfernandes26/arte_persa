@@ -1,4 +1,5 @@
-// cadastro_servico_service.dart 
+// cadastro_servico_service.dart
+import 'package:arte_persa/src/core/helpers/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cadastro_servico_model.g.dart';
@@ -16,18 +17,22 @@ class CadastroServicoModel {
     this.porcentagemServico,
     this.servicoSelecionando,
     this.porcentagem,
-    required this.userId,
+    this.userId,
     this.valor,
     this.createdAt,
     this.updatedAt,
   });
 
   String? id;
+  
+  @StringToIntConverter()
   int? porcentagem;
+
+  @StringToDoubleConverter()
   double? valor;
 
   @JsonKey(name: 'user_id')
-  String userId;
+  String? userId;
 
   @JsonKey(name: 'nome_do_servico')
   String nomeDoServico;
@@ -58,7 +63,6 @@ class CadastroServicoModel {
 
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
-  
 
   Map<String, dynamic> toJson() => _$CadastroServicoModelToJson(this);
 
