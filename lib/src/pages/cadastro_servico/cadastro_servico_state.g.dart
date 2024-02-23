@@ -19,7 +19,7 @@ CadastrosServicoForm _$CadastrosServicoFormFromJson(
       porcentagemServico: json['porcentagemServico'] as bool?,
       servicoSelecionando: json['servicoSelecionando'] as String?,
       porcentagem: json['porcentagem'] as int?,
-      valor: json['valor'] as int?,
+      valor: (json['valor'] as num?)?.toDouble(),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),

@@ -23,17 +23,35 @@ class CadastroServicoModel {
   });
 
   String? id;
-  String userId;
-  String nomeDoServico;
-  String? categoriaSelecionada;
-  bool? metroQuadrado;
-  bool? metroLinear;
-  bool? valorFixo;
-  bool? valorManual;
-  bool? porcentagemServico;
-  String? servicoSelecionando;
   int? porcentagem;
-  int? valor;
+  double? valor;
+
+  @JsonKey(name: 'user_id')
+  String userId;
+
+  @JsonKey(name: 'nome_do_servico')
+  String nomeDoServico;
+
+  @JsonKey(name: 'categoria_selecionada')
+  String? categoriaSelecionada;
+
+  @JsonKey(name: 'metro_quadrado')
+  bool? metroQuadrado;
+
+  @JsonKey(name: 'metro_linear')
+  bool? metroLinear;
+
+  @JsonKey(name: 'valor_fixo')
+  bool? valorFixo;
+
+  @JsonKey(name: 'valor_manual')
+  bool? valorManual;
+
+  @JsonKey(name: 'porcentagem_servico')
+  bool? porcentagemServico;
+
+  @JsonKey(name: 'servico_selecionado')
+  String? servicoSelecionando;
 
   @JsonKey(name: 'created_at')
   DateTime? createdAt;

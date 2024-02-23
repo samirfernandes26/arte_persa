@@ -72,7 +72,7 @@ class CadastrosServicoForm {
   bool? porcentagemServico;
   String? servicoSelecionando;
   int? porcentagem;
-  int? valor;
+  double? valor;
 
   @JsonKey(name: 'created_at')
   DateTime? createdAt;

@@ -102,7 +102,6 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                         ),
                         initialValue: false,
                         onChanged: (value) {
-                          // Faça algo com o valor alterado, se necessário
                         },
                       ),
                     ),
@@ -120,7 +119,6 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                         ),
                         initialValue: false,
                         onChanged: (value) {
-                          // Faça algo com o valor alterado, se necessário
                         },
                       ),
                     ),
@@ -142,7 +140,6 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                         ),
                         initialValue: false,
                         onChanged: (value) {
-                          // Faça algo com o valor alterado, se necessário
                         },
                       ),
                     ),
