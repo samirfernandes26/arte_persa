@@ -1,7 +1,7 @@
 import 'package:arte_persa/src/core/exceptions/service_exception.dart';
 import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/core/providers/application_providers.dart';
-import 'package:arte_persa/src/model/cadastro_model.dart';
+import 'package:arte_persa/src/model/usuario_model.dart';
 import 'package:arte_persa/src/pages/login/login_state.dart';
 import 'package:asyncstate/asyncstate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

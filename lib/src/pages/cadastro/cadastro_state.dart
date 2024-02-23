@@ -1,4 +1,4 @@
-import 'package:arte_persa/src/model/cadastro_model.dart';
+import 'package:arte_persa/src/model/usuario_model.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 

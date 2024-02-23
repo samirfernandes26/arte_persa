@@ -2,7 +2,7 @@
 import 'package:arte_persa/src/core/helpers/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'cadastro_servico_model.g.dart';
+part 'servico_model.g.dart';
 
 @JsonSerializable()
 class ServicoModel {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cadastro_model.dart';
+part of 'usuario_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

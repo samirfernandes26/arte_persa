@@ -6,9 +6,7 @@ part of 'servico_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ServicoModel _$ServicoModelFromJson(
-        Map<String, dynamic> json) =>
-    ServicoModel(
+ServicoModel _$ServicoModelFromJson(Map<String, dynamic> json) => ServicoModel(
       id: json['id'] as String?,
       nomeDoServico: json['nome_do_servico'] as String,
       categoriaSelecionada: json['categoria_selecionada'] as String?,
@@ -30,8 +28,7 @@ ServicoModel _$ServicoModelFromJson(
           : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$ServicoModelToJson(
-        ServicoModel instance) =>
+Map<String, dynamic> _$ServicoModelToJson(ServicoModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'porcentagem': _$JsonConverterToJson<String, int>(

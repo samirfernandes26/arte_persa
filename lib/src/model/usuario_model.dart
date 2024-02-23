@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'cadastro_model.g.dart';
+part 'usuario_model.g.dart';
 
 @JsonSerializable()
 class CadastroModel {
