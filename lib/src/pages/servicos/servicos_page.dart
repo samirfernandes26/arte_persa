@@ -1,6 +1,6 @@
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/core/ui/widgets/tiles/servico_tile/servico_tile.dart';
-import 'package:arte_persa/src/model/cadastro_servico_model.dart';
+import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/servicos/servicos_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -30,7 +30,7 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
     super.initState();
   }
 
-  CadastroServicoModel servico = CadastroServicoModel(
+  ServicoModel servico = ServicoModel(
     nomeDoServico: 'Serviço de Limpeza',
     userId: '123456789',
     categoriaSelecionada: 'Limpeza',

@@ -1,7 +1,7 @@
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 
-import 'package:arte_persa/src/model/cadastro_servico_model.dart';
+import 'package:arte_persa/src/model/servico_model.dart';
 
 class ServicoTile extends StatelessWidget {
   const ServicoTile({
@@ -9,7 +9,7 @@ class ServicoTile extends StatelessWidget {
     required this.servico,
   }) : super(key: key);
 
-  final CadastroServicoModel servico;
+  final ServicoModel servico;
 
   @override
   Widget build(BuildContext context) {

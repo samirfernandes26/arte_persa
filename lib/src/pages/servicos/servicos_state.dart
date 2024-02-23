@@ -1,4 +1,4 @@
-import 'package:arte_persa/src/model/cadastro_servico_model.dart';
+import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/model/cadastro_model.dart';
 
 enum ServicosStateStatus {
@@ -24,14 +24,14 @@ class ServicosState {
   });
 
   ServicosStateStatus status;
-  List<CadastroServicoModel>? servicos;
+  List<ServicoModel>? servicos;
   String? message;
   CadastroModel? usuario;
   bool? loading;
 
   ServicosState copyWith({
     ServicosStateStatus? status,
-    List<CadastroServicoModel>? servicos,
+    List<ServicoModel>? servicos,
     String? message,
     CadastroModel? usuario,
     bool? loading,

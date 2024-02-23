@@ -5,8 +5,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'cadastro_servico_model.g.dart';
 
 @JsonSerializable()
-class CadastroServicoModel {
-  CadastroServicoModel({
+class ServicoModel {
+  ServicoModel({
     this.id,
     required this.nomeDoServico,
     this.categoriaSelecionada,
@@ -64,8 +64,8 @@ class CadastroServicoModel {
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
 
-  Map<String, dynamic> toJson() => _$CadastroServicoModelToJson(this);
+  Map<String, dynamic> toJson() => _$ServicoModelToJson(this);
 
-  factory CadastroServicoModel.fromJson(Map<String, dynamic> json) =>
-      _$CadastroServicoModelFromJson(json);
+  factory ServicoModel.fromJson(Map<String, dynamic> json) =>
+      _$ServicoModelFromJson(json);
 }

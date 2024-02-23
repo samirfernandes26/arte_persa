@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cadastro_servico_model.dart';
+part of 'servico_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CadastroServicoModel _$CadastroServicoModelFromJson(
+ServicoModel _$ServicoModelFromJson(
         Map<String, dynamic> json) =>
-    CadastroServicoModel(
+    ServicoModel(
       id: json['id'] as String?,
       nomeDoServico: json['nome_do_servico'] as String,
       categoriaSelecionada: json['categoria_selecionada'] as String?,
@@ -30,8 +30,8 @@ CadastroServicoModel _$CadastroServicoModelFromJson(
           : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$CadastroServicoModelToJson(
-        CadastroServicoModel instance) =>
+Map<String, dynamic> _$ServicoModelToJson(
+        ServicoModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'porcentagem': _$JsonConverterToJson<String, int>(

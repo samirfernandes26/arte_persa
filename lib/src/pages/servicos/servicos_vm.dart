@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:arte_persa/src/model/cadastro_servico_model.dart';
+import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/servicos/servicos_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,7 +15,7 @@ class ServicosVm extends _$ServicosVm {
   Future<void> loadData(
     Map<String, dynamic> dadosCadastraisServico,
   ) async {
-    List<CadastroServicoModel> servicos = [];
+    List<ServicoModel> servicos = [];
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
     final collection = fireStore.collection('servicos');
 
@@ -23,7 +23,7 @@ class ServicosVm extends _$ServicosVm {
 
     for (var servico in snapshot.docs) {
       log('');
-      servicos.add(CadastroServicoModel.fromJson(servico.data()));
+      servicos.add(ServicoModel.fromJson(servico.data()));
     }
     final batata = 1;
 

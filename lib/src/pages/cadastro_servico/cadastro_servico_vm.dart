@@ -2,7 +2,7 @@ import 'package:arte_persa/src/core/exceptions/service_exception.dart';
 import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/core/providers/application_providers.dart';
 import 'package:arte_persa/src/model/cadastro_model.dart';
-import 'package:arte_persa/src/model/cadastro_servico_model.dart';
+import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,7 +16,7 @@ class CadastroServicoVm extends _$CadastroServicoVm {
   Future<CadastroModel?> salvarNovoServico(
     Map<String, dynamic> dadosCadastraisServico,
   ) async {
-    late Either<ServiceException, CadastroServicoModel> response;
+    late Either<ServiceException, ServicoModel> response;
 
     if(dadosCadastraisServico['id'] == null){
       response = await ref.read(cadastroServicoServiceProvider).execute(dadosCadastraisServico);
