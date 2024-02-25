@@ -1,11 +1,14 @@
 import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/core/ui/widgets/tiles/servico_tile/servico_tile.dart';
 import 'package:arte_persa/src/model/servico_model.dart';
+import 'package:arte_persa/src/pages/servicos/servicos_state.dart';
 import 'package:arte_persa/src/pages/servicos/servicos_vm.dart';
+import 'package:arte_persa/src/routes/route_generator.dart';
+import 'package:asyncstate/asyncstate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 
 class ServicosPage extends ConsumerStatefulWidget {
   const ServicosPage({
@@ -49,8 +52,35 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
   @override
   Widget build(BuildContext context) {
     final ServicosVm(:loadData) = ref.read(servicosVmProvider.notifier);
+    final servisosVm = ref.watch(servicosVmProvider);
 
-    final stateVm = ref.watch(servicosVmProvider);
+    final arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    if (servisosVm.status == ServicosStateStatus.initial ||
+        arguments?['reload'] == true) {
+      Future(() async {
+        await loadData();
+        arguments?['reload'] = false;
+      });
+    }
+
+    ref.listen(servicosVmProvider, (_, state) {
+      switch (state.status) {
+        case ServicosStateStatus.initial:
+          break;
+        case ServicosStateStatus.loaded:
+          break;
+        case ServicosStateStatus.success:
+          Messages.showSuccess(state.message!, context);
+          Future(() async {
+            await loadData();
+          });
+          break;
+        case ServicosStateStatus.error:
+          break;
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -62,30 +92,42 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-            padding: const EdgeInsets.all(16),
-            child: ServicoTile(servico: servico)
-            // decoration: const BoxDecoration(
-            //   color: Colors.white,
-            //   borderRadius: BorderRadius.only(
-            //     topLeft: Radius.circular(24),
-            //     topRight: Radius.circular(24),
-            //   ),
-            // ),
-            // child: Expanded(
-            //   child: RefreshIndicator(
-            //     onRefresh: () async {
-            //       await loadData().asyncLoader();
-            //     },
-            //     child: ListView.separated(
-            //       separatorBuilder: (context, index) =>
-            //           const SizedBox(height: 16),
-            //       itemCount: listaImoveisVm.imoveisFiltred?.length ?? 0,
-            //       itemBuilder: (context, index) =>
-            //           ImovelTile(imovel: listaImoveisVm.imoveisFiltred![index]),
-            //     ),
-            //   ),
-            // ),
+          padding: const EdgeInsets.all(16),
+          child: Visibility(
+            visible: servisosVm.servicos!.isNotEmpty,
+            replacement: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Nenhuma serviço encontrado!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
             ),
+            child: Expanded(
+              child: Container(
+                // Adicionando um container para definir um tamanho
+                height: MediaQuery.of(context).size.height *
+                    0.7, // Defina um tamanho adequado aqui
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await loadData().asyncLoader();
+                  },
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16),
+                    itemCount: servisosVm.servicos?.length ?? 0,
+                    itemBuilder: (_, index) => ServicoTile(
+                      servico: servisosVm.servicos![index],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16.0),
@@ -94,7 +136,9 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
               minimumSize: const Size.fromHeight(60),
               backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
           onPressed: () async {
-            await loadData({'teste': 'teste'});
+            Navigator.of(context).pushNamed(
+              RouteGeneratorKeys.cadastroServico,
+            );
           }, //loginUser,
           child: const Text('Cadastrar'),
         ),

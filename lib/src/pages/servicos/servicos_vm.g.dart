@@ -6,7 +6,7 @@ part of 'servicos_vm.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$servicosVmHash() => r'c17f20858dd7f2bebfa98bbcdec1ba85d275cb96';
+String _$servicosVmHash() => r'76ca61555c4fed461228659435af641c25e23784';
 
 /// See also [ServicosVm].
 @ProviderFor(ServicosVm)
