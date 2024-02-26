@@ -5,10 +5,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cadastro_cliente_vm.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class CadastroClienteVm extends _$CadastroClienteVm {
   @override
   CadastroClienteState build() => CadastroClienteState.initial();
+
+  void invalidateState() {
+    ref.invalidateSelf();
+  }
 
   Future<void> salvarCiente(Map<String, dynamic> user) async {
 

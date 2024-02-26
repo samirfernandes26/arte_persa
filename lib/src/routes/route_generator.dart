@@ -1,4 +1,5 @@
 import 'package:arte_persa/src/pages/cadastro/cadastro_page.dart';
+import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_endereco_page.dart';
 import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_page.dart';
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_page.dart';
 import 'package:arte_persa/src/pages/home/home_page.dart';
@@ -17,6 +18,8 @@ sealed class RouteGeneratorKeys {
   static const cadastroServico = '/cadastroServico';
   static const servicos = '/servicos';
   static const cadastroCliente = '/cadastroCliente';
+  static const cadastroClienteEndereco = '/cadastroClienteEndereco';
+  
 }
 
 class RouteGenerator {
@@ -59,6 +62,12 @@ class RouteGenerator {
           builder: (context) => const CadastroClientePage(),
         );
 
+      case RouteGeneratorKeys.cadastroClienteEndereco:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const CadastroClienteEnderecoPage(),
+        );
+      
       default:
         return _errorRoute();
     }

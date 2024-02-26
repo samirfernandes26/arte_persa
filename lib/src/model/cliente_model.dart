@@ -8,7 +8,8 @@ class ClienteModel {
     this.id,
     required this.tipoCliente,
     required this.retemIss,
-    required this.nomeCompleto,
+    required this.nome,
+    required this.sobreNome,
     this.razaoSocial,
     this.cpf,
     this.cnpj,
@@ -28,8 +29,10 @@ class ClienteModel {
   @JsonKey(name: 'retem_iss')
   bool retemIss;
 
-  @JsonKey(name: 'nome_completo')
-  String nomeCompleto;
+  String nome;
+
+  @JsonKey(name: 'sobre_nome')
+  String sobreNome;
 
   @JsonKey(name: 'razao_social')
   String? razaoSocial;

@@ -107,7 +107,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     ),
                     Flexible(
                       child: FormBuilderTextField(
-                        name: 'sobrenome',
+                        name: 'sobre_nome',
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Sobrenome',
@@ -146,7 +146,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     ),
                     Flexible(
                       child: FormBuilderTextField(
-                        name: 'dataNascimento',
+                        name: 'data_nascimento',
                         inputFormatters: [
                           MaskTextInputFormatter(mask: '##/##/####')
                         ],
@@ -169,7 +169,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                   children: [
                     Expanded(
                       child: FormBuilderTextField(
-                        name: 'telefoneContatoUm',
+                        name: 'telefone_contato_um',
                         inputFormatters: [
                           MaskTextInputFormatter(mask: '(##) #####-####')
                         ],
@@ -214,7 +214,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                   children: [
                     Expanded(
                       child: FormBuilderTextField(
-                        name: 'telefoneContatoDois',
+                        name: 'telefone_contato_dois',
                         inputFormatters: [
                           MaskTextInputFormatter(mask: '(##) #####-####')
                         ],
