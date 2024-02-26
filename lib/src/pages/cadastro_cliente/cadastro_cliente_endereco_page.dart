@@ -1,7 +1,12 @@
+import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CadastroClienteEnderecoPage extends ConsumerStatefulWidget {
   const CadastroClienteEnderecoPage({
@@ -9,19 +14,30 @@ class CadastroClienteEnderecoPage extends ConsumerStatefulWidget {
   }) : super(key: key);
 
   @override
-  _CadastroClienteEnderecoPageState createState() => _CadastroClienteEnderecoPageState();
+  ConsumerState<CadastroClienteEnderecoPage> createState() =>
+      _CadastroClienteEnderecoPageState();
 }
 
-class _CadastroClienteEnderecoPageState extends ConsumerState<CadastroClienteEnderecoPage> {
+class _CadastroClienteEnderecoPageState
+    extends ConsumerState<CadastroClienteEnderecoPage> {
   final formKey = GlobalKey<FormBuilderState>();
   bool checkTeleconeConatatoUm = true;
   bool checkTeleconeConatatoDois = true;
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final CadastroClienteVm(:registerCliente) =
+        ref.read(cadastroClienteVmProvider.notifier);
+    final cadastroClienteVm = ref.watch(cadastroClienteVmProvider);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de Cliente'),
+        title: const Text('Cadastro Endereço do Cliente'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -38,28 +54,118 @@ class _CadastroClienteEnderecoPageState extends ConsumerState<CadastroClienteEnd
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                FormBuilderDropdown(
-                  name: 'tipo_cliente',
+                Lottie.asset(
+                  LottieConstants.localePhone,
+                  height: 160,
+                  fit: BoxFit.fill,
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                FormBuilderTextField(
+                  name: 'cep',
+                  inputFormatters: [
+                    MaskTextInputFormatter(mask: '###.###-###')
+                  ],
+                  onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
-                    labelText: 'Selecione tipo de cliente',
+                    labelText: 'cep',
+                    hintText: 'cep',
                   ),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
+                  keyboardType: TextInputType.name,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                FormBuilderTextField(
+                  name: 'logradouro',
+                  onTapOutside: (_) => context.unfocus(),
+                  decoration: const InputDecoration(
+                    labelText: 'Logradouro',
+                    hintText: 'Logradouro',
                   ),
-                  onChanged: (value) {},
-                  items: ['Pessoa Física', 'Pessoa juridica']
-                      .map(
-                        (option) => DropdownMenuItem(
-                          value: option,
-                          child: Text(
-                            option,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
+                  keyboardType: TextInputType.name,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: FormBuilderTextField(
+                        name: 'numero',
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: InputDecoration(
+                          labelText: 'Numéro',
+                          hintText: 'Numéro',
+                          hintStyle: TextStyle(
+                            color: Colors.grey.shade600,
                           ),
                         ),
-                      )
-                      .toList(),
+                        keyboardType: TextInputType.name,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Flexible(
+                      child: FormBuilderTextField(
+                        name: 'complemento',
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: const InputDecoration(
+                          labelText: 'Complemento',
+                          hintText: 'Complemento',
+                        ),
+                        keyboardType: TextInputType.name,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: FormBuilderTextField(
+                        name: 'bairro',
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: InputDecoration(
+                            labelText: 'Bairro',
+                            hintText: 'Bairro',
+                            hintStyle: TextStyle(
+                              color: Colors.grey.shade600,
+                            )),
+                        keyboardType: TextInputType.name,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Flexible(
+                      child: FormBuilderTextField(
+                        name: 'estado',
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: const InputDecoration(
+                          labelText: 'Estado',
+                          hintText: 'Estado',
+                        ),
+                        keyboardType: TextInputType.name,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                FormBuilderTextField(
+                  name: 'referencia',
+                  onTapOutside: (_) => context.unfocus(),
+                  decoration: const InputDecoration(
+                    labelText: 'Referencia',
+                    hintText: 'Referencia',
+                  ),
+                  keyboardType: TextInputType.name,
                 ),
               ],
             ),
@@ -76,8 +182,10 @@ class _CadastroClienteEnderecoPageState extends ConsumerState<CadastroClienteEnd
                   minimumSize: const Size.fromHeight(60),
                   backgroundColor: Colors.red.shade300,
                 ),
-                onPressed: () {}, //loginUser,
-                child: const Text('Sair'),
+                onPressed: () {
+                  Navigator.maybePop(context);
+                }, //loginUser,
+                child: const Text('Voltar'),
               ),
             ),
             const SizedBox(
@@ -88,8 +196,18 @@ class _CadastroClienteEnderecoPageState extends ConsumerState<CadastroClienteEnd
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () {}, //loginUser,
-                child: const Text('Proximo'),
+                onPressed: () async {
+                  switch (formKey.currentState?.saveAndValidate()) {
+                    case (false || null):
+                      break;
+                    case (true):
+                      await registerCliente(formKey.currentState!.value);
+                      // Navigator.of(context).pushNamedAndRemoveUntil(
+                      //     RouteGeneratorKeys.authLogin, (route) => false);
+                      break;
+                  }
+                }, //loginUser,
+                child: const Text('Finalizar'),
               ),
             ),
           ],
@@ -98,4 +216,3 @@ class _CadastroClienteEnderecoPageState extends ConsumerState<CadastroClienteEnd
     );
   }
 }
-

@@ -9,4 +9,5 @@ sealed class IconsConstants {
 sealed class LottieConstants{
   static const phoneListAnimation =  'assets/lotties/phone_list_animation.json';
   static const registerArtePersa =  'assets/lotties/register_arte_persa.json';
+ static const localePhone = 'assets/lotties/locale.json';
 }

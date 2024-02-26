@@ -14,7 +14,7 @@ class CadastroClienteVm extends _$CadastroClienteVm {
     ref.invalidateSelf();
   }
 
-  Future<void> salvarCiente(Map<String, dynamic> user) async {
+  Future<void> registerCliente(Map<String, dynamic> user) async {
 
   }
 }
