@@ -26,14 +26,14 @@ class ServicosState {
   ServicosStateStatus status;
   List<ServicoModel>? servicos;
   String? message;
-  CadastroModel? usuario;
+  UsuarioModel? usuario;
   bool? loading;
 
   ServicosState copyWith({
     ServicosStateStatus? status,
     List<ServicoModel>? servicos,
     String? message,
-    CadastroModel? usuario,
+    UsuarioModel? usuario,
     bool? loading,
   }) =>
       ServicosState(

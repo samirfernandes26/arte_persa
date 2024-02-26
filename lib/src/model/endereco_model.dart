@@ -6,7 +6,7 @@ part 'endereco_model.g.dart';
 class EnderecoModel {
   EnderecoModel({
     this.id,
-    required this.userId,
+    this.userId,
     this.cep,
     this.logradouro,
     this.numero,
@@ -19,7 +19,7 @@ class EnderecoModel {
   String? id;
 
   @JsonKey(name: 'user_id')
-  String userId;
+  String? userId;
 
   String? cep;
 

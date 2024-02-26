@@ -15,7 +15,7 @@ class LoginVm extends _$LoginVm {
 
   Future<bool> login(String login, String senha) async {
     final loaderHandler = AsyncLoaderHandler()..start();
-    late Either<ServiceException, CadastroModel> response;
+    late Either<ServiceException, UsuarioModel> response;
 
     response = await ref.read(authServiceProvider).execute(login, senha);
 

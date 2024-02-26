@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthServiceImpl implements AuthService {
   @override
-  Future<Either<ServiceException, CadastroModel>> execute(
+  Future<Either<ServiceException, UsuarioModel>> execute(
     String usuario,
     String senha,
   ) async {
@@ -44,7 +44,7 @@ class AuthServiceImpl implements AuthService {
 
       sharedPreferences.setString(LocalStorageKeys.userInfo, json.encode(user));
 
-      return Success(CadastroModel.fromJson(user!));
+      return Success(UsuarioModel.fromJson(user!));
     } on Exception catch (e) {
       log('Erro ao logar', error: e);
 

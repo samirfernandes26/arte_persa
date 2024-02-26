@@ -9,7 +9,7 @@ part of 'endereco_model.dart';
 EnderecoModel _$EnderecoModelFromJson(Map<String, dynamic> json) =>
     EnderecoModel(
       id: json['id'] as String?,
-      userId: json['user_id'] as String,
+      userId: json['user_id'] as String?,
       cep: json['cep'] as String?,
       logradouro: json['logradouro'] as String?,
       numero: json['numero'] as String?,

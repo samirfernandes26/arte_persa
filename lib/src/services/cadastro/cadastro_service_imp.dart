@@ -9,12 +9,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class CadastroServiceImp implements CadastroService {
   @override
-  Future<Either<ServiceException, CadastroModel>> execute(
+  Future<Either<ServiceException, UsuarioModel>> execute(
       Map<String, dynamic> data) async {
     // Sua lógica para executar o serviço aqui
     try {
       Map<String, dynamic> form = Map.from(data);
-      CadastroModel usuario = CadastroModel.fromJson(form);
+      UsuarioModel usuario = UsuarioModel.fromJson(form);
 
       final rest = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: usuario.email,

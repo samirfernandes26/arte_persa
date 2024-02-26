@@ -19,9 +19,9 @@ class CadastroVm extends _$CadastroVm {
     teste += a + b;
   }
 
-  Future<CadastroModel?> salvaUsuario(Map<String, dynamic> user) async {
+  Future<UsuarioModel?> salvaUsuario(Map<String, dynamic> user) async {
     final loaderHandler = AsyncLoaderHandler()..start();
-    late Either<ServiceException, CadastroModel> response;
+    late Either<ServiceException, UsuarioModel> response;
 
     if (user['id'] == null) {
       response = await ref.read(cadastroServiceProvider).execute(user);

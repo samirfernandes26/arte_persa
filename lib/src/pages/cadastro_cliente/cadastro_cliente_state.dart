@@ -27,14 +27,14 @@ class CadastroClienteState {
   ClienteModel? clienteForm;
   EnderecoModel? enderecoForm;
   String? message;
-  CadastroModel? usuario;
+  UsuarioModel? usuario;
 
   CadastroClienteState copyWith({
     CadastroClienteStateStatus? status,
     ClienteModel? clienteForm,
     EnderecoModel? enderecoForm,
     String? message,
-    CadastroModel? usuario,
+    UsuarioModel? usuario,
   }) =>
       CadastroClienteState(
         status: status ?? this.status,

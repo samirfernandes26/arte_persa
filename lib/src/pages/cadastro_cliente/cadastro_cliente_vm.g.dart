@@ -6,7 +6,7 @@ part of 'cadastro_cliente_vm.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cadastroClienteVmHash() => r'8551916cc582d34733497cc2d57dd23120faf43a';
+String _$cadastroClienteVmHash() => r'f68465522bb36d65eef1d386961f06597b90566f';
 
 /// See also [CadastroClienteVm].
 @ProviderFor(CadastroClienteVm)

@@ -3,8 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'usuario_model.g.dart';
 
 @JsonSerializable()
-class CadastroModel {
-  CadastroModel({
+class UsuarioModel {
+  UsuarioModel({
     this.id,
     required this.email,
     this.senha,
@@ -42,8 +42,8 @@ class CadastroModel {
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
 
-  Map<String, dynamic> toJson() => _$CadastroModelToJson(this);
+  Map<String, dynamic> toJson() => _$UsuarioModelToJson(this);
 
-  factory CadastroModel.fromJson(Map<String, dynamic> json) =>
-      _$CadastroModelFromJson(json);
+  factory UsuarioModel.fromJson(Map<String, dynamic> json) =>
+      _$UsuarioModelFromJson(json);
 }

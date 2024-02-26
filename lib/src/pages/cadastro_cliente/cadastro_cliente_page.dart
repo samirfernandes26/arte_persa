@@ -1,11 +1,11 @@
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -15,16 +15,22 @@ class CadastroClientePage extends ConsumerStatefulWidget {
   }) : super(key: key);
 
   @override
-  _CadastroClientePageState createState() => _CadastroClientePageState();
+  ConsumerState<CadastroClientePage> createState() =>
+      _CadastroClientePageState();
 }
 
 class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
   final formKey = GlobalKey<FormBuilderState>();
   bool checkTeleconeConatatoUm = true;
   bool checkTeleconeConatatoDois = true;
+  bool checkPessoaJurica = false;
 
   @override
   Widget build(BuildContext context) {
+    final CadastroClienteVm(:updateStateCliente) =
+        ref.read(cadastroClienteVmProvider.notifier);
+    final clienteVm = ref.watch(cadastroClienteVmProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cadastro de Cliente'),
@@ -44,49 +50,35 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                // Lottie.asset(
-                //   LottieConstants.registerArtePersa,
-                //   height: 120,
-                //   fit: BoxFit.fill,
-                // ),
-                // const SizedBox(
-                //   height: 8,
-                // ),
-                FormBuilderDropdown(
+                FormBuilderRadioGroup(
                   name: 'tipo_cliente',
+                  initialValue: clienteVm.clienteForm?.tipoCliente,
                   decoration: const InputDecoration(
-                    labelText: 'Selecione tipo de cliente',
+                    labelText: 'Selecione o tipo de cliente',
                   ),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),
-                  onChanged: (value) {},
-                  items: ['Pessoa Física', 'Pessoa juridica']
-                      .map(
-                        (option) => DropdownMenuItem(
-                          value: option,
-                          child: Text(
-                            option,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
+                  onChanged: (value) {
+                    // Faça algo com o valor selecionado, se necessário
+                  },
+                  // validator: Validatorless.required('Tipo de cliete e obrigatorio'),
+                  options: const [
+                    FormBuilderFieldOption(
+                        value: 1, child: Text('Pessoa Física')),
+                    FormBuilderFieldOption(
+                        value: 2, child: Text('Pessoa Jurídica')),
+                  ],
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 FormBuilderSwitch(
                   name: 'retem_iss',
+                  initialValue: clienteVm.clienteForm?.retemIss,
                   title: const DefaultTextStyle(
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                     ),
                     child: Text('Retem ISS? '),
                   ),
-                  initialValue: false,
                   onChanged: (value) {},
                 ),
                 const SizedBox(
@@ -97,13 +89,15 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'nome',
+                        initialValue: clienteVm.clienteForm?.nome,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: InputDecoration(
-                            labelText: 'Nome',
-                            hintText: 'Nome',
-                            hintStyle: TextStyle(
-                              color: Colors.grey.shade600,
-                            )),
+                          labelText: 'Nome',
+                          hintText: 'Nome',
+                          hintStyle: TextStyle(
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                         keyboardType: TextInputType.name,
                         validator: Validatorless.required('Nome é obrigatório'),
                       ),
@@ -114,6 +108,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'sobre_nome',
+                        initialValue: clienteVm.clienteForm?.sobreNome,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Sobrenome',
@@ -130,13 +125,15 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                 ),
                 FormBuilderTextField(
                   name: 'razao_social',
+                  initialValue: clienteVm.clienteForm?.razaoSocial,
                   onTapOutside: (_) => context.unfocus(),
                   decoration: InputDecoration(
-                      labelText: 'razao_social',
-                      hintText: 'razao_social',
-                      hintStyle: TextStyle(
-                        color: Colors.grey.shade600,
-                      )),
+                    labelText: 'razao_social',
+                    hintText: 'razao_social',
+                    hintStyle: TextStyle(
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
                   keyboardType: TextInputType.name,
                 ),
                 const SizedBox(
@@ -144,6 +141,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                 ),
                 FormBuilderTextField(
                   name: 'cpf',
+                  initialValue: clienteVm.clienteForm?.cpf,
                   inputFormatters: [
                     MaskTextInputFormatter(mask: '###.###.###-##')
                   ],
@@ -163,6 +161,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                 ),
                 FormBuilderTextField(
                   name: 'CNPJ',
+                  initialValue: clienteVm.clienteForm?.cnpj,
                   inputFormatters: [
                     MaskTextInputFormatter(mask: '##.###.###/####-##')
                   ],
@@ -182,6 +181,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                 ),
                 FormBuilderTextField(
                   name: 'data_nascimento',
+                  initialValue: clienteVm.clienteForm?.dataNascimento,
                   inputFormatters: [MaskTextInputFormatter(mask: '##/##/####')],
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
@@ -194,6 +194,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                 ),
                 FormBuilderTextField(
                   name: 'por_que_procurar',
+                  initialValue: clienteVm.clienteForm?.porQuemProcurar,
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'Por quem procurar*',
@@ -206,12 +207,12 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                 const SizedBox(
                   height: 16,
                 ),
-
                 Row(
                   children: [
                     Expanded(
                       child: FormBuilderTextField(
                         name: 'telefone_contato_um',
+                        initialValue: clienteVm.clienteForm?.telefoneContatoUm,
                         inputFormatters: [
                           MaskTextInputFormatter(mask: '(##) #####-####')
                         ],
@@ -257,6 +258,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     Expanded(
                       child: FormBuilderTextField(
                         name: 'telefone_contato_dois',
+                        initialValue: clienteVm.clienteForm?.telefoneContatoDois,
                         inputFormatters: [
                           MaskTextInputFormatter(mask: '(##) #####-####')
                         ],
@@ -297,13 +299,13 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                 ),
                 FormBuilderTextField(
                   name: 'email',
+                  initialValue: clienteVm.clienteForm?.email,
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'E-mail',
                     hintText: 'exemplo@exemplo.com',
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  validator: Validatorless.required('Senha é obrigatório.'),
                 ),
               ],
             ),
@@ -332,14 +334,15 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () {
+                onPressed: () async {
                   switch (formKey.currentState?.saveAndValidate()) {
                     case (false || null):
                       Messages.showErrors(
                           'Preencha o formulário corretamente', context);
                     case true:
-                      Navigator.of(context)
-                          .pushNamed(RouteGeneratorKeys.cadastroClienteEndereco);
+                      await updateStateCliente(formKey.currentState!.value);
+                      Navigator.of(context).pushNamed(
+                          RouteGeneratorKeys.cadastroClienteEndereco);
                   }
                 }, //loginUser,
                 child: const Text('Proximo'),

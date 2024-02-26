@@ -8,10 +8,10 @@ part of 'cliente_model.dart';
 
 ClienteModel _$ClienteModelFromJson(Map<String, dynamic> json) => ClienteModel(
       id: json['id'] as String?,
-      tipoCliente: json['tipo_cliente'] as String,
-      retemIss: json['retem_iss'] as bool,
-      nome: json['nome'] as String,
-      sobreNome: json['sobre_nome'] as String,
+      tipoCliente: json['tipo_cliente'] as int?,
+      retemIss: json['retem_iss'] as bool?,
+      nome: json['nome'] as String?,
+      sobreNome: json['sobre_nome'] as String?,
       razaoSocial: json['razao_social'] as String?,
       cpf: json['cpf'] as String?,
       cnpj: json['cnpj'] as String?,

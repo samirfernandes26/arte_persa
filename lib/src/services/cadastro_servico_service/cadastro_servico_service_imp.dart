@@ -27,7 +27,7 @@ class CadastroServicoServiceImp extends CadastroServicoService {
 
       return Success(cadastroServicoForm);
     } on Exception catch (e) {
-      log('Erro ao atualizar o imóvel', error: e);
+      log('Erro ao cadastrar Servico', error: e);
 
       return Failure(
         ServiceException(

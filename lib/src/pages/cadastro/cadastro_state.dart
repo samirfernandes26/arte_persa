@@ -27,13 +27,13 @@ class CadastroState {
   CadastroStatus status;
   CadastroForm? form;
   String? message;
-  CadastroModel? usuario;
+  UsuarioModel? usuario;
 
   CadastroState copyWith({
     CadastroStatus? status,
     CadastroForm? form,
     String? message,
-    CadastroModel? usuario,
+    UsuarioModel? usuario,
   }) => CadastroState(
     status: status ?? this.status,
     form: form ?? this.form,

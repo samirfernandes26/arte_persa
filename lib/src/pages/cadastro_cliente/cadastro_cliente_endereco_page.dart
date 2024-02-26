@@ -31,9 +31,9 @@ class _CadastroClienteEnderecoPageState
 
   @override
   Widget build(BuildContext context) {
-    final CadastroClienteVm(:registerCliente) =
+    final CadastroClienteVm(:registerCliente, :updateStateEndereco) =
         ref.read(cadastroClienteVmProvider.notifier);
-    final cadastroClienteVm = ref.watch(cadastroClienteVmProvider);
+    final enderecoVm = ref.watch(cadastroClienteVmProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -64,13 +64,14 @@ class _CadastroClienteEnderecoPageState
                 ),
                 FormBuilderTextField(
                   name: 'cep',
+                  initialValue: enderecoVm.enderecoForm?.cep,
                   inputFormatters: [
-                    MaskTextInputFormatter(mask: '###.###-###')
+                    MaskTextInputFormatter(mask: '##.###-###')
                   ],
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
-                    labelText: 'cep',
-                    hintText: 'cep',
+                    labelText: 'Cep',
+                    hintText: 'Cep',
                   ),
                   keyboardType: TextInputType.name,
                 ),
@@ -79,6 +80,7 @@ class _CadastroClienteEnderecoPageState
                 ),
                 FormBuilderTextField(
                   name: 'logradouro',
+                  initialValue: enderecoVm.enderecoForm?.logradouro,
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'Logradouro',
@@ -94,6 +96,7 @@ class _CadastroClienteEnderecoPageState
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'numero',
+                        initialValue: enderecoVm.enderecoForm?.numero,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: InputDecoration(
                           labelText: 'Numéro',
@@ -111,6 +114,7 @@ class _CadastroClienteEnderecoPageState
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'complemento',
+                        initialValue: enderecoVm.enderecoForm?.complemento,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Complemento',
@@ -129,6 +133,7 @@ class _CadastroClienteEnderecoPageState
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'bairro',
+                        initialValue: enderecoVm.enderecoForm?.bairro,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: InputDecoration(
                             labelText: 'Bairro',
@@ -145,6 +150,7 @@ class _CadastroClienteEnderecoPageState
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'estado',
+                        initialValue: enderecoVm.enderecoForm?.estado,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Estado',
@@ -160,6 +166,7 @@ class _CadastroClienteEnderecoPageState
                 ),
                 FormBuilderTextField(
                   name: 'referencia',
+                  initialValue: enderecoVm.enderecoForm?.referencia,
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'Referencia',
@@ -182,8 +189,15 @@ class _CadastroClienteEnderecoPageState
                   minimumSize: const Size.fromHeight(60),
                   backgroundColor: Colors.red.shade300,
                 ),
-                onPressed: () {
-                  Navigator.maybePop(context);
+                onPressed: () async{
+                  switch (formKey.currentState?.saveAndValidate()) {
+                    case (false || null):
+                      break;
+                    case (true):
+                      await updateStateEndereco(formKey.currentState!.value);
+                      Navigator.maybePop(context);
+                      break;
+                  }
                 }, //loginUser,
                 child: const Text('Voltar'),
               ),

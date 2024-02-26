@@ -6,8 +6,7 @@ part of 'usuario_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CadastroModel _$CadastroModelFromJson(Map<String, dynamic> json) =>
-    CadastroModel(
+UsuarioModel _$UsuarioModelFromJson(Map<String, dynamic> json) => UsuarioModel(
       id: json['id'] as String?,
       email: json['email'] as String,
       senha: json['senha'] as String?,
@@ -28,7 +27,7 @@ CadastroModel _$CadastroModelFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$CadastroModelToJson(CadastroModel instance) =>
+Map<String, dynamic> _$UsuarioModelToJson(UsuarioModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,

@@ -11,7 +11,7 @@ class LoginState {
   final LoginStateStatus status;
   final String? errorMessage;
   final String? message;
-  final CadastroModel? usuario;
+  final UsuarioModel? usuario;
 
   LoginState.initial() : this(status: LoginStateStatus.initial);
 
@@ -26,7 +26,7 @@ class LoginState {
       {LoginStateStatus? status,
       String? errorMessage,
       String? message,
-      CadastroModel? usuario}) {
+      UsuarioModel? usuario}) {
     return LoginState(
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,

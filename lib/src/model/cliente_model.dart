@@ -6,10 +6,10 @@ part 'cliente_model.g.dart';
 class ClienteModel {
   ClienteModel({
     this.id,
-    required this.tipoCliente,
-    required this.retemIss,
-    required this.nome,
-    required this.sobreNome,
+    this.tipoCliente,
+    this.retemIss,
+    this.nome,
+    this.sobreNome,
     this.razaoSocial,
     this.cpf,
     this.cnpj,
@@ -24,15 +24,15 @@ class ClienteModel {
   String? id;
 
   @JsonKey(name: 'tipo_cliente')
-  String tipoCliente;
+  int? tipoCliente;
 
   @JsonKey(name: 'retem_iss')
-  bool retemIss;
+  bool? retemIss;
 
-  String nome;
+  String? nome;
 
   @JsonKey(name: 'sobre_nome')
-  String sobreNome;
+  String? sobreNome;
 
   @JsonKey(name: 'razao_social')
   String? razaoSocial;

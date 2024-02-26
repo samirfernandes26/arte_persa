@@ -13,7 +13,7 @@ class CadastroServicoVm extends _$CadastroServicoVm {
   @override
   CadastroServicoState build() => CadastroServicoState.initial();
 
-  Future<CadastroModel?> salvarNovoServico(
+  Future<UsuarioModel?> salvarNovoServico(
     Map<String, dynamic> dadosCadastraisServico,
   ) async {
     late Either<ServiceException, ServicoModel> response;
