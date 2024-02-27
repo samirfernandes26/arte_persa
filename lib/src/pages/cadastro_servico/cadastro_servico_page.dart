@@ -77,7 +77,7 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                   ),
-                  items: ['Tapeçaria', 'Estofados']
+                  items: ['Tapete', 'Estofados']
                       .map((option) => DropdownMenuItem(
                             value: option,
                             child: Text(option,

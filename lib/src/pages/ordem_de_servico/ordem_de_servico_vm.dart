@@ -13,6 +13,28 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   @override
   OrdemDeServicoState build() => OrdemDeServicoState.initial();
 
+  Future<void> teste(ServicoModel? servico, bool checkbox)async{
+
+    const double largura = 2.69;
+    const double comprimento = 6.9;
+    const double area = largura * comprimento;
+
+    List<ServicoModel>? servicos  = state.servicos;
+
+    int index = servicos!.indexOf(servico!);
+
+    if(servico.metroQuadrado! == true && servico.valor != null && checkbox == true ){
+      servico.valorCalculo = area * servico.valor!;
+    }else{
+      servico.valorCalculo = null;
+    }
+
+    servicos[index] = servico;
+    state = state.copyWith(
+      servicos: servicos,
+    );
+  }
+
   Future<void> loadDataServicos() async{
     final loaderHandler = AsyncLoaderHandler()..start();
 

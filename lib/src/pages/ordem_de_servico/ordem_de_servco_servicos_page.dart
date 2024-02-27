@@ -21,7 +21,7 @@ class _OrdemDeServicoServicosPageState
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:loadDataServicos) =
+    final OrdemDeServicoVm(:loadDataServicos, :teste) =
         ref.read(ordemDeServicoVmProvider.notifier);
     final servicosVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -84,11 +84,33 @@ class _OrdemDeServicoServicosPageState
                         return ListTile(
                           title: FormBuilderCheckbox(
                             name: 'servico_${servico.id}',
-                            title: Text(servico.nomeDoServico),
-                            // value:
-                            //     false, // Aqui você pode definir o valor do checkbox conforme necessário
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    servico.nomeDoServico,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  servico.valorCalculo != null
+                                      ? servico.valorCalculo.toString().replaceAll('.', ',')
+                                      : '',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            initialValue: false,
                             onChanged: (value) {
-                              // Faça algo com o valor do checkbox, se necessário
+                             teste(servico, value ?? false);
                             },
                           ),
                         );

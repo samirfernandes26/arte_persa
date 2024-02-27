@@ -19,6 +19,7 @@ class ServicoModel {
     this.porcentagem,
     this.userId,
     this.valor,
+    this.valorCalculo,
     this.createdAt,
     this.updatedAt,
   });
@@ -33,6 +34,10 @@ class ServicoModel {
 
   @JsonKey(name: 'user_id')
   String? userId;
+
+  @JsonKey(name: 'valor_calculo')
+  @StringToDoubleConverter()
+  double? valorCalculo;
 
   @JsonKey(name: 'nome_do_servico')
   String nomeDoServico;
