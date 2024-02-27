@@ -4,6 +4,7 @@ import 'package:arte_persa/src/core/providers/application_providers.dart';
 import 'package:arte_persa/src/model/cliente_model.dart';
 import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_state.dart';
+import 'package:asyncstate/asyncstate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cadastro_cliente_vm.g.dart';
@@ -18,6 +19,7 @@ class CadastroClienteVm extends _$CadastroClienteVm {
   }
 
   Future<void> registerCliente(Map<String, dynamic> endereco) async {
+    final loaderHandler = AsyncLoaderHandler()..start();
     late Either<ServiceException, ClienteModel> response;
     late ClienteModel dadosClienteForm;
     late EnderecoModel dadosEnderecoForm;
@@ -40,6 +42,22 @@ class CadastroClienteVm extends _$CadastroClienteVm {
           .read(cadastroClienteServiceProvider)
           .execute(state.clienteJson!, endereco);
     } else {}
+
+    switch (response) {
+      case Success():
+        state = state.copyWith(
+          status: CadastroClienteStateStatus.success,
+          message: 'Cliente cadastrado com sucesso',
+        );
+        loaderHandler.close();
+
+      case Failure(exception: ServiceException(:final message)):
+        state = state.copyWith(
+          status: CadastroClienteStateStatus.error,
+          message: message,
+        );
+        loaderHandler.close();
+    }
   }
 
   Future<void> updateStateCliente(Map<String, dynamic> cliente) async {

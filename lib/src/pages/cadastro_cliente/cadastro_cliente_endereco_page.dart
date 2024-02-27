@@ -1,5 +1,7 @@
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_state.dart';
 import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,23 @@ class _CadastroClienteEnderecoPageState
     final CadastroClienteVm(:registerCliente, :updateStateEndereco) =
         ref.read(cadastroClienteVmProvider.notifier);
     final enderecoVm = ref.watch(cadastroClienteVmProvider);
+
+    ref.listen(cadastroClienteVmProvider, (_, state) async {
+      switch (state.status) {
+        case CadastroClienteStateStatus.initial:
+          break;
+        case CadastroClienteStateStatus.loaded:
+          break;
+        case CadastroClienteStateStatus.error:
+          Messages.showErrors(state.message!, context);
+          Navigator.of(context).pop(true);
+        case CadastroClienteStateStatus.success:
+          Messages.showSuccess(state.message!, context);
+          Navigator.of(context).popAndPushNamed(
+            RouteGeneratorKeys.authLogin,
+          );
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -216,8 +235,7 @@ class _CadastroClienteEnderecoPageState
                       break;
                     case (true):
                       await registerCliente(formKey.currentState!.value);
-                      // Navigator.of(context).pushNamedAndRemoveUntil(
-                      //     RouteGeneratorKeys.authLogin, (route) => false);
+                      Navigator.of(context).pushNamedAndRemoveUntil(RouteGeneratorKeys.servicos, (route) => false);
                       break;
                   }
                 }, //loginUser,
