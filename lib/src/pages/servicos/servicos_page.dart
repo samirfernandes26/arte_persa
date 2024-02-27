@@ -52,12 +52,12 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
   @override
   Widget build(BuildContext context) {
     final ServicosVm(:loadData) = ref.read(servicosVmProvider.notifier);
-    final servisosVm = ref.watch(servicosVmProvider);
+    final servicosVm = ref.watch(servicosVmProvider);
 
     final arguments =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
-    if (servisosVm.status == ServicosStateStatus.initial ||
+    if (servicosVm.status == ServicosStateStatus.initial ||
         arguments?['reload'] == true) {
       Future(() async {
         await loadData();
@@ -94,7 +94,7 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
         child: Container(
           padding: const EdgeInsets.all(16),
           child: Visibility(
-            visible: servisosVm.servicos!.isNotEmpty,
+            visible: servicosVm.servicos!.isNotEmpty,
             replacement: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -118,9 +118,9 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
                   child: ListView.separated(
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
-                    itemCount: servisosVm.servicos?.length ?? 0,
+                    itemCount: servicosVm.servicos?.length ?? 0,
                     itemBuilder: (_, index) => ServicoTile(
-                      servico: servisosVm.servicos![index],
+                      servico: servicosVm.servicos![index],
                     ),
                   ),
                 ),

@@ -4,6 +4,9 @@ import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_page.dart
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_page.dart';
 import 'package:arte_persa/src/pages/home/home_page.dart';
 import 'package:arte_persa/src/pages/login/login_page.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servco_servicos_page.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_page.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/orem_de_servico_observacao_page.dart';
 import 'package:arte_persa/src/pages/servicos/servicos_page.dart';
 import 'package:arte_persa/src/pages/splash/splash_page.dart';
 // import 'package:arte_persa/src/pages/home/home_page.dart';
@@ -19,6 +22,9 @@ sealed class RouteGeneratorKeys {
   static const servicos = '/servicos';
   static const cadastroCliente = '/cadastroCliente';
   static const cadastroClienteEndereco = '/cadastroClienteEndereco';
+  static const ordemDeServicoPage = '/ordemDeServicoPage';
+  static const ordemDeServicoObservacao = '/ordemDeServicoObservacao';
+  static const ordemDeServicoServicosPage = '/OrdemDeServicoServicosPage';
   
 }
 
@@ -66,6 +72,18 @@ class RouteGenerator {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => const CadastroClienteEnderecoPage(),
+        );
+
+      case RouteGeneratorKeys.ordemDeServicoPage:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const OrdemDeServico(),
+        );
+
+      case RouteGeneratorKeys.ordemDeServicoServicosPage:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const OrdemDeServicoServicosPage(),
         );
       
       default:

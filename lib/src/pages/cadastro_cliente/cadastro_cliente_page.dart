@@ -62,9 +62,25 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                   // validator: Validatorless.required('Tipo de cliete e obrigatorio'),
                   options: const [
                     FormBuilderFieldOption(
-                        value: 1, child: Text('Pessoa Física')),
+                      value: 1,
+                      child: Text(
+                        'Pessoa Física',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                     FormBuilderFieldOption(
-                        value: 2, child: Text('Pessoa Jurídica')),
+                      value: 2,
+                      child: Text(
+                        'Pessoa Jurídica',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -258,7 +274,8 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     Expanded(
                       child: FormBuilderTextField(
                         name: 'telefone_contato_dois',
-                        initialValue: clienteVm.clienteForm?.telefoneContatoDois,
+                        initialValue:
+                            clienteVm.clienteForm?.telefoneContatoDois,
                         inputFormatters: [
                           MaskTextInputFormatter(mask: '(##) #####-####')
                         ],
