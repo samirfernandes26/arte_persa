@@ -38,25 +38,23 @@ class CadastroClienteVm extends _$CadastroClienteVm {
     if (dadosClienteForm.id == null) {
       response = await ref
           .read(cadastroClienteServiceProvider)
-          .execute(dadosClienteForm, dadosEnderecoForm);
+          .execute(state.clienteJson!, endereco);
     } else {}
-
-    return null;
   }
 
   Future<void> updateStateCliente(Map<String, dynamic> cliente) async {
     ClienteModel dadosClienteForm = ClienteModel.fromJson(cliente);
     state = state.copyWith(
       clienteForm: dadosClienteForm,
+      clienteJson: cliente,
     );
-    final batata = state.clienteForm;
-    final teste = '';
   }
 
   Future<void> updateStateEndereco(Map<String, dynamic> endereco) async {
     EnderecoModel dadosEnderecoForm = EnderecoModel.fromJson(endereco);
     state = state.copyWith(
       enderecoForm: dadosEnderecoForm,
+      enderecoJson: endereco,
     );
   }
 }

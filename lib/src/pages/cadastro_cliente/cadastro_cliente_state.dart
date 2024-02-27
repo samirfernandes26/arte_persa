@@ -13,7 +13,9 @@ class CadastroClienteState {
   CadastroClienteState({
     required this.status,
     this.clienteForm,
+    this.clienteJson,
     this.enderecoForm,
+    this.enderecoJson,
     this.message,
     this.usuario,
   });
@@ -25,21 +27,27 @@ class CadastroClienteState {
 
   CadastroClienteStateStatus status;
   ClienteModel? clienteForm;
+  Map<String, dynamic>? clienteJson;
   EnderecoModel? enderecoForm;
+  Map<String, dynamic>? enderecoJson;
   String? message;
   UsuarioModel? usuario;
 
   CadastroClienteState copyWith({
     CadastroClienteStateStatus? status,
     ClienteModel? clienteForm,
+    Map<String,dynamic>? clienteJson,
     EnderecoModel? enderecoForm,
+    Map<String,dynamic>? enderecoJson,
     String? message,
     UsuarioModel? usuario,
   }) =>
       CadastroClienteState(
         status: status ?? this.status,
         clienteForm: clienteForm ?? this.clienteForm,
+        clienteJson: clienteJson ?? this.clienteJson,
         enderecoForm: enderecoForm ?? this.enderecoForm,
+        enderecoJson: enderecoJson ?? this.enderecoJson,
         message: message ?? this.message,
         usuario: usuario ?? this.usuario,
       );

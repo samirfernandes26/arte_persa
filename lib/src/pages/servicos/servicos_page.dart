@@ -107,7 +107,7 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
               ),
             ),
             child: Expanded(
-              child: Container(
+              child: SizedBox(
                 // Adicionando um container para definir um tamanho
                 height: MediaQuery.of(context).size.height *
                     0.7, // Defina um tamanho adequado aqui
