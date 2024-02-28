@@ -80,6 +80,12 @@ class RouteGenerator {
           builder: (context) => const OrdemDeServico(),
         );
 
+      case RouteGeneratorKeys.ordemDeServicoObservacao:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const OrdemDeServicoObservacao(),
+        );
+
       case RouteGeneratorKeys.ordemDeServicoServicosPage:
         return MaterialPageRoute(
           settings: settings,

@@ -66,6 +66,28 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 16,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(60),
+                  backgroundColor: Colors.green.shade300,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    RouteGeneratorKeys.ordemDeServicoPage,
+                  );
+                },
+                child: const Text(
+                  'Cadastro de ordem de serviço teste',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

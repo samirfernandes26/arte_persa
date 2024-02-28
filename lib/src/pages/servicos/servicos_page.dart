@@ -1,4 +1,3 @@
-import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/core/ui/widgets/tiles/servico_tile/servico_tile.dart';
 import 'package:arte_persa/src/model/servico_model.dart';
@@ -33,21 +32,6 @@ class _ServicosPageState extends ConsumerState<ServicosPage> {
     super.initState();
   }
 
-  ServicoModel servico = ServicoModel(
-    nomeDoServico: 'Serviço de Limpeza',
-    userId: '123456789',
-    categoriaSelecionada: 'Limpeza',
-    metroQuadrado: true,
-    metroLinear: false,
-    valorFixo: true,
-    valorManual: false,
-    porcentagemServico: false,
-    servicoSelecionando: 'M2',
-    porcentagem: null,
-    valor: 100.00,
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-  );
 
   @override
   Widget build(BuildContext context) {

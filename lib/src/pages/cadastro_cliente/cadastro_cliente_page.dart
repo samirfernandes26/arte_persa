@@ -148,93 +148,93 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     ],
                   ),
                 if (clienteVm.radioPF == true)
-                Column(
-                  children: [
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: FormBuilderTextField(
-                            name: 'nome',
-                            initialValue: clienteVm.clienteForm?.nome,
-                            onTapOutside: (_) => context.unfocus(),
-                            decoration: InputDecoration(
-                              labelText: 'Nome*',
-                              hintText: 'Nome',
-                              hintStyle: TextStyle(
-                                color: Colors.grey.shade600,
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: FormBuilderTextField(
+                              name: 'nome',
+                              initialValue: clienteVm.clienteForm?.nome,
+                              onTapOutside: (_) => context.unfocus(),
+                              decoration: InputDecoration(
+                                labelText: 'Nome*',
+                                hintText: 'Nome',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey.shade600,
+                                ),
+                              ),
+                              keyboardType: TextInputType.name,
+                              validator: Validatorless.required(
+                                'Nome é obrigatório',
                               ),
                             ),
-                            keyboardType: TextInputType.name,
-                            validator: Validatorless.required(
-                              'Nome é obrigatório',
-                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Flexible(
-                          child: FormBuilderTextField(
-                            name: 'sobre_nome',
-                            initialValue: clienteVm.clienteForm?.sobreNome,
-                            onTapOutside: (_) => context.unfocus(),
-                            decoration: const InputDecoration(
-                              labelText: 'Sobrenome*',
-                              hintText: 'Sobrenome',
-                            ),
-                            keyboardType: TextInputType.name,
-                            validator: Validatorless.required(
-                              'Nome é obrigatório',
-                            ),
+                          const SizedBox(
+                            width: 16,
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    FormBuilderTextField(
-                      name: 'cpf',
-                      initialValue: clienteVm.clienteForm?.cpf,
-                      inputFormatters: [
-                        MaskTextInputFormatter(mask: '###.###.###-##')
-                      ],
-                      onTapOutside: (_) => context.unfocus(),
-                      decoration: const InputDecoration(
-                        labelText: 'CPF*',
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: Validatorless.multiple(
-                        [
-                          Validatorless.required(
-                            'Razão e obrigatório',
-                          ),
-                          Validatorless.cpf(
-                            'CPF inválido',
+                          Flexible(
+                            child: FormBuilderTextField(
+                              name: 'sobre_nome',
+                              initialValue: clienteVm.clienteForm?.sobreNome,
+                              onTapOutside: (_) => context.unfocus(),
+                              decoration: const InputDecoration(
+                                labelText: 'Sobrenome*',
+                                hintText: 'Sobrenome',
+                              ),
+                              keyboardType: TextInputType.name,
+                              validator: Validatorless.required(
+                                'Nome é obrigatório',
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    FormBuilderTextField(
-                      name: 'data_nascimento',
-                      initialValue: clienteVm.clienteForm?.dataNascimento,
-                      inputFormatters: [
-                        MaskTextInputFormatter(mask: '##/##/####')
-                      ],
-                      onTapOutside: (_) => context.unfocus(),
-                      decoration: const InputDecoration(
-                        labelText: 'Data de nascimento',
+                      const SizedBox(
+                        height: 16,
                       ),
-                      keyboardType: TextInputType.number,
-                    ),
-                  ],
-                ),
+                      FormBuilderTextField(
+                        name: 'cpf',
+                        initialValue: clienteVm.clienteForm?.cpf,
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: '###.###.###-##')
+                        ],
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: const InputDecoration(
+                          labelText: 'CPF*',
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: Validatorless.multiple(
+                          [
+                            Validatorless.required(
+                              'Razão e obrigatório',
+                            ),
+                            Validatorless.cpf(
+                              'CPF inválido',
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      FormBuilderTextField(
+                        name: 'data_nascimento',
+                        initialValue: clienteVm.clienteForm?.dataNascimento,
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: '##/##/####')
+                        ],
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: const InputDecoration(
+                          labelText: 'Data de nascimento',
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ],
+                  ),
                 const SizedBox(
                   height: 16,
                 ),
@@ -382,7 +382,6 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
                 onPressed: () async {
-                  print('teste');
                   switch (formKey.currentState?.validate()) {
                     case (false || null):
                       Messages.showErrors(
@@ -392,7 +391,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                       Navigator.of(context).pushNamed(
                           RouteGeneratorKeys.cadastroClienteEndereco);
                   }
-                }, //loginUser,
+                },
                 child: const Text('Proximo'),
               ),
             ),

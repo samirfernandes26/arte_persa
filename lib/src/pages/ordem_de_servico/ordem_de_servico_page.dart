@@ -1,20 +1,21 @@
-import 'dart:developer';
-
 import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:validatorless/validatorless.dart';
 
-class OrdemDeServico extends StatefulWidget {
+class OrdemDeServico extends ConsumerStatefulWidget {
   const OrdemDeServico({super.key});
 
   @override
-  State<OrdemDeServico> createState() => _OrdemDeServicoState();
+  ConsumerState<OrdemDeServico> createState() => _OrdemDeServicoState();
 }
 
-class _OrdemDeServicoState extends State<OrdemDeServico> {
+class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
   final formKey = GlobalKey<FormBuilderState>();
   String? urlPhoto;
   List<String> listFiles = [];
@@ -40,6 +41,45 @@ class _OrdemDeServicoState extends State<OrdemDeServico> {
 
   @override
   Widget build(BuildContext context) {
+    final OrdemDeServicoVm(:loadDataClientes) =
+        ref.read(ordemDeServicoVmProvider.notifier);
+    final ordemDeServicoVm = ref.watch(ordemDeServicoVmProvider);
+
+    final arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    if (ordemDeServicoVm.status == OrdemDeServicoStateStatus.initial ||
+        arguments?['reload'] == true) {
+      Future(
+        () async {
+          await loadDataClientes();
+          arguments?['reload'] = false;
+        },
+      );
+    }
+
+    ref.listen(
+      ordemDeServicoVmProvider,
+      (_, state) {
+        switch (state.status) {
+          case OrdemDeServicoStateStatus.initial:
+            break;
+          case OrdemDeServicoStateStatus.loaded:
+            break;
+          case OrdemDeServicoStateStatus.success:
+            Messages.showSuccess(state.message!, context);
+            Future(
+              () async {
+                await loadDataClientes();
+              },
+            );
+            break;
+          case OrdemDeServicoStateStatus.error:
+            break;
+        }
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cadastro Endereço do Cliente'),
@@ -62,24 +102,24 @@ class _OrdemDeServicoState extends State<OrdemDeServico> {
                 FormBuilderDropdown(
                   name: 'Selecione um cliente',
                   decoration: const InputDecoration(
-                    labelText: 'Selecione uma o serviço',
+                    labelText: 'Selecione um cliente',
                   ),
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
-                  ), // Define a,
-                  items: ['opçãoA', 'opçãoB']
-                      .map(
-                        (option) => DropdownMenuItem(
-                          value: option,
+                  ),
+                  items: ordemDeServicoVm.clientes?.map((cliente) {
+                        return DropdownMenuItem(
+                          value: cliente.nome,
                           child: Text(
-                            option,
+                            cliente.nome!,
                             style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0),
+                              fontSize: 16,
+                              color: Colors.black87,
                             ),
                           ),
-                        ),
-                      )
-                      .toList(),
+                        );
+                      }).toList() ??
+                      [],
                 ),
                 const SizedBox(
                   height: 16,
@@ -184,7 +224,7 @@ class _OrdemDeServicoState extends State<OrdemDeServico> {
                   minimumSize: const Size.fromHeight(60),
                   backgroundColor: Colors.red.shade300,
                 ),
-                onPressed: () async {}, //loginUser,
+                onPressed: () async {await loadDataClientes();}, //loginUser,
                 child: const Text('Cancelar'),
               ),
             ),
@@ -196,7 +236,17 @@ class _OrdemDeServicoState extends State<OrdemDeServico> {
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {}, //loginUser,
+                onPressed: () async {
+                  switch (formKey.currentState?.validate()) {
+                    case (false || null):
+                      Messages.showErrors(
+                          'Preencha o formulário corretamente', context);
+                    case true:
+                      // await updateStateCliente(formKey.currentState!.value);
+                      Navigator.of(context).pushNamed(
+                          RouteGeneratorKeys.ordemDeServicoObservacao);
+                  }
+                },
                 child: const Text('Proximo'),
               ),
             ),

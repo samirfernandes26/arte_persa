@@ -1,4 +1,5 @@
 
+import 'package:arte_persa/src/model/cliente_model.dart';
 import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
 import 'package:asyncstate/asyncstate.dart';
@@ -55,5 +56,25 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     );
 
     loaderHandler.close();
+  }
+
+  Future<void> loadDataClientes() async{
+
+    List<ClienteModel> clientes = [];
+    FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
+    final collection = fireStore.collection('clientes');
+
+    QuerySnapshot<Map<String, dynamic>> snapshot = await collection.get();
+
+    for (var servico in snapshot.docs) {
+      clientes.add(ClienteModel.fromJson(servico.data()));
+    }
+
+    state = state.copyWith(
+      clientes: clientes,
+      status: OrdemDeServicoStateStatus.loaded,
+    );
+
   }
 }
