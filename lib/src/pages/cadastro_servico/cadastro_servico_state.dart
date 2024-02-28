@@ -24,7 +24,6 @@ class CadastroServicoState {
   CadastroServicoState.initial()
       : this(
           status: CadastroServicoStateStatus.initial,
-          servicos:[],
         );
 
   CadastroServicoStateStatus status;

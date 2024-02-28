@@ -6,30 +6,30 @@ part 'cliente_model.g.dart';
 class ClienteModel {
   ClienteModel({
     this.id,
-    required this.tipoCliente,
-    required this.retemIss,
+    this.tipoCliente,
+    this.retemIss,
     this.nome,
     this.sobreNome,
     this.razaoSocial,
     this.cpf,
     this.cnpj,
     this.dataNascimento,
-    required this.porQuemProcurar,
-    required this.telefoneContatoUm,
+    this.porQuemProcurar,
+    this.telefoneContatoUm,
     this.telefoneContatoUmWhatsapp,
     this.telefoneContatoDois,
     this.telefoneContatoDoisWhatsapp,
     this.email,
-    required this.userId,
+    this.userId,
   });
 
   String? id;
 
   @JsonKey(name: 'tipo_cliente')
-  int tipoCliente;
+  int? tipoCliente;
 
   @JsonKey(name: 'retem_iss')
-  bool retemIss;
+  bool? retemIss;
 
   String? nome;
 
@@ -47,10 +47,10 @@ class ClienteModel {
   String? dataNascimento;
 
   @JsonKey(name: 'por_quem_procurar')
-  String porQuemProcurar;
+  String? porQuemProcurar;
 
   @JsonKey(name: 'telefone_contato_um')
-  String telefoneContatoUm;
+  String? telefoneContatoUm;
 
   @JsonKey(name: 'telefone_contato_um_Whatsapp')
   bool? telefoneContatoUmWhatsapp;
@@ -64,7 +64,7 @@ class ClienteModel {
   String? email;
 
   @JsonKey(name: 'user_id')
-  String userId;
+  String? userId;
 
   Map<String, dynamic> toJson() => _$ClienteModelToJson(this);
   factory ClienteModel.fromJson(Map<String, dynamic> json) => _$ClienteModelFromJson(json); 
