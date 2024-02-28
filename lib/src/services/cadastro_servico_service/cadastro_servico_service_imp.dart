@@ -12,26 +12,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CadastroServicoServiceImp extends CadastroServicoService {
   @override
   Future<Either<ServiceException, ServicoModel>> execute(
-    Map<String, dynamic> data,
+    Map<String, dynamic> servico,
   ) async {
     try {
       FirebaseFirestore fireStore = FirebaseFirestore.instance;
       final sharedPreferences = await SharedPreferences.getInstance();
-      final collecion = fireStore.collection('servicos');
+      final collection = fireStore.collection('servicos');
       final restUser = sharedPreferences.getString(LocalStorageKeys.userInfo);
       final user = json.decode(restUser!);
 
-      collecion.doc().set({...data, 'userId': user['id']});
+      final clienteRef = await collection.add({...servico, 'user_id': user['id']});
+      await collection.doc(clienteRef.id).update({'id':clienteRef.id});
 
-      ServicoModel cadastroServicoForm = ServicoModel.fromJson({...data, 'userId': user['id']});
+      ServicoModel servicoForm = ServicoModel.fromJson({...servico, 'user_id': user['id'], 'id': clienteRef.id});
 
-      return Success(cadastroServicoForm);
+      return Success(servicoForm);
     } on Exception catch (e) {
       log('Erro ao cadastrar Servico', error: e);
 
       return Failure(
         ServiceException(
-          message: 'Não foi possível cadastrar o usuário',
+          message: 'Não foi possível cadastrar o serviço',
         ),
       );
     }

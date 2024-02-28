@@ -9,15 +9,15 @@ class ServicoModel {
   ServicoModel({
     this.id,
     required this.nomeDoServico,
-    this.categoriaSelecionada,
-    this.metroQuadrado,
-    this.metroLinear,
-    this.valorFixo,
-    this.valorManual,
-    this.porcentagemServico,
+    required this.categoriaSelecionada,
+    required this.metroQuadrado,
+    required this.metroLinear,
+    required this.valorFixo,
+    required this.valorManual,
+    required this.porcentagemServico,
     this.servicoSelecionando,
     this.porcentagem,
-    this.userId,
+    required this.userId,
     this.valor,
     this.valorCalculo,
     this.createdAt,
@@ -33,7 +33,7 @@ class ServicoModel {
   double? valor;
 
   @JsonKey(name: 'user_id')
-  String? userId;
+  String userId;
 
   @JsonKey(name: 'valor_calculo')
   @StringToDoubleConverter()
@@ -43,22 +43,22 @@ class ServicoModel {
   String nomeDoServico;
 
   @JsonKey(name: 'categoria_selecionada')
-  String? categoriaSelecionada;
+  String categoriaSelecionada;
 
   @JsonKey(name: 'metro_quadrado')
-  bool? metroQuadrado;
+  bool metroQuadrado;
 
   @JsonKey(name: 'metro_linear')
-  bool? metroLinear;
+  bool metroLinear;
 
   @JsonKey(name: 'valor_fixo')
-  bool? valorFixo;
+  bool valorFixo;
 
   @JsonKey(name: 'valor_manual')
-  bool? valorManual;
+  bool valorManual;
 
   @JsonKey(name: 'porcentagem_servico')
-  bool? porcentagemServico;
+  bool porcentagemServico;
 
   @JsonKey(name: 'servico_selecionado')
   String? servicoSelecionando;

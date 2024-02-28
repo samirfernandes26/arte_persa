@@ -125,7 +125,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   const Color.fromRGBO(231, 64, 74, 1)),
                           onPressed: () {
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                                RouteGeneratorKeys.cadastrar, (route) => false);
+                                RouteGeneratorKeys.home, (route) => false);
                           }, //loginUser,
                           child: const Text('Cadastrar'),
                         ),

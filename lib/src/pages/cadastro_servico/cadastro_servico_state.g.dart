@@ -10,13 +10,14 @@ CadastrosServicoForm _$CadastrosServicoFormFromJson(
         Map<String, dynamic> json) =>
     CadastrosServicoForm(
       id: json['id'] as String?,
-      nomeDoServico: json['nomeDoServico'] as String?,
-      categoriaSelecionada: json['categoriaSelecionada'] as String?,
-      metroQuadrado: json['metroQuadrado'] as bool?,
-      metroLinear: json['metroLinear'] as bool?,
-      valorFixo: json['valorFixo'] as bool?,
-      valorManual: json['valorManual'] as bool?,
-      porcentagemServico: json['porcentagemServico'] as bool?,
+      userId: json['userId'] as String,
+      nomeDoServico: json['nomeDoServico'] as String,
+      categoriaSelecionada: json['categoriaSelecionada'] as String,
+      metroQuadrado: json['metroQuadrado'] as bool,
+      metroLinear: json['metroLinear'] as bool,
+      valorFixo: json['valorFixo'] as bool,
+      valorManual: json['valorManual'] as bool,
+      porcentagemServico: json['porcentagemServico'] as bool,
       servicoSelecionando: json['servicoSelecionando'] as String?,
       porcentagem: json['porcentagem'] as int?,
       valor: (json['valor'] as num?)?.toDouble(),
@@ -26,13 +27,13 @@ CadastrosServicoForm _$CadastrosServicoFormFromJson(
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
-    )..user = json['user'] as String?;
+    );
 
 Map<String, dynamic> _$CadastrosServicoFormToJson(
         CadastrosServicoForm instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'user': instance.user,
+      'userId': instance.userId,
       'nomeDoServico': instance.nomeDoServico,
       'categoriaSelecionada': instance.categoriaSelecionada,
       'metroQuadrado': instance.metroQuadrado,

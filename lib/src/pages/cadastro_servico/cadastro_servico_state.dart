@@ -14,7 +14,7 @@ enum CadastroServicoStateStatus {
 class CadastroServicoState {
   CadastroServicoState({
     required this.status,
-    this.form,
+    this.servicoForm,
     this.message,
     this.usuario,
   });
@@ -25,18 +25,18 @@ class CadastroServicoState {
         );
 
   CadastroServicoStateStatus status;
-  CadastrosServicoForm? form;
+  CadastrosServicoForm? servicoForm;
   String? message;
   UsuarioModel? usuario;
 
   CadastroServicoState copyWith({
     CadastroServicoStateStatus? status,
-    CadastrosServicoForm? form,
+    CadastrosServicoForm? servicoForm,
     String? message,
     UsuarioModel? usuario,
   }) => CadastroServicoState(
     status: status ?? this.status,
-    form: form ?? this.form,
+    servicoForm: servicoForm ?? this.servicoForm,
     message: message ?? this.message,
     usuario: usuario ?? this.usuario,
   );
@@ -47,13 +47,14 @@ class CadastrosServicoForm {
 
   CadastrosServicoForm({
     this.id,
-    this.nomeDoServico,
-    this.categoriaSelecionada,
-    this.metroQuadrado,
-    this.metroLinear,
-    this.valorFixo,
-    this.valorManual,
-    this.porcentagemServico,
+    required this.userId,
+    required this.nomeDoServico,
+    required this.categoriaSelecionada,
+    required this.metroQuadrado,
+    required this.metroLinear,
+    required this.valorFixo,
+    required this.valorManual,
+    required this.porcentagemServico,
     this.servicoSelecionando,
     this.porcentagem,
     this.valor,
@@ -62,14 +63,14 @@ class CadastrosServicoForm {
   });
   
   String? id;
-  String? user;
-  String? nomeDoServico;
-  String? categoriaSelecionada;
-  bool? metroQuadrado;
-  bool? metroLinear;
-  bool? valorFixo;
-  bool? valorManual;
-  bool? porcentagemServico;
+  String userId;
+  String nomeDoServico;
+  String categoriaSelecionada;
+  bool metroQuadrado;
+  bool metroLinear;
+  bool valorFixo;
+  bool valorManual;
+  bool porcentagemServico;
   String? servicoSelecionando;
   int? porcentagem;
   double? valor;

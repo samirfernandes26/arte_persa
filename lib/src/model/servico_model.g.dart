@@ -9,17 +9,19 @@ part of 'servico_model.dart';
 ServicoModel _$ServicoModelFromJson(Map<String, dynamic> json) => ServicoModel(
       id: json['id'] as String?,
       nomeDoServico: json['nome_do_servico'] as String,
-      categoriaSelecionada: json['categoria_selecionada'] as String?,
-      metroQuadrado: json['metro_quadrado'] as bool?,
-      metroLinear: json['metro_linear'] as bool?,
-      valorFixo: json['valor_fixo'] as bool?,
-      valorManual: json['valor_manual'] as bool?,
-      porcentagemServico: json['porcentagem_servico'] as bool?,
+      categoriaSelecionada: json['categoria_selecionada'] as String,
+      metroQuadrado: json['metro_quadrado'] as bool,
+      metroLinear: json['metro_linear'] as bool,
+      valorFixo: json['valor_fixo'] as bool,
+      valorManual: json['valor_manual'] as bool,
+      porcentagemServico: json['porcentagem_servico'] as bool,
       servicoSelecionando: json['servico_selecionado'] as String?,
       porcentagem: _$JsonConverterFromJson<String, int>(
           json['porcentagem'], const StringToIntConverter().fromJson),
-      userId: json['user_id'] as String?,
+      userId: json['user_id'] as String,
       valor: const StringToDoubleConverter().fromJson(json['valor'] as String?),
+      valorCalculo: const StringToDoubleConverter()
+          .fromJson(json['valor_calculo'] as String?),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -35,6 +37,8 @@ Map<String, dynamic> _$ServicoModelToJson(ServicoModel instance) =>
           instance.porcentagem, const StringToIntConverter().toJson),
       'valor': const StringToDoubleConverter().toJson(instance.valor),
       'user_id': instance.userId,
+      'valor_calculo':
+          const StringToDoubleConverter().toJson(instance.valorCalculo),
       'nome_do_servico': instance.nomeDoServico,
       'categoria_selecionada': instance.categoriaSelecionada,
       'metro_quadrado': instance.metroQuadrado,
