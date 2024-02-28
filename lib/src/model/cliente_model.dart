@@ -6,28 +6,30 @@ part 'cliente_model.g.dart';
 class ClienteModel {
   ClienteModel({
     this.id,
-    this.tipoCliente,
-    this.retemIss,
+    required this.tipoCliente,
+    required this.retemIss,
     this.nome,
     this.sobreNome,
     this.razaoSocial,
     this.cpf,
     this.cnpj,
     this.dataNascimento,
-    this.porQuemProcurar,
-    this.telefoneContatoUm,
+    required this.porQuemProcurar,
+    required this.telefoneContatoUm,
+    this.telefoneContatoUmWhatsapp,
     this.telefoneContatoDois,
+    this.telefoneContatoDoisWhatsapp,
     this.email,
-    this.userId,
+    required this.userId,
   });
 
   String? id;
 
   @JsonKey(name: 'tipo_cliente')
-  int? tipoCliente;
+  int tipoCliente;
 
   @JsonKey(name: 'retem_iss')
-  bool? retemIss;
+  bool retemIss;
 
   String? nome;
 
@@ -45,18 +47,24 @@ class ClienteModel {
   String? dataNascimento;
 
   @JsonKey(name: 'por_quem_procurar')
-  String? porQuemProcurar;
+  String porQuemProcurar;
 
   @JsonKey(name: 'telefone_contato_um')
-  String? telefoneContatoUm;
+  String telefoneContatoUm;
+
+  @JsonKey(name: 'telefone_contato_um_Whatsapp')
+  bool? telefoneContatoUmWhatsapp;
 
   @JsonKey(name: 'telefone_contato_dois')
   String? telefoneContatoDois;
 
+  @JsonKey(name: 'telefone_contato_dois_Whatsapp')
+  bool? telefoneContatoDoisWhatsapp;
+
   String? email;
 
   @JsonKey(name: 'user_id')
-  String? userId;
+  String userId;
 
   Map<String, dynamic> toJson() => _$ClienteModelToJson(this);
   factory ClienteModel.fromJson(Map<String, dynamic> json) => _$ClienteModelFromJson(json); 

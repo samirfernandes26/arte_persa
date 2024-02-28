@@ -8,19 +8,22 @@ part of 'cliente_model.dart';
 
 ClienteModel _$ClienteModelFromJson(Map<String, dynamic> json) => ClienteModel(
       id: json['id'] as String?,
-      tipoCliente: json['tipo_cliente'] as int?,
-      retemIss: json['retem_iss'] as bool?,
+      tipoCliente: json['tipo_cliente'] as int,
+      retemIss: json['retem_iss'] as bool,
       nome: json['nome'] as String?,
       sobreNome: json['sobre_nome'] as String?,
       razaoSocial: json['razao_social'] as String?,
       cpf: json['cpf'] as String?,
       cnpj: json['cnpj'] as String?,
       dataNascimento: json['data_nascimento'] as String?,
-      porQuemProcurar: json['por_quem_procurar'] as String?,
-      telefoneContatoUm: json['telefone_contato_um'] as String?,
+      porQuemProcurar: json['por_quem_procurar'] as String,
+      telefoneContatoUm: json['telefone_contato_um'] as String,
+      telefoneContatoUmWhatsapp: json['telefone_contato_um_Whatsapp'] as bool?,
       telefoneContatoDois: json['telefone_contato_dois'] as String?,
+      telefoneContatoDoisWhatsapp:
+          json['telefone_contato_dois_Whatsapp'] as bool?,
       email: json['email'] as String?,
-      userId: json['user_id'] as String?,
+      userId: json['user_id'] as String,
     );
 
 Map<String, dynamic> _$ClienteModelToJson(ClienteModel instance) =>
@@ -36,7 +39,9 @@ Map<String, dynamic> _$ClienteModelToJson(ClienteModel instance) =>
       'data_nascimento': instance.dataNascimento,
       'por_quem_procurar': instance.porQuemProcurar,
       'telefone_contato_um': instance.telefoneContatoUm,
+      'telefone_contato_um_Whatsapp': instance.telefoneContatoUmWhatsapp,
       'telefone_contato_dois': instance.telefoneContatoDois,
+      'telefone_contato_dois_Whatsapp': instance.telefoneContatoDoisWhatsapp,
       'email': instance.email,
       'user_id': instance.userId,
     };
