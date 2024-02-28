@@ -18,11 +18,15 @@ class CadastroClienteState {
     this.enderecoJson,
     this.message,
     this.usuario,
+    required this.radioPF,
+    required this.radioPJ,
   });
 
   CadastroClienteState.initial()
       : this(
           status: CadastroClienteStateStatus.initial,
+          radioPF: true,
+          radioPJ: false,
         );
 
   CadastroClienteStateStatus status;
@@ -32,6 +36,8 @@ class CadastroClienteState {
   Map<String, dynamic>? enderecoJson;
   String? message;
   UsuarioModel? usuario;
+  bool radioPF;
+  bool radioPJ;
 
   CadastroClienteState copyWith({
     CadastroClienteStateStatus? status,
@@ -41,6 +47,8 @@ class CadastroClienteState {
     Map<String,dynamic>? enderecoJson,
     String? message,
     UsuarioModel? usuario,
+    bool? radioPF,
+    bool? radioPJ,
   }) =>
       CadastroClienteState(
         status: status ?? this.status,
@@ -50,5 +58,7 @@ class CadastroClienteState {
         enderecoJson: enderecoJson ?? this.enderecoJson,
         message: message ?? this.message,
         usuario: usuario ?? this.usuario,
+        radioPF: radioPF ?? this.radioPF,
+        radioPJ: radioPJ ?? this.radioPJ,
       );
 }
