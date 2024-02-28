@@ -75,4 +75,27 @@ class CadastroClienteVm extends _$CadastroClienteVm {
       enderecoJson: endereco,
     );
   }
+
+  updateStatePessoaFisicaJuridica(int? value) {
+    switch (value) {
+      case 1:
+        state = state.copyWith(
+          radioPF: true,
+          radioPJ: false,
+        );
+        break;
+      case 2:
+        state = state.copyWith(
+          radioPF: false,
+          radioPJ: true,
+        );
+        break;
+      default:
+        state = state.copyWith(
+          radioPF: false,
+          radioPJ: false,
+        );
+        break;
+    }
+  }
 }

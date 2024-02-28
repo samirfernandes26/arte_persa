@@ -1,13 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:validatorless/validatorless.dart';
+
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:validatorless/validatorless.dart';
 
 class CadastroClientePage extends ConsumerStatefulWidget {
   const CadastroClientePage({
@@ -23,12 +24,13 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
   final formKey = GlobalKey<FormBuilderState>();
   bool checkTeleconeConatatoUm = true;
   bool checkTeleconeConatatoDois = true;
-  bool checkPessoaJurica = false;
 
   @override
   Widget build(BuildContext context) {
-    final CadastroClienteVm(:updateStateCliente) =
-        ref.read(cadastroClienteVmProvider.notifier);
+    final CadastroClienteVm(
+      :updateStateCliente,
+      :updateStatePessoaFisicaJuridica
+    ) = ref.read(cadastroClienteVmProvider.notifier);
     final clienteVm = ref.watch(cadastroClienteVmProvider);
 
     return Scaffold(
@@ -52,14 +54,13 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
               children: [
                 FormBuilderRadioGroup(
                   name: 'tipo_cliente',
-                  initialValue: clienteVm.clienteForm?.tipoCliente,
+                  initialValue: clienteVm.clienteForm?.tipoCliente ?? 1,
                   decoration: const InputDecoration(
-                    labelText: 'Selecione o tipo de cliente',
+                    labelText: 'Selecione o tipo de cliente*',
                   ),
                   onChanged: (value) {
-                    // Faça algo com o valor selecionado, se necessário
+                    updateStatePessoaFisicaJuridica(value);
                   },
-                  // validator: Validatorless.required('Tipo de cliete e obrigatorio'),
                   options: const [
                     FormBuilderFieldOption(
                       value: 1,
@@ -83,127 +84,156 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                FormBuilderSwitch(
-                  name: 'retem_iss',
-                  initialValue: clienteVm.clienteForm?.retemIss,
-                  title: const DefaultTextStyle(
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                    ),
-                    child: Text('Retem ISS? '),
-                  ),
-                  onChanged: (value) {},
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: FormBuilderTextField(
-                        name: 'nome',
-                        initialValue: clienteVm.clienteForm?.nome,
+                if (clienteVm.radioPJ == true)
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      FormBuilderSwitch(
+                        name: 'retem_iss',
+                        initialValue: clienteVm.clienteForm?.retemIss,
+                        title: const DefaultTextStyle(
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                          child: Text('Retem ISS? '),
+                        ),
+                        onChanged: (value) {},
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      FormBuilderTextField(
+                        name: 'razao_social*',
+                        initialValue: clienteVm.clienteForm?.razaoSocial,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: InputDecoration(
-                          labelText: 'Nome',
-                          hintText: 'Nome',
+                          labelText: 'Razão Socail*',
+                          hintText: 'Razão Socail*',
                           hintStyle: TextStyle(
                             color: Colors.grey.shade600,
                           ),
                         ),
                         keyboardType: TextInputType.name,
-                        validator: Validatorless.required('Nome é obrigatório'),
+                        validator: Validatorless.required(
+                          'Razão e obrigatório',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      FormBuilderTextField(
+                        name: 'CNPJ*',
+                        initialValue: clienteVm.clienteForm?.cnpj,
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: '##.###.###/####-##')
+                        ],
+                        onTapOutside: (_) => context.unfocus(),
+                        decoration: const InputDecoration(
+                          labelText: 'CNPJ*',
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: Validatorless.multiple(
+                          [
+                            Validatorless.required(
+                              'CNPJ e obrigatório',
+                            ),
+                            Validatorless.cnpj(
+                              'CNPJ inválido',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                if (clienteVm.radioPF == true)
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: FormBuilderTextField(
+                            name: 'nome',
+                            initialValue: clienteVm.clienteForm?.nome,
+                            onTapOutside: (_) => context.unfocus(),
+                            decoration: InputDecoration(
+                              labelText: 'Nome*',
+                              hintText: 'Nome',
+                              hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
+                            keyboardType: TextInputType.name,
+                            validator: Validatorless.required(
+                              'Nome é obrigatório',
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Flexible(
+                          child: FormBuilderTextField(
+                            name: 'sobre_nome',
+                            initialValue: clienteVm.clienteForm?.sobreNome,
+                            onTapOutside: (_) => context.unfocus(),
+                            decoration: const InputDecoration(
+                              labelText: 'Sobrenome*',
+                              hintText: 'Sobrenome',
+                            ),
+                            keyboardType: TextInputType.name,
+                            validator: Validatorless.required(
+                              'Nome é obrigatório',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    FormBuilderTextField(
+                      name: 'cpf',
+                      initialValue: clienteVm.clienteForm?.cpf,
+                      inputFormatters: [
+                        MaskTextInputFormatter(mask: '###.###.###-##')
+                      ],
+                      onTapOutside: (_) => context.unfocus(),
+                      decoration: const InputDecoration(
+                        labelText: 'CPF*',
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: Validatorless.multiple(
+                        [
+                          Validatorless.required(
+                            'Razão e obrigatório',
+                          ),
+                          Validatorless.cpf(
+                            'CPF inválido',
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
-                      width: 16,
+                      height: 16,
                     ),
-                    Flexible(
-                      child: FormBuilderTextField(
-                        name: 'sobre_nome',
-                        initialValue: clienteVm.clienteForm?.sobreNome,
-                        onTapOutside: (_) => context.unfocus(),
-                        decoration: const InputDecoration(
-                          labelText: 'Sobrenome',
-                          hintText: 'Sobrenome',
-                        ),
-                        keyboardType: TextInputType.name,
-                        validator: Validatorless.required('Nome é obrigatório'),
+                    FormBuilderTextField(
+                      name: 'data_nascimento',
+                      initialValue: clienteVm.clienteForm?.dataNascimento,
+                      inputFormatters: [
+                        MaskTextInputFormatter(mask: '##/##/####')
+                      ],
+                      onTapOutside: (_) => context.unfocus(),
+                      decoration: const InputDecoration(
+                        labelText: 'Data de nascimento',
                       ),
+                      keyboardType: TextInputType.number,
                     ),
                   ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                FormBuilderTextField(
-                  name: 'razao_social',
-                  initialValue: clienteVm.clienteForm?.razaoSocial,
-                  onTapOutside: (_) => context.unfocus(),
-                  decoration: InputDecoration(
-                    labelText: 'razao_social',
-                    hintText: 'razao_social',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade600,
-                    ),
-                  ),
-                  keyboardType: TextInputType.name,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                FormBuilderTextField(
-                  name: 'cpf',
-                  initialValue: clienteVm.clienteForm?.cpf,
-                  inputFormatters: [
-                    MaskTextInputFormatter(mask: '###.###.###-##')
-                  ],
-                  onTapOutside: (_) => context.unfocus(),
-                  decoration: const InputDecoration(
-                    labelText: 'CPF*',
-                  ),
-                  keyboardType: TextInputType.number,
-                  validator: Validatorless.multiple(
-                    [
-                      Validatorless.cpf('CPF inválido'),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                FormBuilderTextField(
-                  name: 'CNPJ',
-                  initialValue: clienteVm.clienteForm?.cnpj,
-                  inputFormatters: [
-                    MaskTextInputFormatter(mask: '##.###.###/####-##')
-                  ],
-                  onTapOutside: (_) => context.unfocus(),
-                  decoration: const InputDecoration(
-                    labelText: 'CNPJ*',
-                  ),
-                  keyboardType: TextInputType.number,
-                  validator: Validatorless.multiple(
-                    [
-                      Validatorless.cnpj('CNPJ inválido'),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                FormBuilderTextField(
-                  name: 'data_nascimento',
-                  initialValue: clienteVm.clienteForm?.dataNascimento,
-                  inputFormatters: [MaskTextInputFormatter(mask: '##/##/####')],
-                  onTapOutside: (_) => context.unfocus(),
-                  decoration: const InputDecoration(
-                    labelText: 'Data de nascimento*',
-                  ),
-                  keyboardType: TextInputType.number,
                 ),
                 const SizedBox(
                   height: 16,
@@ -217,7 +247,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                   ),
                   keyboardType: TextInputType.number,
                   validator: Validatorless.required(
-                    'Por quem procurar e obrigatorio',
+                    'Por quem procurar e obrigatório',
                   ),
                 ),
                 const SizedBox(
@@ -352,7 +382,8 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
                 onPressed: () async {
-                  switch (formKey.currentState?.saveAndValidate()) {
+                  print('teste');
+                  switch (formKey.currentState?.validate()) {
                     case (false || null):
                       Messages.showErrors(
                           'Preencha o formulário corretamente', context);
