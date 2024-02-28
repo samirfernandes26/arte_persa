@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:arte_persa/src/model/usuario_model.dart';
@@ -17,28 +18,33 @@ class CadastroServicoState {
     this.servicoForm,
     this.message,
     this.usuario,
+    this.servicos
   });
 
   CadastroServicoState.initial()
       : this(
           status: CadastroServicoStateStatus.initial,
+          servicos:[],
         );
 
   CadastroServicoStateStatus status;
   CadastrosServicoForm? servicoForm;
   String? message;
   UsuarioModel? usuario;
+  List<ServicoModel>? servicos;
 
   CadastroServicoState copyWith({
     CadastroServicoStateStatus? status,
     CadastrosServicoForm? servicoForm,
     String? message,
     UsuarioModel? usuario,
+    List<ServicoModel>? servicos,
   }) => CadastroServicoState(
     status: status ?? this.status,
     servicoForm: servicoForm ?? this.servicoForm,
     message: message ?? this.message,
     usuario: usuario ?? this.usuario,
+    servicos: servicos ?? this.servicos,
   );
 }
 

@@ -5,6 +5,7 @@ import 'package:arte_persa/src/model/usuario_model.dart';
 import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_state.dart';
 import 'package:asyncstate/asyncstate.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cadastro_servico_vm.g.dart';
@@ -42,5 +43,27 @@ class CadastroServicoVm extends _$CadastroServicoVm {
     }
 
     return null;
+  }
+
+  Future<void> loadDataServicos() async{
+    final loaderHandler = AsyncLoaderHandler()..start();
+
+    List<ServicoModel> servicos = [];
+    FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
+    final collection = fireStore.collection('servicos');
+
+    QuerySnapshot<Map<String, dynamic>> snapshot = await collection. get();
+
+    for (var servico in snapshot.docs) {
+      servicos.add(ServicoModel.fromJson(servico.data()));
+    }
+
+    state = state.copyWith(
+      servicos: servicos,
+      status: CadastroServicoStateStatus.loaded,
+    );
+
+    loaderHandler.close();
   }
 }

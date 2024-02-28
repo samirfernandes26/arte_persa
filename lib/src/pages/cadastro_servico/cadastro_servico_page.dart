@@ -36,7 +36,7 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final CadastroServicoVm(:registerServico) =
+    final CadastroServicoVm(:registerServico, :loadDataServicos) =
         ref.read(cadastroServicoVmProvider.notifier);
 
     final servicoVm = ref.watch(cadastroServicoVmProvider);
@@ -217,10 +217,15 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                   ),
                   initialValue: false,
                   onChanged: (value) {
-                    setState(() {
-                      checkPorcentagem = value ?? false;
-                    });
-                    // state.form
+                    loadDataServicos().then(
+                      (_) {
+                        setState(
+                          () {
+                            checkPorcentagem = value ?? false;
+                          },
+                        );
+                      },
+                    );
                   },
                 ),
                 Visibility(
@@ -238,14 +243,21 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                         ), // Define a,
-                        items: ['opçãoA', 'opçãoB']
-                            .map((option) => DropdownMenuItem(
-                                  value: option,
-                                  child: Text(option,
-                                      style: const TextStyle(
-                                          color: Color.fromARGB(255, 0, 0, 0))),
-                                ))
-                            .toList(),
+                        items: servicoVm.servicos?.map(
+                              (servico) {
+                                return DropdownMenuItem(
+                                  value: servico.id,
+                                  child: Text(
+                                    servico.nomeDoServico,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ).toList() ??
+                            [],
                       ),
                     ],
                   ),

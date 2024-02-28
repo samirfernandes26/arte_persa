@@ -31,13 +31,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                   backgroundColor: Colors.blueAccent.shade700,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
+                  Navigator.of(context).pushNamed(
                     RouteGeneratorKeys.cadastroServico,
-                    (route) => false,
                   );
                 },
                 child: const Text(
-                  'Foto do produto',
+                  'Cadastro de serviço teste',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
@@ -53,9 +52,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                   minimumSize: const Size.fromHeight(60),
                   backgroundColor: Colors.orange.shade300,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    RouteGeneratorKeys.cadastroCliente,
+                  );
+                },
                 child: const Text(
-                  'Nova bservação',
+                  'Cadastro de cliente teste',
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,
