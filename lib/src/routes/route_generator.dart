@@ -5,8 +5,8 @@ import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_page.dart
 import 'package:arte_persa/src/pages/home/home_page.dart';
 import 'package:arte_persa/src/pages/login/login_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servco_servicos_page.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_observacao_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_page.dart';
-import 'package:arte_persa/src/pages/ordem_de_servico/orem_de_servico_observacao_page.dart';
 import 'package:arte_persa/src/pages/servicos/servicos_page.dart';
 import 'package:arte_persa/src/pages/splash/splash_page.dart';
 // import 'package:arte_persa/src/pages/home/home_page.dart';
