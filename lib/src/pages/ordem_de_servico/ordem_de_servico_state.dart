@@ -24,6 +24,10 @@ class OrdemDeServicoState {
     this.observacoes,
     this.message,
     this.loading,
+    this.paginaUm,
+    this.paginaDois,
+    this.paginatres,
+    this.paginaquatro,
   });
  
 
@@ -31,6 +35,11 @@ class OrdemDeServicoState {
   List<ServicoModel>? servicos;
   List<ClienteModel>? clientes;
   List<ObservacaoModel>? observacoes;
+  Map<String,dynamic>? paginaUm;
+  Map<String,dynamic>? paginaDois;
+  Map<String,dynamic>? paginatres;
+  Map<String,dynamic>? paginaquatro;
+
   String? message;
   bool? loading;
 
@@ -41,6 +50,10 @@ class OrdemDeServicoState {
     List<ObservacaoModel>? observacoes,
     String? message,
     bool? loading,
+    Map<String,dynamic>? paginaUm,
+    Map<String,dynamic>? paginaDois,
+    Map<String,dynamic>? paginatres,
+    Map<String,dynamic>? paginaquatro,
 
   }) => OrdemDeServicoState(
     status: status ?? this.status,
@@ -49,5 +62,9 @@ class OrdemDeServicoState {
     observacoes: observacoes ?? this.observacoes,
     message: message ?? this.message,
     loading: loading ?? this.loading,
+    paginaUm: paginaUm ?? this.paginaUm,
+    paginaDois: paginaDois ?? this.paginaDois,
+    paginatres: paginatres ?? this.paginatres,
+    paginaquatro: paginaquatro ?? this.paginaquatro,
   );
 }
