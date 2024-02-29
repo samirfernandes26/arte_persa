@@ -235,7 +235,7 @@ class _CadastroClienteEnderecoPageState
                       break;
                     case (true):
                       await registerCliente(formKey.currentState!.value);
-                      Navigator.of(context).pushNamedAndRemoveUntil(RouteGeneratorKeys.servicos, (route) => false);
+                      Navigator.of(context).pushNamedAndRemoveUntil(RouteGeneratorKeys.home, (route) => false);
                       break;
                   }
                 }, //loginUser,

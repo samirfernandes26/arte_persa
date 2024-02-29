@@ -21,6 +21,7 @@ class CadastroClienteServiceImp extends CadastroClienteService {
       final user = json.decode(restUser!);
       
       final clienteRef = await collection.add({...cliente, 'userId': user['id']});
+      await collection.doc(clienteRef.id).update({'id':clienteRef.id});
       await clienteRef.collection('enderecos').add({...endereco, 'userId': user['id']});
 
       ClienteModel clienteSalvo = ClienteModel.fromJson(cliente);
