@@ -1,6 +1,5 @@
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/core/ui/widgets/tiles/servico_tile/servico_tile.dart';
-import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/servicos/servicos_state.dart';
 import 'package:arte_persa/src/pages/servicos/servicos_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';

@@ -1,4 +1,3 @@
-
 import 'package:arte_persa/src/model/cliente_model.dart';
 import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
@@ -10,23 +9,23 @@ part 'ordem_de_servico_vm.g.dart';
 
 @riverpod
 class OrdemDeServicoVm extends _$OrdemDeServicoVm {
-  
   @override
   OrdemDeServicoState build() => OrdemDeServicoState.initial();
 
-  Future<void> teste(ServicoModel? servico, bool checkbox)async{
-
+  Future<void> teste(ServicoModel? servico, bool checkbox) async {
     const double largura = 2.69;
     const double comprimento = 6.9;
     const double area = largura * comprimento;
 
-    List<ServicoModel>? servicos  = state.servicos;
+    List<ServicoModel>? servicos = state.servicos;
 
     int index = servicos!.indexOf(servico!);
 
-    if(servico.metroQuadrado! == true && servico.valor != null && checkbox == true ){
+    if (servico.metroQuadrado! == true &&
+        servico.valor != null &&
+        checkbox == true) {
       servico.valorCalculo = area * servico.valor!;
-    }else{
+    } else {
       servico.valorCalculo = null;
     }
 
@@ -36,7 +35,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     );
   }
 
-  Future<void> loadDataServicos() async{
+  Future<void> loadDataServicos() async {
     final loaderHandler = AsyncLoaderHandler()..start();
 
     List<ServicoModel> servicos = [];
@@ -44,7 +43,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
     final collection = fireStore.collection('servicos');
 
-    QuerySnapshot<Map<String, dynamic>> snapshot = await collection. get();
+    QuerySnapshot<Map<String, dynamic>> snapshot = await collection.get();
 
     for (var servico in snapshot.docs) {
       servicos.add(ServicoModel.fromJson(servico.data()));
@@ -58,8 +57,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     loaderHandler.close();
   }
 
-  Future<void> loadDataClientes() async{
-
+  Future<void> loadDataClientes() async {
     List<ClienteModel> clientes = [];
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
@@ -75,6 +73,30 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       clientes: clientes,
       status: OrdemDeServicoStateStatus.loaded,
     );
+  }
 
+  updateStatePagers(int page, Map<String, dynamic> data) {
+    switch (page) {
+      case 1:
+        state = state.copyWith(
+          paginaUm: data,
+        );
+        break;
+      case 2:
+        state = state.copyWith(
+          paginaDois: data,
+        );
+        break;
+      case 3:
+        state = state.copyWith(
+          paginatres: data,
+        );
+        break;
+      case 4:
+        state = state.copyWith(
+          paginaquatro: data,
+        );
+        break;
+    }
   }
 }

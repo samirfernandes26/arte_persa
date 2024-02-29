@@ -41,7 +41,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:loadDataClientes) =
+    final OrdemDeServicoVm(:loadDataClientes, :updateStatePagers) =
         ref.read(ordemDeServicoVmProvider.notifier);
     final ordemDeServicoVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -82,7 +82,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro Endereço do Cliente'),
+        title: const Text('Orden de serviço'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -100,7 +100,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 FormBuilderDropdown(
-                  name: 'Selecione um cliente',
+                  name: 'cliente_id',
                   decoration: const InputDecoration(
                     labelText: 'Selecione um cliente',
                   ),
@@ -125,14 +125,11 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   height: 16,
                 ),
                 FormBuilderRadioGroup(
-                  name: 'Tipo de Item',
+                  name: 'tipo_item',
                   decoration: const InputDecoration(
-                    labelText: 'Selecione o tipo de cliente',
+                    labelText: 'Selecione o tipo de produto',
                   ),
-                  onChanged: (value) {
-                    // Faça algo com o valor selecionado, se necessário
-                  },
-                  // validator: Validatorless.required('Tipo de cliete e obrigatorio'),
+                  // validator: Validatorless.required('Tipo de produto e obrigatorio'),
                   options: const [
                     FormBuilderFieldOption(
                       value: 1,
@@ -242,7 +239,8 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                       Messages.showErrors(
                           'Preencha o formulário corretamente', context);
                     case true:
-                      // await updateStateCliente(formKey.currentState!.value);
+                      const int numeroPage = 1;
+                      await updateStatePagers(numeroPage,formKey.currentState!.value);
                       Navigator.of(context).pushNamed(
                           RouteGeneratorKeys.ordemDeServicoObservacao);
                   }
