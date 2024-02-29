@@ -40,6 +40,7 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
   firebase_database: ^10.2.5
+  firebase_storage: ^11.6.6
   cloud_firestore: ^4.15.5
   riverpod_annotation: ^2.1.4
   uuid: ^4.2.1
@@ -79,7 +80,6 @@ dependencies:
   package_info_plus: ^5.0.1
   percent_indicator: ^4.2.3
   json_annotation: ^4.8.1
-  firebase_storage: ^11.6.6
   image_picker: ^1.0.7
 
 

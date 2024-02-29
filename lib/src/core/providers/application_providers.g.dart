@@ -71,5 +71,22 @@ final cadastroClienteServiceProvider =
 );
 
 typedef CadastroClienteServiceRef = ProviderRef<CadastroClienteService>;
+String _$firebaseStorageServiceHash() =>
+    r'f6f764bca9494877a2c642ed61b71c687226b498';
+
+/// See also [firebaseStorageService].
+@ProviderFor(firebaseStorageService)
+final firebaseStorageServiceProvider =
+    Provider<FirebaseStorageService>.internal(
+  firebaseStorageService,
+  name: r'firebaseStorageServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseStorageServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseStorageServiceRef = ProviderRef<FirebaseStorageService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

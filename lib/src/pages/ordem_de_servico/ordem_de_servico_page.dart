@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
@@ -19,25 +21,6 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
   final formKey = GlobalKey<FormBuilderState>();
   String? urlPhoto;
   List<String> listFiles = [];
-
-  // uploadImage() async {
-  //   ImagePicker imagePicker = ImagePicker();
-
-  //   XFile? image = await imagePicker.pickImage(
-  //     source: ImageSource.gallery,
-  //     maxWidth: 2000,
-  //     maxHeight: 2000,
-  //     imageQuality: 90,
-  //   );
-
-  //   if (image != null) {
-  //     log('nenhuma imagen selecionada, image: ${image.path} ');
-  //   } else {
-  //     log('nenhuma imagen selecionada');
-  //   }
-  // }
-
-  // reload() {}
 
   @override
   Widget build(BuildContext context) {

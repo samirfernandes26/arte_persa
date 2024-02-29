@@ -1,5 +1,7 @@
 import 'package:arte_persa/src/model/cliente_model.dart';
+import 'package:arte_persa/src/model/image_model.dart';
 import 'package:arte_persa/src/model/observacao_model.dart';
+import 'package:arte_persa/src/model/ordem_de_servico_model.dart';
 import 'package:arte_persa/src/model/servico_model.dart';
 
 enum OrdemDeServicoStateStatus {
@@ -9,13 +11,12 @@ enum OrdemDeServicoStateStatus {
   error,
 }
 
-
 class OrdemDeServicoState {
-
-  OrdemDeServicoState.initial() : this(
-    status: OrdemDeServicoStateStatus.initial,
-    servicos: [],
-  );
+  OrdemDeServicoState.initial()
+      : this(
+          status: OrdemDeServicoStateStatus.initial,
+          servicos: [],
+        );
 
   OrdemDeServicoState({
     required this.status,
@@ -28,17 +29,21 @@ class OrdemDeServicoState {
     this.paginaDois,
     this.paginatres,
     this.paginaquatro,
+    this.ordemdeServico,
+    this.imagemProduto,
   });
- 
 
   OrdemDeServicoStateStatus status;
   List<ServicoModel>? servicos;
   List<ClienteModel>? clientes;
   List<ObservacaoModel>? observacoes;
-  Map<String,dynamic>? paginaUm;
-  Map<String,dynamic>? paginaDois;
-  Map<String,dynamic>? paginatres;
-  Map<String,dynamic>? paginaquatro;
+  Map<String, dynamic>? paginaUm;
+  Map<String, dynamic>? paginaDois;
+  Map<String, dynamic>? paginatres;
+  Map<String, dynamic>? paginaquatro;
+
+  OrdemDeServicoModel? ordemdeServico;
+  ImageModel? imagemProduto;
 
   String? message;
   bool? loading;
@@ -50,21 +55,25 @@ class OrdemDeServicoState {
     List<ObservacaoModel>? observacoes,
     String? message,
     bool? loading,
-    Map<String,dynamic>? paginaUm,
-    Map<String,dynamic>? paginaDois,
-    Map<String,dynamic>? paginatres,
-    Map<String,dynamic>? paginaquatro,
-
-  }) => OrdemDeServicoState(
-    status: status ?? this.status,
-    servicos: servicos ?? this.servicos,
-    clientes: clientes ?? this.clientes,
-    observacoes: observacoes ?? this.observacoes,
-    message: message ?? this.message,
-    loading: loading ?? this.loading,
-    paginaUm: paginaUm ?? this.paginaUm,
-    paginaDois: paginaDois ?? this.paginaDois,
-    paginatres: paginatres ?? this.paginatres,
-    paginaquatro: paginaquatro ?? this.paginaquatro,
-  );
+    Map<String, dynamic>? paginaUm,
+    Map<String, dynamic>? paginaDois,
+    Map<String, dynamic>? paginatres,
+    Map<String, dynamic>? paginaquatro,
+    OrdemDeServicoModel? ordemdeServico,
+    ImageModel? imagemProduto,
+  }) =>
+      OrdemDeServicoState(
+        status: status ?? this.status,
+        servicos: servicos ?? this.servicos,
+        clientes: clientes ?? this.clientes,
+        observacoes: observacoes ?? this.observacoes,
+        message: message ?? this.message,
+        loading: loading ?? this.loading,
+        paginaUm: paginaUm ?? this.paginaUm,
+        paginaDois: paginaDois ?? this.paginaDois,
+        paginatres: paginatres ?? this.paginatres,
+        paginaquatro: paginaquatro ?? this.paginaquatro,
+        ordemdeServico: ordemdeServico ?? this.ordemdeServico,
+        imagemProduto: imagemProduto ?? this.imagemProduto
+      );
 }

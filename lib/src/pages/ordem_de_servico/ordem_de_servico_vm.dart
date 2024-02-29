@@ -1,9 +1,19 @@
+import 'dart:io';
+
+import 'package:arte_persa/src/core/exceptions/service_exception.dart';
+import 'package:arte_persa/src/core/fp/either.dart';
+import 'package:arte_persa/src/core/providers/application_providers.dart';
+import 'package:arte_persa/src/model/image_model.dart';
+import 'package:arte_persa/src/model/ordem_de_servico_model.dart';
+import 'package:asyncstate/asyncstate.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:arte_persa/src/model/cliente_model.dart';
 import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
-import 'package:asyncstate/asyncstate.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'ordem_de_servico_vm.g.dart';
 
@@ -21,7 +31,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
     int index = servicos!.indexOf(servico!);
 
-    if (servico.metroQuadrado! == true &&
+    if (servico.metroQuadrado == true &&
         servico.valor != null &&
         checkbox == true) {
       servico.valorCalculo = area * servico.valor!;
@@ -98,5 +108,124 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
         );
         break;
     }
+  }
+
+  Future<void> getImageDeviceOrCam({
+    required String numeroDaNota,
+    required String tipoFoto,
+    required String source,
+    required String fileName,
+  }) async {
+    ImagePicker imagePicker = ImagePicker();
+    late XFile? resImage;
+    if (source == 'Camera') {
+      resImage = await imagePicker.pickImage(
+        source: ImageSource.camera,
+        maxWidth: 2000,
+        maxHeight: 2000,
+        imageQuality: 90,
+      );
+    }
+
+    if (source == 'Galeria') {
+      resImage = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 2000,
+        maxHeight: 2000,
+        imageQuality: 90,
+      );
+    }
+
+    if (resImage != null) {
+      ImageModel imagem = ImageModel(
+        pathLocal: resImage.path,
+        fileName: fileName,
+        pathService: "ordemDeServico/$numeroDaNota/$tipoFoto"
+      );
+
+      state = state.copyWith(
+        imagemProduto: imagem
+      );
+    }
+  }
+
+  Future<Map<String, dynamic>?> uploadImageservice(
+      {required String numeroDaNota, required String tipoFoto}) async {
+    late Either<ServiceException, ImageModel> response;
+
+    ImagePicker imagePicker = ImagePicker();
+    XFile? image = await imagePicker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 2000,
+      maxHeight: 2000,
+      imageQuality: 90,
+    );
+
+    if (image != null) {
+      response = await ref.read(firebaseStorageServiceProvider).upload(
+            file: File(image.path),
+            fileName: 'teste_photo',
+            pathService: "ordemDeServico/$numeroDaNota/$tipoFoto",
+          );
+    }
+
+    switch (response) {
+      case Success(value: final restImage):
+        state = state.copyWith(
+          status: OrdemDeServicoStateStatus.success,
+          message: 'Cliente cadastrado com sucesso',
+        );
+
+        if (restImage.pathDownloadImage != null) {
+          OrdemDeServicoModel updatedOrdem = state.ordemdeServico!;
+
+          state = state.copyWith(
+            ordemdeServico: updatedOrdem.copyWith(
+              fotoProduto: restImage,
+            ),
+          );
+        } else {
+          ImageModel imagemUpdate = await reloadImage(restImage);
+
+          if (state.ordemdeServico == null) {
+            OrdemDeServicoModel updatedOrdem = OrdemDeServicoModel(
+              fotoProduto: imagemUpdate,
+            );
+
+            state = state.copyWith(
+              ordemdeServico: updatedOrdem,
+            );
+          } else {
+            OrdemDeServicoModel updatedOrdem = state.ordemdeServico!;
+
+            state = state.copyWith(
+              ordemdeServico: updatedOrdem.copyWith(
+                fotoProduto: imagemUpdate,
+              ),
+            );
+          }
+        }
+
+        return state.ordemdeServico!.toJson();
+      // loaderHandler.close();
+
+      case Failure(exception: ServiceException(:final message)):
+        state = state.copyWith(
+          status: OrdemDeServicoStateStatus.error,
+          message: message,
+        );
+      // loaderHandler.close();
+    }
+  }
+
+  Future<ImageModel> reloadImage(ImageModel data) async {
+    String pathDownloadImage =
+        await ref.read(firebaseStorageServiceProvider).getDownLoadUrlByFileName(
+              pathService: data.pathService!,
+              fileName: data.fileName!,
+            );
+
+    ImageModel image = data.copyWith(pathDownloadImage: pathDownloadImage);
+    return image;
   }
 }

@@ -1,21 +1,30 @@
+import 'dart:io';
+
 import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OrdemDeServicoObservacao extends StatefulWidget {
+class OrdemDeServicoObservacao extends ConsumerStatefulWidget {
   const OrdemDeServicoObservacao({super.key});
 
   @override
-  State<OrdemDeServicoObservacao> createState() =>
+  ConsumerState<OrdemDeServicoObservacao> createState() =>
       _OrdemDeServicoObservacaoState();
 }
 
-class _OrdemDeServicoObservacaoState extends State<OrdemDeServicoObservacao> {
+class _OrdemDeServicoObservacaoState
+    extends ConsumerState<OrdemDeServicoObservacao> {
   final formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
+    final OrdemDeServicoVm(:getImageDeviceOrCam) =
+        ref.read(ordemDeServicoVmProvider.notifier);
+    final notaVm = ref.watch(ordemDeServicoVmProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cadastro de observações'),
@@ -35,44 +44,13 @@ class _OrdemDeServicoObservacaoState extends State<OrdemDeServicoObservacao> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
+
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: Colors.orange.shade300,
                   ),
-                  onPressed: () async {
-                    // Adicione ação quando o botão for pressionado
-                  },
-                  child: const Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Foto do produto',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
-                        ),
-                      ),
-                      // Adiciona um espaço entre o texto e o ícone
-                      Icon(
-                        Icons.add_a_photo,
-                        size: 32,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: Colors.orange.shade300,
-                  ),
-                  onPressed: () async {
-                    // Adicione ação quando o botão for pressionado
-                  },
+                  onPressed: () async {},
                   child: const Row(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -85,7 +63,6 @@ class _OrdemDeServicoObservacaoState extends State<OrdemDeServicoObservacao> {
                               fontSize: 16),
                         ),
                       ),
-                      // Adiciona um espaço entre o texto e o ícone
                       Icon(
                         Icons.add,
                         size: 32,
@@ -96,12 +73,115 @@ class _OrdemDeServicoObservacaoState extends State<OrdemDeServicoObservacao> {
                 const SizedBox(
                   height: 16,
                 ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(60),
+                    backgroundColor: Colors.orange.shade300,
+                  ),
+                  child: const Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Foto do produto',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16),
+                        ),
+                      ),
+                      Icon(
+                        Icons.add_a_photo,
+                        size: 32,
+                      ),
+                    ],
+                  ),
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text(
+                            'Escolher Fonte',
+                          ),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: [
+                                GestureDetector(
+                                  child: const Text(
+                                    'Câmera',
+                                  ),
+                                  onTap: () async {
+                                    await getImageDeviceOrCam(
+                                        numeroDaNota: '202402291026',
+                                        tipoFoto: 'produto',
+                                        source: 'Camera',
+                                        fileName: 'foto_produto_');
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.all(
+                                    8.0,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  child: const Text(
+                                    'Galeria',
+                                  ),
+                                  onTap: () async {
+                                    await getImageDeviceOrCam(
+                                        numeroDaNota: '202402291026',
+                                        tipoFoto: 'produto',
+                                        source: 'Galeria',
+                                        fileName: 'foto_produto_');
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                if (notaVm.ordemdeServico?.fotoProduto?.pathLocal != null)
+                  Row(
+                    children: [
+                      Image.network(
+                        notaVm.ordemdeServico!.fotoProduto!.pathDownloadImage!,
+                        width: 124,
+                        height: 124,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
+                if (notaVm.imagemProduto != null &&
+                    notaVm.imagemProduto!.pathLocal != null)
+                  Row(
+                    children: [
+                      Image.file(
+                        File(
+                          notaVm.imagemProduto!.pathLocal!,
+                        ),
+                        width: 124,
+                        height: 124,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  height: 16,
+                ),
+                
                 Observacao(),
                 const SizedBox(
                   height: 16,
                 ),
                 Observacao(),
-              
               ],
             ),
           ),
@@ -152,9 +232,7 @@ class Observacao extends StatelessWidget {
         const Text(
           'Observação N° 1',
           style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 16),
+              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
         ),
         const SizedBox(
           height: 8,
@@ -183,9 +261,7 @@ class Observacao extends StatelessWidget {
                     fixedSize: const Size(64, 64),
                     backgroundColor: Colors.orange.shade300,
                   ),
-                  onPressed: () async {
-                    // Adicione ação quando o botão for pressionado
-                  },
+                  onPressed: () async {},
                   child: const Align(
                     alignment: Alignment.center,
                     child: Icon(
@@ -202,9 +278,7 @@ class Observacao extends StatelessWidget {
                     fixedSize: const Size(64, 64),
                     backgroundColor: Colors.red.shade500,
                   ),
-                  onPressed: () async {
-                    // Adicione ação quando o botão for pressionado
-                  },
+                  onPressed: () async {},
                   child: const Align(
                     alignment: Alignment.center,
                     child: Icon(

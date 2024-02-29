@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/model/image_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:arte_persa/src/core/helpers/json_converter.dart';
@@ -15,7 +16,7 @@ class OrdemDeServicoModel {
     this.tipoIdetem,
     this.comprimento,
     this.largura,
-    this.pathFotoProduto,
+    this.fotoProduto,
     this.total,
     this.desconto,
     this.adiantamento,
@@ -50,8 +51,8 @@ class OrdemDeServicoModel {
   @StringToDoubleConverter()
   double? largura;
 
-  @JsonKey(name: 'path_foto_produto')
-  String? pathFotoProduto;
+  @JsonKey(name: 'foto_produto')
+  ImageModel? fotoProduto;
 
   @StringToDoubleConverter()
   double? total;
@@ -80,4 +81,45 @@ class OrdemDeServicoModel {
   Map<String, dynamic> toJson() => _$OrdemDeServicoModelToJson(this);
   factory OrdemDeServicoModel.fromJson(Map<String, dynamic> json) =>
       _$OrdemDeServicoModelFromJson(json);
+
+  OrdemDeServicoModel copyWith({
+    String? id,
+    List<String>? servicosIds,
+    List<String>? observacoesIds,
+    String? clienteId,
+    int? numeroPedido,
+    String? tipoIdetem,
+    double? comprimento,
+    double? largura,
+    ImageModel? fotoProduto,
+    double? total,
+    double? desconto,
+    double? adiantamento,
+    String? formaPagamento,
+    String? pathAssinaturaCliente,
+    String? pathFotoAltorizacaoCliente,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) =>
+      OrdemDeServicoModel(
+        id: id ?? this.id,
+        servicosIds: servicosIds ?? this.servicosIds,
+        observacoesIds: observacoesIds ?? this.observacoesIds,
+        clienteId: clienteId ?? this.clienteId,
+        numeroPedido: numeroPedido ?? this.numeroPedido,
+        tipoIdetem: tipoIdetem ?? this.tipoIdetem,
+        comprimento: comprimento ?? this.comprimento,
+        largura: largura ?? this.largura,
+        fotoProduto: fotoProduto ?? this.fotoProduto,
+        total: total ?? this.total,
+        desconto: desconto ?? this.desconto,
+        adiantamento: adiantamento ?? this.adiantamento,
+        formaPagamento: formaPagamento ?? this.formaPagamento,
+        pathAssinaturaCliente:
+            pathAssinaturaCliente ?? this.pathAssinaturaCliente,
+        pathFotoAltorizacaoCliente:
+            pathFotoAltorizacaoCliente ?? this.pathFotoAltorizacaoCliente,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
 }

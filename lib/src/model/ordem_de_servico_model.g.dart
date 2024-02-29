@@ -23,7 +23,9 @@ OrdemDeServicoModel _$OrdemDeServicoModelFromJson(Map<String, dynamic> json) =>
           .fromJson(json['comprimento'] as String?),
       largura:
           const StringToDoubleConverter().fromJson(json['largura'] as String?),
-      pathFotoProduto: json['path_foto_produto'] as String?,
+      fotoProduto: json['foto_produto'] == null
+          ? null
+          : ImageModel.fromJson(json['foto_produto'] as Map<String, dynamic>),
       total: const StringToDoubleConverter().fromJson(json['total'] as String?),
       desconto:
           const StringToDoubleConverter().fromJson(json['desconto'] as String?),
@@ -54,7 +56,7 @@ Map<String, dynamic> _$OrdemDeServicoModelToJson(
       'comprimento':
           const StringToDoubleConverter().toJson(instance.comprimento),
       'largura': const StringToDoubleConverter().toJson(instance.largura),
-      'path_foto_produto': instance.pathFotoProduto,
+      'foto_produto': instance.fotoProduto,
       'total': const StringToDoubleConverter().toJson(instance.total),
       'desconto': const StringToDoubleConverter().toJson(instance.desconto),
       'adiantamento':
