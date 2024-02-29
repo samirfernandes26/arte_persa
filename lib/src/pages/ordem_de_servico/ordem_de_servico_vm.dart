@@ -5,10 +5,12 @@ import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/core/providers/application_providers.dart';
 import 'package:arte_persa/src/model/image_model.dart';
 import 'package:arte_persa/src/model/ordem_de_servico_model.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_observacao_page.dart';
 import 'package:asyncstate/asyncstate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:arte_persa/src/model/cliente_model.dart';
@@ -21,7 +23,7 @@ part 'ordem_de_servico_vm.g.dart';
 class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   @override
   OrdemDeServicoState build() => OrdemDeServicoState.initial();
-
+  // TODO: remover
   Future<void> teste(ServicoModel? servico, bool checkbox) async {
     const double largura = 2.69;
     const double comprimento = 6.9;
@@ -43,6 +45,24 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     state = state.copyWith(
       servicos: servicos,
     );
+  }
+
+  int geradorDeNumeroDePedido() {
+    // Obter a data e hora atual
+    DateTime now = DateTime.now();
+
+    // Formatar a data e hora
+    String formattedDateTime = DateFormat('yy-MM-dd HH:mm:ss').format(now);
+
+    // Remover os caracteres especiais da data e hora formatada
+    String cleanFormattedDateTime =
+        formattedDateTime.replaceAll(RegExp(r'[-: ]'), '');
+
+    // Converter para um número inteiro
+    int concatenatedDateTime = int.parse(cleanFormattedDateTime);
+
+    // Saída
+    return concatenatedDateTime;
   }
 
   Future<void> loadDataServicos() async {
@@ -139,13 +159,16 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     if (resImage != null) {
       ImageModel imagem = ImageModel(
         pathLocal: resImage.path,
-        fileName: fileName,
-        pathService: "ordemDeServico/$numeroDaNota/$tipoFoto"
+        fileName: "$fileName${geradorDeNumeroDePedido()}",
+        pathService: "ordemDeServico/$numeroDaNota/$tipoFoto",
       );
 
-      state = state.copyWith(
-        imagemProduto: imagem
-      );
+      if(tipoFoto == 'Producao'){
+        state = state.copyWith(imagemProduto: imagem);
+      }else{
+        // state = state.copyWith(imagemProduto: imagem);
+      }
+
     }
   }
 

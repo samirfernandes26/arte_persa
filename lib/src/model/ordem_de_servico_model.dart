@@ -1,4 +1,5 @@
 import 'package:arte_persa/src/model/image_model.dart';
+import 'package:arte_persa/src/model/observacao_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:arte_persa/src/core/helpers/json_converter.dart';
@@ -10,7 +11,7 @@ class OrdemDeServicoModel {
   OrdemDeServicoModel({
     this.id,
     this.servicosIds,
-    this.observacoesIds,
+    this.observacoes,
     this.clienteId,
     this.numeroPedido,
     this.tipoIdetem,
@@ -32,8 +33,8 @@ class OrdemDeServicoModel {
   @JsonKey(name: 'servicos_ids')
   List<String>? servicosIds;
 
-  @JsonKey(name: 'observacoes_ids')
-  List<String>? observacoesIds;
+  @JsonKey(name: 'observacoes')
+  List<ObservacaoModel>? observacoes;
 
   @JsonKey(name: 'cliente_id')
   String? clienteId;
@@ -85,7 +86,7 @@ class OrdemDeServicoModel {
   OrdemDeServicoModel copyWith({
     String? id,
     List<String>? servicosIds,
-    List<String>? observacoesIds,
+    List<ObservacaoModel>? observacoes,
     String? clienteId,
     int? numeroPedido,
     String? tipoIdetem,
@@ -104,7 +105,7 @@ class OrdemDeServicoModel {
       OrdemDeServicoModel(
         id: id ?? this.id,
         servicosIds: servicosIds ?? this.servicosIds,
-        observacoesIds: observacoesIds ?? this.observacoesIds,
+        observacoes: observacoes ?? this.observacoes,
         clienteId: clienteId ?? this.clienteId,
         numeroPedido: numeroPedido ?? this.numeroPedido,
         tipoIdetem: tipoIdetem ?? this.tipoIdetem,

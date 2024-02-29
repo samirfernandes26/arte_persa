@@ -10,14 +10,14 @@ ObservacaoModel _$ObservacaoModelFromJson(Map<String, dynamic> json) =>
     ObservacaoModel(
       id: json['id'] as String?,
       observacao: json['observacao'] as String?,
-      pathFotoUm: json['path_foto_um'] as String?,
-      pathFotoDois: json['path_foto_dois'] as String?,
+      image: json['image'] == null
+          ? null
+          : ImageModel.fromJson(json['image'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ObservacaoModelToJson(ObservacaoModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'observacao': instance.observacao,
-      'path_foto_um': instance.pathFotoUm,
-      'path_foto_dois': instance.pathFotoDois,
+      'image': instance.image,
     };

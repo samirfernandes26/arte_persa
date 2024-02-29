@@ -31,6 +31,7 @@ class OrdemDeServicoState {
     this.paginaquatro,
     this.ordemdeServico,
     this.imagemProduto,
+    this.observacao
   });
 
   OrdemDeServicoStateStatus status;
@@ -44,6 +45,7 @@ class OrdemDeServicoState {
 
   OrdemDeServicoModel? ordemdeServico;
   ImageModel? imagemProduto;
+  ObservacaoModel? observacao;
 
   String? message;
   bool? loading;
@@ -53,6 +55,8 @@ class OrdemDeServicoState {
     List<ServicoModel>? servicos,
     List<ClienteModel>? clientes,
     List<ObservacaoModel>? observacoes,
+    ObservacaoModel? observacao,
+    ImageModel? imagemProduto,
     String? message,
     bool? loading,
     Map<String, dynamic>? paginaUm,
@@ -60,7 +64,6 @@ class OrdemDeServicoState {
     Map<String, dynamic>? paginatres,
     Map<String, dynamic>? paginaquatro,
     OrdemDeServicoModel? ordemdeServico,
-    ImageModel? imagemProduto,
   }) =>
       OrdemDeServicoState(
         status: status ?? this.status,

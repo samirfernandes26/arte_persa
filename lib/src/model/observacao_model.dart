@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/model/image_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'observacao_model.g.dart';
@@ -7,18 +8,13 @@ class ObservacaoModel {
   ObservacaoModel({
     this.id,
     this.observacao,
-    this.pathFotoUm,
-    this.pathFotoDois,
+    this.image,
   });
 
   String? id;
   String? observacao;
 
-  @JsonKey(name: 'path_foto_um')
-  String? pathFotoUm;
-
-  @JsonKey(name: 'path_foto_dois')
-  String? pathFotoDois;
+  ImageModel? image;
 
   Map<String, dynamic> toJson() => _$ObservacaoModelToJson(this);
   factory ObservacaoModel.fromJson(Map<String, dynamic> json) =>

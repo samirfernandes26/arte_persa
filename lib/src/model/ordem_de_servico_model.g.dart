@@ -12,8 +12,8 @@ OrdemDeServicoModel _$OrdemDeServicoModelFromJson(Map<String, dynamic> json) =>
       servicosIds: (json['servicos_ids'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      observacoesIds: (json['observacoes_ids'] as List<dynamic>?)
-          ?.map((e) => e as String)
+      observacoes: (json['observacoes'] as List<dynamic>?)
+          ?.map((e) => ObservacaoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       clienteId: json['cliente_id'] as String?,
       numeroPedido: _$JsonConverterFromJson<String, int>(
@@ -48,7 +48,7 @@ Map<String, dynamic> _$OrdemDeServicoModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'servicos_ids': instance.servicosIds,
-      'observacoes_ids': instance.observacoesIds,
+      'observacoes': instance.observacoes,
       'cliente_id': instance.clienteId,
       'numero_pedido': _$JsonConverterToJson<String, int>(
           instance.numeroPedido, const StringToIntConverter().toJson),

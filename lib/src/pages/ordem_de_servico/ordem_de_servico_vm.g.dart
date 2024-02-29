@@ -6,7 +6,7 @@ part of 'ordem_de_servico_vm.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$ordemDeServicoVmHash() => r'94de5b4e0a1f54b51e1beb2006741fc165172438';
+String _$ordemDeServicoVmHash() => r'0a1c6d7287fd7c5e7b080207b8a1fe1e2656266f';
 
 /// See also [OrdemDeServicoVm].
 @ProviderFor(OrdemDeServicoVm)

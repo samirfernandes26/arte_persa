@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/model/observacao_model.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +23,10 @@ class _OrdemDeServicoObservacaoState
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:getImageDeviceOrCam) =
-        ref.read(ordemDeServicoVmProvider.notifier);
+    final OrdemDeServicoVm(
+      :getImageDeviceOrCam,
+      :geradorDeNumeroDePedido,
+    ) = ref.read(ordemDeServicoVmProvider.notifier);
     final notaVm = ref.watch(ordemDeServicoVmProvider);
 
     return Scaffold(
@@ -44,7 +48,6 @@ class _OrdemDeServicoObservacaoState
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(60),
@@ -112,10 +115,11 @@ class _OrdemDeServicoObservacaoState
                                   ),
                                   onTap: () async {
                                     await getImageDeviceOrCam(
-                                        numeroDaNota: '202402291026',
-                                        tipoFoto: 'produto',
-                                        source: 'Camera',
-                                        fileName: 'foto_produto_');
+                                      numeroDaNota: '202402291026',
+                                      tipoFoto: 'Producao',
+                                      source: 'Camera',
+                                      fileName: 'foto_produto_',
+                                    );
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -130,10 +134,11 @@ class _OrdemDeServicoObservacaoState
                                   ),
                                   onTap: () async {
                                     await getImageDeviceOrCam(
-                                        numeroDaNota: '202402291026',
-                                        tipoFoto: 'produto',
-                                        source: 'Galeria',
-                                        fileName: 'foto_produto_');
+                                      numeroDaNota: '202402291026',
+                                      tipoFoto: 'Producao',
+                                      source: 'Galeria',
+                                      fileName: 'foto_produto_',
+                                    );
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -148,7 +153,8 @@ class _OrdemDeServicoObservacaoState
                 const SizedBox(
                   height: 16,
                 ),
-                if (notaVm.ordemdeServico?.fotoProduto?.pathLocal != null)
+                if (notaVm.imagemProduto != null &&
+                    notaVm.ordemdeServico?.fotoProduto?.pathLocal != null)
                   Row(
                     children: [
                       Image.network(
@@ -160,7 +166,9 @@ class _OrdemDeServicoObservacaoState
                     ],
                   ),
                 if (notaVm.imagemProduto != null &&
-                    notaVm.imagemProduto!.pathLocal != null)
+                    notaVm.imagemProduto?.pathLocal != null &&
+                    notaVm.ordemdeServico?.fotoProduto?.pathDownloadImage ==
+                        null)
                   Row(
                     children: [
                       Image.file(
@@ -176,12 +184,10 @@ class _OrdemDeServicoObservacaoState
                 const SizedBox(
                   height: 16,
                 ),
-                
-                Observacao(),
-                const SizedBox(
-                  height: 16,
+                Observacao(
+                  getImageDeviceOrCam: getImageDeviceOrCam,
+                  observacao: notaVm.ordemdeServico!.observacoes![0],
                 ),
-                Observacao(),
               ],
             ),
           ),
@@ -223,7 +229,18 @@ class _OrdemDeServicoObservacaoState
 class Observacao extends StatelessWidget {
   const Observacao({
     super.key,
+    required this.getImageDeviceOrCam,
+    required this.observacao,
   });
+
+  final Function({
+    required String numeroDaNota,
+    required String tipoFoto,
+    required String source,
+    required String fileName,
+  }) getImageDeviceOrCam;
+
+  final ObservacaoModel observacao;
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +278,80 @@ class Observacao extends StatelessWidget {
                     fixedSize: const Size(64, 64),
                     backgroundColor: Colors.orange.shade300,
                   ),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text(
+                            'Escolher Fonte',
+                          ),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: [
+                                GestureDetector(
+                                  child: const Text(
+                                    'Câmera',
+                                  ),
+                                  onTap: () async {
+                                    await getImageDeviceOrCam(
+                                      numeroDaNota: '202402291026',
+                                      tipoFoto: 'Observacao',
+                                      source: 'Camera',
+                                      fileName: 'foto_observao_',
+                                    );
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.all(
+                                    8.0,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  child: const Text(
+                                    'Galeria',
+                                  ),
+                                  onTap: () async {
+                                    await getImageDeviceOrCam(
+                                      numeroDaNota: '202402291026',
+                                      tipoFoto: 'Observacao',
+                                      source: 'Galeria',
+                                      fileName: 'foto_observao_',
+                                    );
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                Row(
+                                  children: [
+                                    if (observacao.image != null &&
+                                        observacao.image?.pathDownloadImage !=
+                                            null)
+                                      Image.network(
+                                        observacao.image!.pathDownloadImage!,
+                                        width: 124,
+                                        height: 124,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    if (observacao.image != null &&
+                                        observacao.image?.pathLocal != null &&
+                                        observacao.image?.pathDownloadImage ==
+                                            null)
+                                      Image.network(
+                                        observacao.image!.pathLocal!,
+                                        width: 124,
+                                        height: 124,
+                                        fit: BoxFit.cover,
+                                      ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                   child: const Align(
                     alignment: Alignment.center,
                     child: Icon(
