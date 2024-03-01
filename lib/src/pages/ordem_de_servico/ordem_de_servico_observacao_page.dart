@@ -23,9 +23,7 @@ class _OrdemDeServicoObservacaoState
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(
-      :getImageDeviceOrCam,
-    ) = ref.read(ordemDeServicoVmProvider.notifier);
+    // final OrdemDeServicoVm( ) = ref.read(ordemDeServicoVmProvider.notifier);
 
     final notaVm = ref.watch(ordemDeServicoVmProvider);
 

@@ -47,6 +47,10 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     );
   }
 
+  cadastroDeItem(Map<String, dynamic> data){
+    final batata = '';
+  }
+  
   int geradorDeNumeroDePedido() {
     // Obter a data e hora atual
     DateTime now = DateTime.now();
@@ -105,120 +109,120 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     );
   }
 
-  updateStatePagers(int page, Map<String, dynamic> data) {
-    switch (page) {
-      case 1:
-        state = state.copyWith(
-          paginaUm: data,
-        );
-        break;
-      case 2:
-        state = state.copyWith(
-          paginaDois: data,
-        );
-        break;
-      case 3:
-        state = state.copyWith(
-          paginatres: data,
-        );
-        break;
-      case 4:
-        state = state.copyWith(
-          paginaquatro: data,
-        );
-        break;
-    }
-  }
+  // updateStatePagers(int page, Map<String, dynamic> data) {
+  //   switch (page) {
+  //     case 1:
+  //       state = state.copyWith(
+  //         paginaUm: data,
+  //       );
+  //       break;
+  //     case 2:
+  //       state = state.copyWith(
+  //         paginaDois: data,
+  //       );
+  //       break;
+  //     case 3:
+  //       state = state.copyWith(
+  //         paginatres: data,
+  //       );
+  //       break;
+  //     case 4:
+  //       state = state.copyWith(
+  //         paginaquatro: data,
+  //       );
+  //       break;
+  //   }
+  // }
 
-  Future<void> getImageDeviceOrCam({
-    required String numeroDaNota,
-    required String tipoFoto,
-    required String source,
-    required String fileName,
-  }) async {
-    ImagePicker imagePicker = ImagePicker();
-    late XFile? resImage;
-    if (source == 'Camera') {
-      resImage = await imagePicker.pickImage(
-        source: ImageSource.camera,
-        maxWidth: 2000,
-        maxHeight: 2000,
-        imageQuality: 90,
-      );
-    }
+  // Future<void> getImageDeviceOrCam({
+  //   required String numeroDaNota,
+  //   required String tipoFoto,
+  //   required String source,
+  //   required String fileName,
+  // }) async {
+  //   ImagePicker imagePicker = ImagePicker();
+  //   late XFile? resImage;
+  //   if (source == 'Camera') {
+  //     resImage = await imagePicker.pickImage(
+  //       source: ImageSource.camera,
+  //       maxWidth: 2000,
+  //       maxHeight: 2000,
+  //       imageQuality: 90,
+  //     );
+  //   }
 
-    if (source == 'Galeria') {
-      resImage = await imagePicker.pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 2000,
-        maxHeight: 2000,
-        imageQuality: 90,
-      );
-    }
+  //   if (source == 'Galeria') {
+  //     resImage = await imagePicker.pickImage(
+  //       source: ImageSource.gallery,
+  //       maxWidth: 2000,
+  //       maxHeight: 2000,
+  //       imageQuality: 90,
+  //     );
+  //   }
 
-    if (resImage != null) {
-      ImageModel imagem = ImageModel(
-        pathLocal: resImage.path,
-        fileName: "$fileName${geradorDeNumeroDePedido()}",
-        pathService: "ordemDeServico/$numeroDaNota/$tipoFoto",
-      );
+  //   if (resImage != null) {
+  //     ImageModel imagem = ImageModel(
+  //       pathLocal: resImage.path,
+  //       fileName: "$fileName${geradorDeNumeroDePedido()}",
+  //       pathService: "ordemDeServico/$numeroDaNota/$tipoFoto",
+  //     );
 
-      if(tipoFoto == 'Producao'){
-        state = state.copyWith(imagemProduto: imagem);
-      }else{
-        // state = state.copyWith(imagemProduto: imagem);
-      }
+  //     if(tipoFoto == 'Producao'){
+  //       state = state.copyWith(imagemProduto: imagem);
+  //     }else{
+  //       // state = state.copyWith(imagemProduto: imagem);
+  //     }
 
-    }
-  }
+  //   }
+  // }
 
-  Future<Map<String, dynamic>?> uploadImageservice(
-      {required String numeroDaNota, required String tipoFoto}) async {
-    late Either<ServiceException, ImageModel> response;
+  // Future<Map<String, dynamic>?> uploadImageservice(
+  //     {required String numeroDaNota, required String tipoFoto}) async {
+  //   late Either<ServiceException, ImageModel> response;
 
-    ImagePicker imagePicker = ImagePicker();
-    XFile? image = await imagePicker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 2000,
-      maxHeight: 2000,
-      imageQuality: 90,
-    );
+  //   ImagePicker imagePicker = ImagePicker();
+  //   XFile? image = await imagePicker.pickImage(
+  //     source: ImageSource.gallery,
+  //     maxWidth: 2000,
+  //     maxHeight: 2000,
+  //     imageQuality: 90,
+  //   );
 
-    if (image != null) {
-      response = await ref.read(firebaseStorageServiceProvider).upload(
-            file: File(image.path),
-            fileName: 'teste_photo',
-            pathService: "ordemDeServico/$numeroDaNota/$tipoFoto",
-          );
-    }
+  //   if (image != null) {
+  //     response = await ref.read(firebaseStorageServiceProvider).upload(
+  //           file: File(image.path),
+  //           fileName: 'teste_photo',
+  //           pathService: "ordemDeServico/$numeroDaNota/$tipoFoto",
+  //         );
+  //   }
 
-    switch (response) {
-      case Success(value: final restImage):
-        state = state.copyWith(
-          status: OrdemDeServicoStateStatus.success,
-          message: 'Cliente cadastrado com sucesso',
-        );
+  //   switch (response) {
+  //     case Success(value: final restImage):
+  //       state = state.copyWith(
+  //         status: OrdemDeServicoStateStatus.success,
+  //         message: 'Cliente cadastrado com sucesso',
+  //       );
         
-        return state.ordemdeServico!.toJson();
-      // loaderHandler.close();
+  //       return state.ordemdeServico!.toJson();
+  //     // loaderHandler.close();
 
-      case Failure(exception: ServiceException(:final message)):
-        state = state.copyWith(
-          status: OrdemDeServicoStateStatus.error,
-          message: message,
-        );
-      // loaderHandler.close();
-    }
-  }
+  //     case Failure(exception: ServiceException(:final message)):
+  //       state = state.copyWith(
+  //         status: OrdemDeServicoStateStatus.error,
+  //         message: message,
+  //       );
+  //     // loaderHandler.close();
+  //   }
+  // }
 
-  Future<ImageModel> reloadImage(ImageModel data) async {
-    String pathDownloadImage =
-        await ref.read(firebaseStorageServiceProvider).getDownLoadUrlByFileName(
-              pathService: data.pathService!,
-              fileName: data.fileName!,
-            );
+  // Future<ImageModel> reloadImage(ImageModel data) async {
+  //   String pathDownloadImage =
+  //       await ref.read(firebaseStorageServiceProvider).getDownLoadUrlByFileName(
+  //             pathService: data.pathService!,
+  //             fileName: data.fileName!,
+  //           );
 
-    ImageModel image = data.copyWith(pathDownloadImage: pathDownloadImage);
-    return image;
-  }
+  //   ImageModel image = data.copyWith(pathDownloadImage: pathDownloadImage);
+  //   return image;
+  // }
 }

@@ -24,7 +24,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:loadDataClientes, :updateStatePagers) =
+    final OrdemDeServicoVm(:loadDataClientes) =
         ref.read(ordemDeServicoVmProvider.notifier);
     final ordemDeServicoVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -217,16 +217,16 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
                 onPressed: () async {
-                  switch (formKey.currentState?.validate()) {
-                    case (false || null):
-                      Messages.showErrors(
-                          'Preencha o formulário corretamente', context);
-                    case true:
-                      const int numeroPage = 1;
-                      await updateStatePagers(numeroPage,formKey.currentState!.value);
-                      Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.ordemDeServicoObservacao);
-                  }
+                  // switch (formKey.currentState?.validate()) {
+                  //   case (false || null):
+                  //     Messages.showErrors(
+                  //         'Preencha o formulário corretamente', context);
+                  //   case true:
+                  //     const int numeroPage = 1;
+                  //     await updateStatePagers(numeroPage,formKey.currentState!.value);
+                  //     Navigator.of(context).pushNamed(
+                  //         RouteGeneratorKeys.ordemDeServicoObservacao);
+                  // }
                 },
                 child: const Text('Proximo'),
               ),

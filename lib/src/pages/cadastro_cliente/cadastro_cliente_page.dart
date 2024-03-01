@@ -54,12 +54,12 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
               children: [
                 FormBuilderRadioGroup(
                   name: 'tipo_cliente',
-                  initialValue: clienteVm.clienteForm?.tipoCliente ?? 1,
+                  // initialValue: clienteVm.clienteForm?.tipoCliente ?? 1,
                   decoration: const InputDecoration(
                     labelText: 'Selecione o tipo de cliente*',
                   ),
                   onChanged: (value) {
-                    updateStatePessoaFisicaJuridica(value);
+                    // updateStatePessoaFisicaJuridica(value);
                   },
                   options: const [
                     FormBuilderFieldOption(
@@ -382,11 +382,10 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
                 onPressed: () async {
-                  switch (formKey.currentState?.validate()) {
+                  switch (formKey.currentState?.saveAndValidate()) {
                     case (false || null):
-                      Messages.showErrors(
-                          'Preencha o formulário corretamente', context);
-                    case true:
+                      break;
+                    case (true):
                       await updateStateCliente(formKey.currentState!.value);
                       Navigator.of(context).pushNamed(
                           RouteGeneratorKeys.cadastroClienteEndereco);
