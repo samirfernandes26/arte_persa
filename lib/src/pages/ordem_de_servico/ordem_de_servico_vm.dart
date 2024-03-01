@@ -1,4 +1,3 @@
-
 import 'package:arte_persa/src/core/exceptions/service_exception.dart';
 import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/core/providers/application_providers.dart';
@@ -55,27 +54,6 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     );
   }
 
-  addObservacao() {
-    final itemFormUpdate = state.itemForm;
-    final observacoes = itemFormUpdate?.observacoes ?? state.observacoesForm;
-
-    observacoes?.add(
-      ObservacaoForm(
-        observacao: null,
-        image: null,
-      ),
-    );
-
-    state = state.copyWith(
-      itemForm: itemFormUpdate?.copyWith(
-        observacoes: observacoes,
-      ),
-    );
-
-    final teste = state.itemForm;
-    final aa = '';
-  }
-
   Future<void> selectImageProdo({
     required String tipoFoto,
     required String source,
@@ -109,6 +87,69 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
       state = state.copyWith(image: imagem);
     }
+  }
+
+  addObservacao() {
+    final itemFormUpdate = state.itemForm;
+    final observacoes = itemFormUpdate?.observacoes ?? state.observacoesForm;
+
+    observacoes?.add(
+      ObservacaoForm(
+        observacao: null,
+        image: null,
+      ),
+    );
+
+    state = state.copyWith(
+      itemForm: itemFormUpdate?.copyWith(
+        observacoes: observacoes,
+      ),
+    );
+  }
+
+  removerObservacao({required int index}) {
+    final itemForm = state.itemForm;
+    final obsevacoes = itemForm?.observacoes;
+
+    if (obsevacoes != null) {
+      obsevacoes.remove(obsevacoes[index]);
+
+      state = state.copyWith(
+        itemForm: itemForm?.copyWith(
+          observacoes: obsevacoes,
+        ),
+      );
+    }
+  }
+
+  Future<void> addFotoObservacao({
+    required String tipoFoto,
+    required String source,
+    required String fileName,
+    required int index,
+  }) async {
+    await selectImageProdo(tipoFoto: tipoFoto, source: source, fileName: source);
+
+    final image = state.image;
+
+    if(image != null) {
+      final itemForm = state.itemForm;
+      final observacoes = itemForm?.observacoes;
+      final observacao = observacoes?[index];
+
+      observacao!.copyWith(image: image,);
+      observacoes?[index] = observacao;
+
+      state = state.copyWith(
+        itemForm: itemForm?.copyWith(
+          observacoes: observacoes,
+        ),
+      );
+    }
+  }
+
+  cadastroObservacoes(Map<String, dynamic> dataItem){
+    final batata='';
   }
 
   int geradorDeNumeroDePedido() {

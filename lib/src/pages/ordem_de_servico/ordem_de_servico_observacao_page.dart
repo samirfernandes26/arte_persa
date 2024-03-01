@@ -1,4 +1,3 @@
-
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
@@ -21,8 +20,12 @@ class _OrdemDeServicoObservacaoState
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:selectImageProdo, :addObservacao) =
-        ref.read(ordemDeServicoVmProvider.notifier);
+    final OrdemDeServicoVm(
+      :addFotoObservacao,
+      :addObservacao,
+      :removerObservacao,
+      :cadastroObservacoes,
+    ) = ref.read(ordemDeServicoVmProvider.notifier);
 
     final notaVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -81,9 +84,10 @@ class _OrdemDeServicoObservacaoState
                   itemBuilder: (context, index) {
                     final observacao = notaVm.itemForm?.observacoes![index];
                     return Observacao(
-                      // observacaoIndex: index,
+                      observacaoIndex: index,
                       observacao: observacao,
-                      selectImageProdo: selectImageProdo,
+                      removerObservacao: removerObservacao,
+                      addFotoObservacao: addFotoObservacao,
                     );
                   },
                 ),
@@ -114,7 +118,16 @@ class _OrdemDeServicoObservacaoState
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {}, //loginUser,
+                onPressed: () async {
+                  switch (formKey.currentState?.saveAndValidate()) {
+                    case (false || null):
+                      break;
+                    case (true):
+                      await cadastroObservacoes(formKey.currentState!.value);
+                      Navigator.of(context).pushNamed(
+                          RouteGeneratorKeys.ordemDeServicoObservacao);
+                  }
+                }, //loginUser,
                 child: const Text('Proximo'),
               ),
             ),
@@ -128,19 +141,25 @@ class _OrdemDeServicoObservacaoState
 class Observacao extends StatelessWidget {
   const Observacao({
     super.key,
-    required this.selectImageProdo,
+    required this.addFotoObservacao,
     required this.observacao,
-    // required this.observacaoIndex,
+    required this.observacaoIndex,
+    required this.removerObservacao,
   });
 
   final Function({
     required String tipoFoto,
     required String source,
     required String fileName,
-  }) selectImageProdo;
+    required int index,
+  }) addFotoObservacao;
+
+  final Function({
+    required int index,
+  }) removerObservacao;
 
   final ObservacaoForm? observacao;
-  // final int observacaoIndex;
+  final int observacaoIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +180,7 @@ class Observacao extends StatelessWidget {
           children: [
             Expanded(
               child: FormBuilderTextField(
-                name: 'observacao',
+                name: 'observacao[$observacaoIndex]',
                 onTapOutside: (_) => context.unfocus(),
                 decoration: const InputDecoration(
                   labelText: 'Escreva aqui sua observação*',
@@ -197,10 +216,11 @@ class Observacao extends StatelessWidget {
                                     'Câmera',
                                   ),
                                   onTap: () async {
-                                    await selectImageProdo(
+                                    await addFotoObservacao(
                                       tipoFoto: 'Observacao',
                                       source: 'Camera',
                                       fileName: 'foto_observacao_',
+                                      index: observacaoIndex,
                                     );
                                     Navigator.of(context).pop();
                                   },
@@ -215,10 +235,11 @@ class Observacao extends StatelessWidget {
                                     'Galeria',
                                   ),
                                   onTap: () async {
-                                    await selectImageProdo(
+                                    await addFotoObservacao(
                                       tipoFoto: 'Observacao',
                                       source: 'Galeria',
                                       fileName: 'foto_observao_',
+                                      index: observacaoIndex,
                                     );
                                     Navigator.of(context).pop();
                                   },
@@ -269,7 +290,9 @@ class Observacao extends StatelessWidget {
                     fixedSize: const Size(64, 64),
                     backgroundColor: Colors.red.shade500,
                   ),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    removerObservacao(index: observacaoIndex);
+                  },
                   child: const Align(
                     alignment: Alignment.center,
                     child: Icon(
