@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:arte_persa/src/core/exceptions/service_exception.dart';
 import 'package:arte_persa/src/core/fp/either.dart';
@@ -48,15 +47,33 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   }
 
   cadastroDeItem(Map<String, dynamic> dataItem) {
-    ItemForm itemForm = ItemForm.fromJson(dataItem);
-    ImageModel? image = state.image ?? null;
+    final itemForm = ItemForm.fromJson(dataItem);
 
     state = state.copyWith(
-      itemForm: itemForm.copyWith(
-        fotoProduto: image,
-      ),
+      itemForm: itemForm.copyWith(fotoProduto: state.image),
       image: null,
     );
+  }
+
+  addObservacao() {
+    final itemFormUpdate = state.itemForm;
+    final observacoes = itemFormUpdate?.observacoes ?? state.observacoesForm;
+
+    observacoes?.add(
+      ObservacaoForm(
+        observacao: null,
+        image: null,
+      ),
+    );
+
+    state = state.copyWith(
+      itemForm: itemFormUpdate?.copyWith(
+        observacoes: observacoes,
+      ),
+    );
+
+    final teste = state.itemForm;
+    final aa = '';
   }
 
   Future<void> selectImageProdo({

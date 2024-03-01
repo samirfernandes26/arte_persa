@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:arte_persa/src/core/extension/context_extension.dart';
-import 'package:arte_persa/src/model/observacao_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
@@ -23,7 +21,8 @@ class _OrdemDeServicoObservacaoState
 
   @override
   Widget build(BuildContext context) {
-    // final OrdemDeServicoVm( ) = ref.read(ordemDeServicoVmProvider.notifier);
+    final OrdemDeServicoVm(:selectImageProdo, :addObservacao) =
+        ref.read(ordemDeServicoVmProvider.notifier);
 
     final notaVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -51,7 +50,9 @@ class _OrdemDeServicoObservacaoState
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: Colors.orange.shade300,
                   ),
-                  onPressed: () async {},
+                  onPressed: () {
+                    addObservacao();
+                  },
                   child: const Row(
                     children: [
                       Expanded(
@@ -73,6 +74,18 @@ class _OrdemDeServicoObservacaoState
                 ),
                 const SizedBox(
                   height: 16,
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: notaVm.itemForm?.observacoes?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    final observacao = notaVm.itemForm?.observacoes![index];
+                    return Observacao(
+                      // observacaoIndex: index,
+                      observacao: observacao,
+                      selectImageProdo: selectImageProdo,
+                    );
+                  },
                 ),
               ],
             ),
@@ -115,27 +128,31 @@ class _OrdemDeServicoObservacaoState
 class Observacao extends StatelessWidget {
   const Observacao({
     super.key,
-    required this.getImageDeviceOrCam,
+    required this.selectImageProdo,
     required this.observacao,
+    // required this.observacaoIndex,
   });
 
   final Function({
-    required String numeroDaNota,
     required String tipoFoto,
     required String source,
     required String fileName,
-  }) getImageDeviceOrCam;
+  }) selectImageProdo;
 
-  final ObservacaoModel observacao;
+  final ObservacaoForm? observacao;
+  // final int observacaoIndex;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const Text(
-          'Observação N° 1',
+          "Observação N° ",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+          ),
         ),
         const SizedBox(
           height: 8,
@@ -180,11 +197,10 @@ class Observacao extends StatelessWidget {
                                     'Câmera',
                                   ),
                                   onTap: () async {
-                                    await getImageDeviceOrCam(
-                                      numeroDaNota: '202402291026',
+                                    await selectImageProdo(
                                       tipoFoto: 'Observacao',
                                       source: 'Camera',
-                                      fileName: 'foto_observao_',
+                                      fileName: 'foto_observacao_',
                                     );
                                     Navigator.of(context).pop();
                                   },
@@ -199,8 +215,7 @@ class Observacao extends StatelessWidget {
                                     'Galeria',
                                   ),
                                   onTap: () async {
-                                    await getImageDeviceOrCam(
-                                      numeroDaNota: '202402291026',
+                                    await selectImageProdo(
                                       tipoFoto: 'Observacao',
                                       source: 'Galeria',
                                       fileName: 'foto_observao_',
@@ -208,29 +223,29 @@ class Observacao extends StatelessWidget {
                                     Navigator.of(context).pop();
                                   },
                                 ),
-                                Row(
-                                  children: [
-                                    if (observacao.image != null &&
-                                        observacao.image?.pathDownloadImage !=
-                                            null)
-                                      Image.network(
-                                        observacao.image!.pathDownloadImage!,
-                                        width: 124,
-                                        height: 124,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    if (observacao.image != null &&
-                                        observacao.image?.pathLocal != null &&
-                                        observacao.image?.pathDownloadImage ==
-                                            null)
-                                      Image.network(
-                                        observacao.image!.pathLocal!,
-                                        width: 124,
-                                        height: 124,
-                                        fit: BoxFit.cover,
-                                      ),
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //     if (observacao.image != null &&
+                                //         observacao.image?.pathDownloadImage !=
+                                //             null)
+                                //       Image.network(
+                                //         observacao.image!.pathDownloadImage!,
+                                //         width: 124,
+                                //         height: 124,
+                                //         fit: BoxFit.cover,
+                                //       ),
+                                //     if (observacao.image != null &&
+                                //         observacao.image?.pathLocal != null &&
+                                //         observacao.image?.pathDownloadImage ==
+                                //             null)
+                                //       Image.network(
+                                //         observacao.image!.pathLocal!,
+                                //         width: 124,
+                                //         height: 124,
+                                //         fit: BoxFit.cover,
+                                //       ),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),
