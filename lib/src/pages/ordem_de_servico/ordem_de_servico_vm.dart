@@ -47,10 +47,53 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     );
   }
 
-  cadastroDeItem(Map<String, dynamic> data){
-    final batata = '';
+  cadastroDeItem(Map<String, dynamic> dataItem) {
+    ItemForm itemForm = ItemForm.fromJson(dataItem);
+    ImageModel? image = state.image ?? null;
+
+    state = state.copyWith(
+      itemForm: itemForm.copyWith(
+        fotoProduto: image,
+      ),
+      image: null,
+    );
   }
-  
+
+  Future<void> selectImageProdo({
+    required String tipoFoto,
+    required String source,
+    required String fileName,
+  }) async {
+    ImagePicker imagePicker = ImagePicker();
+    late XFile? resImage;
+    if (source == 'Camera') {
+      resImage = await imagePicker.pickImage(
+        source: ImageSource.camera,
+        maxWidth: 2000,
+        maxHeight: 2000,
+        imageQuality: 90,
+      );
+    }
+
+    if (source == 'Galeria') {
+      resImage = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 2000,
+        maxHeight: 2000,
+        imageQuality: 90,
+      );
+    }
+
+    if (resImage != null) {
+      ImageModel imagem = ImageModel(
+        pathLocal: resImage.path,
+        fileName: "$fileName${geradorDeNumeroDePedido()}",
+      );
+
+      state = state.copyWith(image: imagem);
+    }
+  }
+
   int geradorDeNumeroDePedido() {
     // Obter a data e hora atual
     DateTime now = DateTime.now();
@@ -202,7 +245,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   //         status: OrdemDeServicoStateStatus.success,
   //         message: 'Cliente cadastrado com sucesso',
   //       );
-        
+
   //       return state.ordemdeServico!.toJson();
   //     // loaderHandler.close();
 

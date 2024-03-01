@@ -56,7 +56,7 @@ class _OrdemDeServicoObservacaoState
                     children: [
                       Expanded(
                         child: Text(
-                          'Nova bservação',
+                          'Nova observação',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -70,84 +70,6 @@ class _OrdemDeServicoObservacaoState
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: Colors.orange.shade300,
-                  ),
-                  child: const Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Foto do produto',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Icon(
-                        Icons.add_a_photo,
-                        size: 32,
-                      ),
-                    ],
-                  ),
-                  onPressed: () async {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text(
-                            'Escolher Fonte',
-                          ),
-                          content: SingleChildScrollView(
-                            child: ListBody(
-                              children: [
-                                GestureDetector(
-                                  child: const Text(
-                                    'Câmera',
-                                  ),
-                                  onTap: () async {
-                                    // await getImageDeviceOrCam(
-                                    //   numeroDaNota: '202402291026',
-                                    //   tipoFoto: 'Producao',
-                                    //   source: 'Camera',
-                                    //   fileName: 'foto_produto_',
-                                    // );
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.all(
-                                    8.0,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  child: const Text(
-                                    'Galeria',
-                                  ),
-                                  onTap: () async {
-                                    // await getImageDeviceOrCam(
-                                    //   numeroDaNota: '202402291026',
-                                    //   tipoFoto: 'Producao',
-                                    //   source: 'Galeria',
-                                    //   fileName: 'foto_produto_',
-                                    // );
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
                 ),
                 const SizedBox(
                   height: 16,

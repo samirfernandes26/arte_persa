@@ -24,7 +24,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:loadDataClientes) =
+    final OrdemDeServicoVm(:loadDataClientes, :cadastroDeItem, :selectImageProdo) =
         ref.read(ordemDeServicoVmProvider.notifier);
     final ordemDeServicoVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -115,7 +115,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   // validator: Validatorless.required('Tipo de produto e obrigatorio'),
                   options: const [
                     FormBuilderFieldOption(
-                      value: 1,
+                      value:  'Tapete',
                       child: Text(
                         'Tapete',
                         style: TextStyle(
@@ -125,7 +125,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                       ),
                     ),
                     FormBuilderFieldOption(
-                      value: 2,
+                      value: 'Estofado',
                       child: Text(
                         'Estofado',
                         style: TextStyle(
@@ -189,6 +189,82 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(60),
+                    backgroundColor: Colors.orange.shade300,
+                  ),
+                  child: const Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Foto do produto',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        Icons.add_a_photo,
+                        size: 32,
+                      ),
+                    ],
+                  ),
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text(
+                            'Escolher Fonte',
+                          ),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: [
+                                GestureDetector(
+                                  child: const Text(
+                                    'Câmera',
+                                  ),
+                                  onTap: () async {
+                                    await selectImageProdo(
+                                      tipoFoto: 'Producao',
+                                      source: 'Camera',
+                                      fileName: 'foto_produto_',
+                                    );
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.all(
+                                    8.0,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  child: const Text(
+                                    'Galeria',
+                                  ),
+                                  onTap: () async {
+                                    await selectImageProdo(
+                                      tipoFoto: 'Producao',
+                                      source: 'Galeria',
+                                      fileName: 'foto_produto_',
+                                    );
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -204,7 +280,9 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   minimumSize: const Size.fromHeight(60),
                   backgroundColor: Colors.red.shade300,
                 ),
-                onPressed: () async {await loadDataClientes();}, //loginUser,
+                onPressed: () async {
+                  await loadDataClientes();
+                }, //loginUser,
                 child: const Text('Cancelar'),
               ),
             ),
@@ -217,16 +295,14 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
                 onPressed: () async {
-                  // switch (formKey.currentState?.validate()) {
-                  //   case (false || null):
-                  //     Messages.showErrors(
-                  //         'Preencha o formulário corretamente', context);
-                  //   case true:
-                  //     const int numeroPage = 1;
-                  //     await updateStatePagers(numeroPage,formKey.currentState!.value);
-                  //     Navigator.of(context).pushNamed(
-                  //         RouteGeneratorKeys.ordemDeServicoObservacao);
-                  // }
+                  switch (formKey.currentState?.saveAndValidate()) {
+                    case (false || null):
+                      break;
+                    case (true):
+                      await cadastroDeItem(formKey.currentState!.value);
+                      Navigator.of(context).pushNamed(
+                          RouteGeneratorKeys.ordemDeServicoObservacao);
+                  }
                 },
                 child: const Text('Proximo'),
               ),
@@ -237,38 +313,3 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
     );
   }
 }
-
-
-// TODO: Verificar depois 
-// Center(
-//     child: (urlPhoto != null)
-//         ? Image.network(
-//             urlPhoto!,
-//           )
-//         : const CircleAvatar(
-//             radius: 64,
-//             child: Icon(Icons.person),
-//           ),
-//   ),
-//   const Padding(
-//     padding: EdgeInsets.all(16.0),
-//     child: Divider(),
-//   ),
-//   const Text(
-//     'Histórico de Imagens',
-//     style: TextStyle(
-//         color: Colors.white,
-//         fontWeight: FontWeight.bold,
-//         fontSize: 18),
-//   ),
-//   Column(
-//     children: List.generate(
-//       listFiles.length,
-//       (index) {
-//         String url = listFiles[index];
-//         return Image.network(
-//           url,
-//         );
-//       },
-//     ),
-//   ),

@@ -18,6 +18,7 @@ class ItemModel {
     this.total,
   });
 
+
   @JsonKey(name: 'tipo_item')
   String tipoIdetem;
 
