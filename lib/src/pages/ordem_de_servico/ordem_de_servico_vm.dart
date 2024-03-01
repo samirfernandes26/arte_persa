@@ -1,12 +1,6 @@
-import 'package:arte_persa/src/core/exceptions/service_exception.dart';
-import 'package:arte_persa/src/core/fp/either.dart';
-import 'package:arte_persa/src/core/providers/application_providers.dart';
 import 'package:arte_persa/src/model/image_model.dart';
-import 'package:arte_persa/src/model/ordem_de_servico_model.dart';
-import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_observacao_page.dart';
 import 'package:asyncstate/asyncstate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -128,28 +122,48 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     required String fileName,
     required int index,
   }) async {
-    await selectImageProdo(tipoFoto: tipoFoto, source: source, fileName: source);
+    await selectImageProdo(
+        tipoFoto: tipoFoto, source: source, fileName: fileName);
 
     final image = state.image;
 
-    if(image != null) {
+    if (image != null) {
       final itemForm = state.itemForm;
       final observacoes = itemForm?.observacoes;
       final observacao = observacoes?[index];
 
-      observacao!.copyWith(image: image,);
-      observacoes?[index] = observacao;
+      final observacaoForm = observacao!.copyWith(
+        image: image,
+      );
+      observacoes?[index] = observacaoForm;
 
+      state = state.copyWith(
+        itemForm: itemForm?.copyWith(
+          observacoes: observacoes,
+        ),
+        image: null,
+      );
+    }
+  }
+
+  cadastroObservacoes(Map<String, dynamic> dataItem) {
+    final itemForm = state.itemForm;
+    final observacoes = itemForm?.observacoes;
+
+    if (observacoes != null) {
+      for (int index = 0; index < observacoes.length; index++) {
+        final observacaoForm = observacoes[index].copyWith(
+          observacao: dataItem['observacao[$index]'],
+        );
+
+        observacoes[index] = observacaoForm;
+      }
       state = state.copyWith(
         itemForm: itemForm?.copyWith(
           observacoes: observacoes,
         ),
       );
     }
-  }
-
-  cadastroObservacoes(Map<String, dynamic> dataItem){
-    final batata='';
   }
 
   int geradorDeNumeroDePedido() {
@@ -209,121 +223,4 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       status: OrdemDeServicoStateStatus.loaded,
     );
   }
-
-  // updateStatePagers(int page, Map<String, dynamic> data) {
-  //   switch (page) {
-  //     case 1:
-  //       state = state.copyWith(
-  //         paginaUm: data,
-  //       );
-  //       break;
-  //     case 2:
-  //       state = state.copyWith(
-  //         paginaDois: data,
-  //       );
-  //       break;
-  //     case 3:
-  //       state = state.copyWith(
-  //         paginatres: data,
-  //       );
-  //       break;
-  //     case 4:
-  //       state = state.copyWith(
-  //         paginaquatro: data,
-  //       );
-  //       break;
-  //   }
-  // }
-
-  // Future<void> getImageDeviceOrCam({
-  //   required String numeroDaNota,
-  //   required String tipoFoto,
-  //   required String source,
-  //   required String fileName,
-  // }) async {
-  //   ImagePicker imagePicker = ImagePicker();
-  //   late XFile? resImage;
-  //   if (source == 'Camera') {
-  //     resImage = await imagePicker.pickImage(
-  //       source: ImageSource.camera,
-  //       maxWidth: 2000,
-  //       maxHeight: 2000,
-  //       imageQuality: 90,
-  //     );
-  //   }
-
-  //   if (source == 'Galeria') {
-  //     resImage = await imagePicker.pickImage(
-  //       source: ImageSource.gallery,
-  //       maxWidth: 2000,
-  //       maxHeight: 2000,
-  //       imageQuality: 90,
-  //     );
-  //   }
-
-  //   if (resImage != null) {
-  //     ImageModel imagem = ImageModel(
-  //       pathLocal: resImage.path,
-  //       fileName: "$fileName${geradorDeNumeroDePedido()}",
-  //       pathService: "ordemDeServico/$numeroDaNota/$tipoFoto",
-  //     );
-
-  //     if(tipoFoto == 'Producao'){
-  //       state = state.copyWith(imagemProduto: imagem);
-  //     }else{
-  //       // state = state.copyWith(imagemProduto: imagem);
-  //     }
-
-  //   }
-  // }
-
-  // Future<Map<String, dynamic>?> uploadImageservice(
-  //     {required String numeroDaNota, required String tipoFoto}) async {
-  //   late Either<ServiceException, ImageModel> response;
-
-  //   ImagePicker imagePicker = ImagePicker();
-  //   XFile? image = await imagePicker.pickImage(
-  //     source: ImageSource.gallery,
-  //     maxWidth: 2000,
-  //     maxHeight: 2000,
-  //     imageQuality: 90,
-  //   );
-
-  //   if (image != null) {
-  //     response = await ref.read(firebaseStorageServiceProvider).upload(
-  //           file: File(image.path),
-  //           fileName: 'teste_photo',
-  //           pathService: "ordemDeServico/$numeroDaNota/$tipoFoto",
-  //         );
-  //   }
-
-  //   switch (response) {
-  //     case Success(value: final restImage):
-  //       state = state.copyWith(
-  //         status: OrdemDeServicoStateStatus.success,
-  //         message: 'Cliente cadastrado com sucesso',
-  //       );
-
-  //       return state.ordemdeServico!.toJson();
-  //     // loaderHandler.close();
-
-  //     case Failure(exception: ServiceException(:final message)):
-  //       state = state.copyWith(
-  //         status: OrdemDeServicoStateStatus.error,
-  //         message: message,
-  //       );
-  //     // loaderHandler.close();
-  //   }
-  // }
-
-  // Future<ImageModel> reloadImage(ImageModel data) async {
-  //   String pathDownloadImage =
-  //       await ref.read(firebaseStorageServiceProvider).getDownLoadUrlByFileName(
-  //             pathService: data.pathService!,
-  //             fileName: data.fileName!,
-  //           );
-
-  //   ImageModel image = data.copyWith(pathDownloadImage: pathDownloadImage);
-  //   return image;
-  // }
 }

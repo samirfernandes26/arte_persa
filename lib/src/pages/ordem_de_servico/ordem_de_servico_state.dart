@@ -43,18 +43,18 @@ class OrdemDeServicoState {
       });
 
   OrdemDeServicoStateStatus status;
+  OrdemDeServicoModel? ordemdeServico;
+  List<ItemModel>? itens;
+  ObservacaoModel? observacao;
+
   List<ServicoModel>? servicos;
   List<ClienteModel>? clientes;
-  List<ItemModel>? itens;
 
   OrdemDeServicoForm? ordemServicioForm;
   ItemForm? itemForm;
   List<ObservacaoForm>? observacoesForm;
 
-  OrdemDeServicoModel? ordemdeServico;
   ImageModel? image;
-  ObservacaoModel? observacao;
-
   String? message;
   bool? loading;
 

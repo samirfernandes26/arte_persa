@@ -125,7 +125,7 @@ class _OrdemDeServicoObservacaoState
                     case (true):
                       await cadastroObservacoes(formKey.currentState!.value);
                       Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.ordemDeServicoObservacao);
+                          RouteGeneratorKeys.ordemDeServicoServicosPage);
                   }
                 }, //loginUser,
                 child: const Text('Proximo'),
@@ -181,6 +181,7 @@ class Observacao extends StatelessWidget {
             Expanded(
               child: FormBuilderTextField(
                 name: 'observacao[$observacaoIndex]',
+                initialValue: observacao?.observacao,
                 onTapOutside: (_) => context.unfocus(),
                 decoration: const InputDecoration(
                   labelText: 'Escreva aqui sua observação*',
