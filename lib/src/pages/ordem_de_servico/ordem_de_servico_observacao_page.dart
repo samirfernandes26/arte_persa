@@ -25,8 +25,8 @@ class _OrdemDeServicoObservacaoState
   Widget build(BuildContext context) {
     final OrdemDeServicoVm(
       :getImageDeviceOrCam,
-      :geradorDeNumeroDePedido,
     ) = ref.read(ordemDeServicoVmProvider.notifier);
+
     final notaVm = ref.watch(ordemDeServicoVmProvider);
 
     return Scaffold(
@@ -55,15 +55,15 @@ class _OrdemDeServicoObservacaoState
                   ),
                   onPressed: () async {},
                   child: const Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         child: Text(
                           'Nova bservação',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                       Icon(
@@ -87,9 +87,10 @@ class _OrdemDeServicoObservacaoState
                         child: Text(
                           'Foto do produto',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                       Icon(
@@ -114,12 +115,12 @@ class _OrdemDeServicoObservacaoState
                                     'Câmera',
                                   ),
                                   onTap: () async {
-                                    await getImageDeviceOrCam(
-                                      numeroDaNota: '202402291026',
-                                      tipoFoto: 'Producao',
-                                      source: 'Camera',
-                                      fileName: 'foto_produto_',
-                                    );
+                                    // await getImageDeviceOrCam(
+                                    //   numeroDaNota: '202402291026',
+                                    //   tipoFoto: 'Producao',
+                                    //   source: 'Camera',
+                                    //   fileName: 'foto_produto_',
+                                    // );
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -133,12 +134,12 @@ class _OrdemDeServicoObservacaoState
                                     'Galeria',
                                   ),
                                   onTap: () async {
-                                    await getImageDeviceOrCam(
-                                      numeroDaNota: '202402291026',
-                                      tipoFoto: 'Producao',
-                                      source: 'Galeria',
-                                      fileName: 'foto_produto_',
-                                    );
+                                    // await getImageDeviceOrCam(
+                                    //   numeroDaNota: '202402291026',
+                                    //   tipoFoto: 'Producao',
+                                    //   source: 'Galeria',
+                                    //   fileName: 'foto_produto_',
+                                    // );
                                     Navigator.of(context).pop();
                                   },
                                 ),
@@ -152,41 +153,6 @@ class _OrdemDeServicoObservacaoState
                 ),
                 const SizedBox(
                   height: 16,
-                ),
-                if (notaVm.imagemProduto != null &&
-                    notaVm.ordemdeServico?.fotoProduto?.pathLocal != null)
-                  Row(
-                    children: [
-                      Image.network(
-                        notaVm.ordemdeServico!.fotoProduto!.pathDownloadImage!,
-                        width: 124,
-                        height: 124,
-                        fit: BoxFit.cover,
-                      ),
-                    ],
-                  ),
-                if (notaVm.imagemProduto != null &&
-                    notaVm.imagemProduto?.pathLocal != null &&
-                    notaVm.ordemdeServico?.fotoProduto?.pathDownloadImage ==
-                        null)
-                  Row(
-                    children: [
-                      Image.file(
-                        File(
-                          notaVm.imagemProduto!.pathLocal!,
-                        ),
-                        width: 124,
-                        height: 124,
-                        fit: BoxFit.cover,
-                      ),
-                    ],
-                  ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Observacao(
-                  getImageDeviceOrCam: getImageDeviceOrCam,
-                  observacao: notaVm.ordemdeServico!.observacoes![0],
                 ),
               ],
             ),

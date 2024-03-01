@@ -198,37 +198,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
           status: OrdemDeServicoStateStatus.success,
           message: 'Cliente cadastrado com sucesso',
         );
-
-        if (restImage.pathDownloadImage != null) {
-          OrdemDeServicoModel updatedOrdem = state.ordemdeServico!;
-
-          state = state.copyWith(
-            ordemdeServico: updatedOrdem.copyWith(
-              fotoProduto: restImage,
-            ),
-          );
-        } else {
-          ImageModel imagemUpdate = await reloadImage(restImage);
-
-          if (state.ordemdeServico == null) {
-            OrdemDeServicoModel updatedOrdem = OrdemDeServicoModel(
-              fotoProduto: imagemUpdate,
-            );
-
-            state = state.copyWith(
-              ordemdeServico: updatedOrdem,
-            );
-          } else {
-            OrdemDeServicoModel updatedOrdem = state.ordemdeServico!;
-
-            state = state.copyWith(
-              ordemdeServico: updatedOrdem.copyWith(
-                fotoProduto: imagemUpdate,
-              ),
-            );
-          }
-        }
-
+        
         return state.ordemdeServico!.toJson();
       // loaderHandler.close();
 
