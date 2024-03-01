@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';

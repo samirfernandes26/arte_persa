@@ -6,7 +6,6 @@ import 'package:validatorless/validatorless.dart';
 
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
-import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 
@@ -28,8 +27,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
   @override
   Widget build(BuildContext context) {
     final CadastroClienteVm(
-      :updateStateCliente,
-      :updateStatePessoaFisicaJuridica
+      :updateStateCliente
     ) = ref.read(cadastroClienteVmProvider.notifier);
     final clienteVm = ref.watch(cadastroClienteVmProvider);
 
