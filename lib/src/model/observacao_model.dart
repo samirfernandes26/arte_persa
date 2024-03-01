@@ -7,14 +7,25 @@ part 'observacao_model.g.dart';
 class ObservacaoModel {
   ObservacaoModel({
     this.id,
-    this.observacao,
+    required this.observacao,
     this.image,
   });
 
   String? id;
-  String? observacao;
-
+  String observacao;
   ImageModel? image;
+
+  ObservacaoModel copyWith({
+    String? id,
+    String? observacao,
+    ImageModel? image,
+  }) {
+    return ObservacaoModel(
+      id: id ?? this.id,
+      observacao: observacao ?? this.observacao,
+      image: image ?? this.image,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$ObservacaoModelToJson(this);
   factory ObservacaoModel.fromJson(Map<String, dynamic> json) =>
