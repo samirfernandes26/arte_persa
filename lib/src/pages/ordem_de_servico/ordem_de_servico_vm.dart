@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:arte_persa/src/model/image_model.dart';
+import 'package:arte_persa/src/model/item_model.dart';
+import 'package:arte_persa/src/model/observacao_model.dart';
 import 'package:asyncstate/asyncstate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -46,11 +50,13 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
         valorCalculo = valorCalculo + (servicoData.valor! * comprimento);
       }
 
-      if (lado['ambas_as_larguras'] == true && lado['apenas_uma_largura'] == false) {
+      if (lado['ambas_as_larguras'] == true &&
+          lado['apenas_uma_largura'] == false) {
         valorCalculo = valorCalculo + (servicoData.valor! * (largura * 2));
       }
 
-      if (lado['apenas_uma_largura'] == true && lado['ambas_as_larguras'] == false) {
+      if (lado['apenas_uma_largura'] == true &&
+          lado['ambas_as_larguras'] == false) {
         valorCalculo = valorCalculo + (servicoData.valor! * largura);
       }
     }
@@ -264,5 +270,45 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       clientes: clientes,
       status: OrdemDeServicoStateStatus.loaded,
     );
+  }
+
+  Future<void> finalizarCadastroItem() async {
+    late List<ItemModel> itemModelList = [];
+    late ItemModel itemModel;
+
+    late final itemForm = state.itemForm!;
+    late Map<String, dynamic> itemFormJson = itemForm.toJson();
+
+    late List<ObservacaoModel> observacaoModel;
+
+    itemModel = ItemModel.fromJson(itemFormJson);
+
+    itemModel = itemModel.copyWith(
+      servicos: state.servicos,
+    );
+
+    if (state.itemForm != null &&
+        state.itemForm?.observacoes != null &&
+        state.itemForm!.observacoes!.isNotEmpty) {
+      observacaoModel = state.itemForm!.observacoes!
+          .map(
+            (observacao) => ObservacaoModel.fromJson(
+              observacao.toJson(),
+            ),
+          )
+          .toList();
+
+      itemModel = itemModel.copyWith(
+        observacoes: observacaoModel,
+      );
+    }
+
+    itemModelList.add(itemModel);
+
+    if (itemModelList.isNotEmpty) {
+      state = state.copyWith(
+        itens: itemModelList
+      );
+    }
   }
 }

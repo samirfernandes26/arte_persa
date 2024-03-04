@@ -1,4 +1,5 @@
 import 'package:arte_persa/src/model/observacao_model.dart';
+import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:arte_persa/src/core/helpers/json_converter.dart';
 import 'package:arte_persa/src/model/image_model.dart';
@@ -10,11 +11,11 @@ class ItemModel {
   ItemModel({
     required this.tipoIdetem,
     required this.nomeDoItem,
-    required this.comprimento,
-    required this.largura,
+    this.comprimento,
+    this.largura,
     this.observacoes,
     this.fotoProduto,
-    this.servicosIds,
+    this.servicos,
     this.total,
   });
 
@@ -26,10 +27,10 @@ class ItemModel {
   String nomeDoItem;
 
   @StringToDoubleConverter()
-  double comprimento;
+  double? comprimento;
 
   @StringToDoubleConverter()
-  double largura;
+  double? largura;
 
   @JsonKey(name: 'foto_produto')
   ImageModel? fotoProduto;
@@ -37,10 +38,9 @@ class ItemModel {
   @JsonKey(name: 'observacoes')
   List<ObservacaoModel>? observacoes;
 
-  @JsonKey(name: 'servicos_ids')
-  List<String>? servicosIds;
+  List<ServicoModel>? servicos;
 
-  @StringToDoubleConverter()
+  @StringOrToDoubleConverter()
   double? total;
 
   ItemModel copyWith({
@@ -50,7 +50,7 @@ class ItemModel {
     double? largura,
     ImageModel? fotoProduto,
     List<ObservacaoModel>? observacoes,
-    List<String>? servicosIds,
+    List<ServicoModel>? servicos,
     double? total,
   }) {
     return ItemModel(
@@ -60,7 +60,7 @@ class ItemModel {
       largura: largura ?? this.largura,
       fotoProduto: fotoProduto ?? this.fotoProduto,
       observacoes: observacoes ?? this.observacoes,
-      servicosIds: servicosIds ?? this.servicosIds,
+      servicos: servicos ?? this.servicos,
       total: total ?? this.total,
     );
   }

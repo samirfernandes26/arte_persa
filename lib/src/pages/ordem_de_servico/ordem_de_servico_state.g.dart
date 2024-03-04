@@ -63,10 +63,10 @@ Json? _$JsonConverterToJson<Json, Value>(
 ItemForm _$ItemFormFromJson(Map<String, dynamic> json) => ItemForm(
       tipoIdetem: json['tipo_item'] as String?,
       nomeDoItem: json['nome_do_item'] as String?,
-      comprimento: const StringToDoubleConverter()
-          .fromJson(json['comprimento'] as String?),
-      largura:
-          const StringToDoubleConverter().fromJson(json['largura'] as String?),
+      comprimento: _$JsonConverterFromJson<String, double>(
+          json['comprimento'], const StringToDoubleConverter().fromJson),
+      largura: _$JsonConverterFromJson<String, double>(
+          json['largura'], const StringToDoubleConverter().fromJson),
       observacoes: (json['observacoes'] as List<dynamic>?)
           ?.map((e) => ObservacaoForm.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -76,19 +76,22 @@ ItemForm _$ItemFormFromJson(Map<String, dynamic> json) => ItemForm(
       servicos: (json['servicos'] as List<dynamic>?)
           ?.map((e) => ServicoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      total: const StringToDoubleConverter().fromJson(json['total'] as String?),
+      total: _$JsonConverterFromJson<String, double>(
+          json['total'], const StringToDoubleConverter().fromJson),
     );
 
 Map<String, dynamic> _$ItemFormToJson(ItemForm instance) => <String, dynamic>{
       'tipo_item': instance.tipoIdetem,
       'nome_do_item': instance.nomeDoItem,
-      'comprimento':
-          const StringToDoubleConverter().toJson(instance.comprimento),
-      'largura': const StringToDoubleConverter().toJson(instance.largura),
+      'comprimento': _$JsonConverterToJson<String, double>(
+          instance.comprimento, const StringToDoubleConverter().toJson),
+      'largura': _$JsonConverterToJson<String, double>(
+          instance.largura, const StringToDoubleConverter().toJson),
       'foto_produto': instance.fotoProduto,
       'observacoes': instance.observacoes,
       'servicos': instance.servicos,
-      'total': const StringToDoubleConverter().toJson(instance.total),
+      'total': _$JsonConverterToJson<String, double>(
+          instance.total, const StringToDoubleConverter().toJson),
     };
 
 ObservacaoForm _$ObservacaoFormFromJson(Map<String, dynamic> json) =>

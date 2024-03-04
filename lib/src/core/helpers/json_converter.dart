@@ -13,8 +13,18 @@ class IntToBooleanConverter implements JsonConverter<bool, int> {
 }
 
 /// Conversor que converte uma string representando um número para um valor double.
-class StringToDoubleConverter implements JsonConverter<double?, String?> {
+class StringToDoubleConverter implements JsonConverter<double, String> {
   const StringToDoubleConverter();
+
+  @override
+  double fromJson(String json) => double.parse(json.replaceAll(',', '.'));
+
+  @override
+  String toJson(double object) => object.toString().replaceAll('.', ',');
+}
+
+class StringOrToDoubleConverter implements JsonConverter<double?, String?> {
+  const StringOrToDoubleConverter();
 
   @override
   double? fromJson(String? json) =>

@@ -7,12 +7,12 @@ part 'observacao_model.g.dart';
 class ObservacaoModel {
   ObservacaoModel({
     this.id,
-    required this.observacao,
+    this.observacao,
     this.image,
   });
 
   String? id;
-  String observacao;
+  String? observacao;
   ImageModel? image;
 
   ObservacaoModel copyWith({

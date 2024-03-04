@@ -9,27 +9,44 @@ part of 'item_model.dart';
 ItemModel _$ItemModelFromJson(Map<String, dynamic> json) => ItemModel(
       tipoIdetem: json['tipo_item'] as String,
       nomeDoItem: json['nome_do_item'] as String,
-      comprimento: (json['comprimento'] as num).toDouble(),
-      largura: (json['largura'] as num).toDouble(),
+      comprimento: _$JsonConverterFromJson<String, double>(
+          json['comprimento'], const StringToDoubleConverter().fromJson),
+      largura: _$JsonConverterFromJson<String, double>(
+          json['largura'], const StringToDoubleConverter().fromJson),
       observacoes: (json['observacoes'] as List<dynamic>?)
           ?.map((e) => ObservacaoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       fotoProduto: json['foto_produto'] == null
           ? null
           : ImageModel.fromJson(json['foto_produto'] as Map<String, dynamic>),
-      servicosIds: (json['servicos_ids'] as List<dynamic>?)
-          ?.map((e) => e as String)
+      servicos: (json['servicos'] as List<dynamic>?)
+          ?.map((e) => ServicoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      total: const StringToDoubleConverter().fromJson(json['total'] as String?),
+      total:
+          const StringOrToDoubleConverter().fromJson(json['total'] as String?),
     );
 
 Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
       'tipo_item': instance.tipoIdetem,
       'nome_do_item': instance.nomeDoItem,
-      'comprimento': instance.comprimento,
-      'largura': instance.largura,
+      'comprimento': _$JsonConverterToJson<String, double>(
+          instance.comprimento, const StringToDoubleConverter().toJson),
+      'largura': _$JsonConverterToJson<String, double>(
+          instance.largura, const StringToDoubleConverter().toJson),
       'foto_produto': instance.fotoProduto,
       'observacoes': instance.observacoes,
-      'servicos_ids': instance.servicosIds,
-      'total': const StringToDoubleConverter().toJson(instance.total),
+      'servicos': instance.servicos,
+      'total': const StringOrToDoubleConverter().toJson(instance.total),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

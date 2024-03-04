@@ -140,7 +140,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   height: 16,
                 ),
                 FormBuilderTextField(
-                  name: 'nome_item',
+                  name: 'nome_do_item',
                   onTapOutside: (_) => context.unfocus(),
                   decoration: InputDecoration(
                     labelText: 'Nome do item',

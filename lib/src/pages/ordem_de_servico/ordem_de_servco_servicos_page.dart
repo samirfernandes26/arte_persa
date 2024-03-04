@@ -26,6 +26,7 @@ class _OrdemDeServicoServicosPageState
   Widget build(BuildContext context) {
     final OrdemDeServicoVm(
       :calcularValorDoServico,
+      :finalizarCadastroItem
     ) = ref.read(ordemDeServicoVmProvider.notifier);
     final servicosVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -300,8 +301,7 @@ class _OrdemDeServicoServicosPageState
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {
-                }, //loginUser,
+                onPressed: () async {await finalizarCadastroItem();}, //loginUser,
                 child: const Text('Finalizar item'),
               ),
             ),

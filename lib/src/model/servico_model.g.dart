@@ -19,9 +19,10 @@ ServicoModel _$ServicoModelFromJson(Map<String, dynamic> json) => ServicoModel(
       porcentagem: _$JsonConverterFromJson<String, int>(
           json['porcentagem'], const StringToIntConverter().fromJson),
       userId: json['user_id'] as String,
-      valor: const StringToDoubleConverter().fromJson(json['valor'] as String?),
-      valorCalculo: const StringToDoubleConverter()
-          .fromJson(json['valor_calculo'] as String?),
+      valor: _$JsonConverterFromJson<String, double>(
+          json['valor'], const StringToDoubleConverter().fromJson),
+      valorCalculo: _$JsonConverterFromJson<String, double>(
+          json['valor_calculo'], const StringToDoubleConverter().fromJson),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -35,10 +36,11 @@ Map<String, dynamic> _$ServicoModelToJson(ServicoModel instance) =>
       'id': instance.id,
       'porcentagem': _$JsonConverterToJson<String, int>(
           instance.porcentagem, const StringToIntConverter().toJson),
-      'valor': const StringToDoubleConverter().toJson(instance.valor),
+      'valor': _$JsonConverterToJson<String, double>(
+          instance.valor, const StringToDoubleConverter().toJson),
       'user_id': instance.userId,
-      'valor_calculo':
-          const StringToDoubleConverter().toJson(instance.valorCalculo),
+      'valor_calculo': _$JsonConverterToJson<String, double>(
+          instance.valorCalculo, const StringToDoubleConverter().toJson),
       'nome_do_servico': instance.nomeDoServico,
       'categoria_selecionada': instance.categoriaSelecionada,
       'metro_quadrado': instance.metroQuadrado,
