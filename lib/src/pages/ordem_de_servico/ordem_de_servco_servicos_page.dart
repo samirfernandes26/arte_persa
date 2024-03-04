@@ -1,5 +1,3 @@
-import 'package:arte_persa/src/core/ui/helpers/messages.dart';
-import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -27,48 +25,9 @@ class _OrdemDeServicoServicosPageState
   @override
   Widget build(BuildContext context) {
     final OrdemDeServicoVm(
-      :loadDataServicos,
       :calcularValorDoServico,
     ) = ref.read(ordemDeServicoVmProvider.notifier);
     final servicosVm = ref.watch(ordemDeServicoVmProvider);
-
-    final arguments =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-
-    if (servicosVm.status == OrdemDeServicoState.initial ||
-        arguments?['reload'] == true) {
-      Future(
-        () async {
-          await loadDataServicos();
-          arguments?['reload'] = false;
-        },
-      );
-    }
-
-    ref.listen(
-      ordemDeServicoVmProvider,
-      (_, state) {
-        switch (state.status) {
-          case OrdemDeServicoStateStatus.initial:
-            break;
-          case OrdemDeServicoStateStatus.loaded:
-            break;
-          case OrdemDeServicoStateStatus.success:
-            Messages.showSuccess(
-              state.message!,
-              context,
-            );
-            Future(
-              () async {
-                await loadDataServicos();
-              },
-            );
-            break;
-          case OrdemDeServicoStateStatus.error:
-            break;
-        }
-      },
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -342,9 +301,8 @@ class _OrdemDeServicoServicosPageState
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
                 onPressed: () async {
-                  await loadDataServicos();
                 }, //loginUser,
-                child: const Text('Proximo'),
+                child: const Text('Finalizar item'),
               ),
             ),
           ],

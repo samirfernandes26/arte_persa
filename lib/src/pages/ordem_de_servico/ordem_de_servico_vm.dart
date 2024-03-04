@@ -238,6 +238,8 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       servicos.add(ServicoModel.fromJson(servico.data()));
     }
 
+    servicos.sort((a, b) => a.nomeDoServico.compareTo(b.nomeDoServico));
+
     state = state.copyWith(
       servicos: servicos,
       status: OrdemDeServicoStateStatus.loaded,

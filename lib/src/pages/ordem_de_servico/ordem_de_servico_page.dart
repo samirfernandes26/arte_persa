@@ -23,7 +23,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:loadDataClientes, :cadastroDeItem, :selectImageProdo) =
+    final OrdemDeServicoVm(:loadDataClientes, :loadDataServicos, :cadastroDeItem, :selectImageProdo) =
         ref.read(ordemDeServicoVmProvider.notifier);
     final ordemDeServicoVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -35,6 +35,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
       Future(
         () async {
           await loadDataClientes();
+          await loadDataServicos();
           arguments?['reload'] = false;
         },
       );
