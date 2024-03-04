@@ -169,7 +169,7 @@ class ItemForm {
     this.largura,
     this.observacoes,
     this.fotoProduto,
-    this.servicosIds,
+    this.servicos,
     this.total,
   });
 
@@ -191,8 +191,7 @@ class ItemForm {
   @JsonKey(name: 'observacoes')
   List<ObservacaoForm>? observacoes;
 
-  @JsonKey(name: 'servicos_ids')
-  List<String>? servicosIds;
+  List<ServicoModel>? servicos;
 
   @StringToDoubleConverter()
   double? total;
@@ -204,7 +203,7 @@ class ItemForm {
     double? largura,
     ImageModel? fotoProduto,
     List<ObservacaoForm>? observacoes,
-    List<String>? servicosIds,
+    List<ServicoModel>? servicos,
     double? total,
   }) {
     return ItemForm(
@@ -214,7 +213,7 @@ class ItemForm {
       largura: largura ?? this.largura,
       fotoProduto: fotoProduto ?? this.fotoProduto,
       observacoes: observacoes ?? this.observacoes,
-      servicosIds: servicosIds ?? this.servicosIds,
+      servicos: servicos ?? this.servicos,
       total: total ?? this.total,
     );
   }

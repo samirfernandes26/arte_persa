@@ -1,4 +1,3 @@
-// cadastro_servico_service.dart
 import 'package:arte_persa/src/core/helpers/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -68,6 +67,42 @@ class ServicoModel {
 
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
+
+  ServicoModel copyWith({
+    String? id,
+    int? porcentagem,
+    double? valor,
+    String? userId,
+    double? valorCalculo,
+    String? nomeDoServico,
+    String? categoriaSelecionada,
+    bool? metroQuadrado,
+    bool? metroLinear,
+    bool? valorFixo,
+    bool? valorManual,
+    bool? porcentagemServico,
+    String? servicoSelecionando,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return ServicoModel(
+      id: id ?? this.id,
+      porcentagem: porcentagem ?? this.porcentagem,
+      valor: valor ?? this.valor,
+      userId: userId ?? this.userId,
+      valorCalculo: valorCalculo ?? this.valorCalculo,
+      nomeDoServico: nomeDoServico ?? this.nomeDoServico,
+      categoriaSelecionada: categoriaSelecionada ?? this.categoriaSelecionada,
+      metroQuadrado: metroQuadrado ?? this.metroQuadrado,
+      metroLinear: metroLinear ?? this.metroLinear,
+      valorFixo: valorFixo ?? this.valorFixo,
+      valorManual: valorManual ?? this.valorManual,
+      porcentagemServico: porcentagemServico ?? this.porcentagemServico,
+      servicoSelecionando: servicoSelecionando ?? this.servicoSelecionando,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$ServicoModelToJson(this);
 

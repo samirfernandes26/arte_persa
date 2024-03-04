@@ -15,26 +15,63 @@ part 'ordem_de_servico_vm.g.dart';
 class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   @override
   OrdemDeServicoState build() => OrdemDeServicoState.initial();
-  // TODO: remover
-  Future<void> teste(ServicoModel? servico, bool checkbox) async {
-    const double largura = 2.69;
-    const double comprimento = 6.9;
-    const double area = largura * comprimento;
 
-    List<ServicoModel>? servicos = state.servicos;
+  calcularValorDoServico({
+    required ServicoModel servico,
+    required bool valueCheck,
+    Map<String, bool>? lado,
+  }) {
+    ServicoModel servicoData = servico;
+    List<ServicoModel> servicos = state.servicos!;
+    int servicoIndex = servicos.indexOf(servico);
+    final ItemForm item = state.itemForm!;
+    double largura = item.largura!;
+    double comprimento = item.comprimento!;
+    double areaTotal = largura * comprimento;
+    double valorCalculo = 0;
+    servicoData.valor = servicoData.valor ?? 0;
 
-    int index = servicos!.indexOf(servico!);
-
-    if (servico.metroQuadrado == true &&
-        servico.valor != null &&
-        checkbox == true) {
-      servico.valorCalculo = area * servico.valor!;
-    } else {
-      servico.valorCalculo = null;
+    if (servicoData.metroQuadrado == true) {
+      valorCalculo = valorCalculo + (servicoData.valor! * areaTotal);
     }
 
-    servicos[index] = servico;
+    if (servicoData.metroLinear == true && lado != null) {
+      if (lado['ambos_os_comprimentos'] == true &&
+          lado['apenas_um_comprimento'] == false) {
+        valorCalculo = valorCalculo + (servicoData.valor! * (comprimento * 2));
+      }
+
+      if (lado['apenas_um_comprimento'] == true &&
+          lado['ambos_os_comprimentos'] == false) {
+        valorCalculo = valorCalculo + (servicoData.valor! * comprimento);
+      }
+
+      if (lado['ambas_as_larguras'] == true && lado['apenas_uma_largura'] == false) {
+        valorCalculo = valorCalculo + (servicoData.valor! * (largura * 2));
+      }
+
+      if (lado['apenas_uma_largura'] == true && lado['ambas_as_larguras'] == false) {
+        valorCalculo = valorCalculo + (servicoData.valor! * largura);
+      }
+    }
+
+    if (servicoData.valorFixo == true) {
+      valorCalculo = valorCalculo + (servicoData.valor!);
+    }
+
+    if (servicoData.porcentagemServico == true) {
+      //Todo pensar em uma forma de fazer esse calculo.
+      // servico.servicoSelecionando
+    }
+
+    servicos[servicoIndex] = servicoData.copyWith(
+      valorCalculo: valorCalculo,
+    );
+
     state = state.copyWith(
+      itemForm: item.copyWith(
+        servicos: servicos,
+      ),
       servicos: servicos,
     );
   }
@@ -123,7 +160,10 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     required int index,
   }) async {
     await selectImageProdo(
-        tipoFoto: tipoFoto, source: source, fileName: fileName);
+      tipoFoto: tipoFoto,
+      source: source,
+      fileName: fileName,
+    );
 
     final image = state.image;
 
