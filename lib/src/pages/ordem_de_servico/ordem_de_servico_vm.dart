@@ -274,18 +274,38 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
   Future<void> finalizarCadastroItem() async {
     late List<ItemModel> itemModelList = [];
-    late ItemModel itemModel;
-
     late final itemForm = state.itemForm!;
-    late Map<String, dynamic> itemFormJson = itemForm.toJson();
-
+    late ItemModel itemModel;
     late List<ObservacaoModel> observacaoModel;
 
-    itemModel = ItemModel.fromJson(itemFormJson);
+    double total = 0;
+    List<String>  nomeDosServicos = [];
 
-    itemModel = itemModel.copyWith(
-      servicos: state.servicos,
-    );
+    for(ServicoModel servico in state.servicos!){
+      double valorCalculo = servico.valorCalculo ?? 0;
+      total = total + valorCalculo;
+      if(servico.valor != null && servico.valor != 0){
+        nomeDosServicos.add(servico.nomeDoServico);
+      }
+    }
+
+    itemForm.servicos = null;
+    late Map<String, dynamic> itemFormJson = itemForm.toJson();
+    itemModel = ItemModel.fromJson(itemFormJson);
+    itemModel.servicos = state.servicos;
+    itemModel.total = total;
+    // itemModel.observacoes = observacaoModel;
+
+
+  
+
+
+    final batata = '';
+    // itemModel = itemModel.copyWith(
+    //   servicos: state.servicos,
+    //   nomeDosServicos: nomeDosServicos,
+    //   total: total,
+    // );
 
     if (state.itemForm != null &&
         state.itemForm?.observacoes != null &&

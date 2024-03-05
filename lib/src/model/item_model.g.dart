@@ -22,6 +22,9 @@ ItemModel _$ItemModelFromJson(Map<String, dynamic> json) => ItemModel(
       servicos: (json['servicos'] as List<dynamic>?)
           ?.map((e) => ServicoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      nomeDosServicos: (json['nome_dos_servicos'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       total:
           const StringOrToDoubleConverter().fromJson(json['total'] as String?),
     );
@@ -35,7 +38,8 @@ Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
           instance.largura, const StringToDoubleConverter().toJson),
       'foto_produto': instance.fotoProduto,
       'observacoes': instance.observacoes,
-      'servicos': instance.servicos,
+      'servicos': ItemModel.servicosToJson(instance.servicos),
+      'nome_dos_servicos': instance.nomeDosServicos,
       'total': const StringOrToDoubleConverter().toJson(instance.total),
     };
 

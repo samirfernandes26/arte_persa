@@ -76,6 +76,9 @@ ItemForm _$ItemFormFromJson(Map<String, dynamic> json) => ItemForm(
       servicos: (json['servicos'] as List<dynamic>?)
           ?.map((e) => ServicoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      nomeDosServicos: (json['nome_dos_servicos'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       total: _$JsonConverterFromJson<String, double>(
           json['total'], const StringToDoubleConverter().fromJson),
     );
@@ -90,6 +93,7 @@ Map<String, dynamic> _$ItemFormToJson(ItemForm instance) => <String, dynamic>{
       'foto_produto': instance.fotoProduto,
       'observacoes': instance.observacoes,
       'servicos': instance.servicos,
+      'nome_dos_servicos': instance.nomeDosServicos,
       'total': _$JsonConverterToJson<String, double>(
           instance.total, const StringToDoubleConverter().toJson),
     };

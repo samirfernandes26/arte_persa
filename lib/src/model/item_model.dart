@@ -16,6 +16,7 @@ class ItemModel {
     this.observacoes,
     this.fotoProduto,
     this.servicos,
+    this.nomeDosServicos,
     this.total,
   });
 
@@ -38,7 +39,11 @@ class ItemModel {
   @JsonKey(name: 'observacoes')
   List<ObservacaoModel>? observacoes;
 
+  @JsonKey(toJson: servicosToJson)
   List<ServicoModel>? servicos;
+
+  @JsonKey(name: 'nome_dos_servicos')
+  List<String>? nomeDosServicos;
 
   @StringOrToDoubleConverter()
   double? total;
@@ -51,6 +56,7 @@ class ItemModel {
     ImageModel? fotoProduto,
     List<ObservacaoModel>? observacoes,
     List<ServicoModel>? servicos,
+    List<String>?  nomeDosServicos,
     double? total,
   }) {
     return ItemModel(
@@ -61,6 +67,7 @@ class ItemModel {
       fotoProduto: fotoProduto ?? this.fotoProduto,
       observacoes: observacoes ?? this.observacoes,
       servicos: servicos ?? this.servicos,
+      nomeDosServicos: nomeDosServicos ?? this.nomeDosServicos,
       total: total ?? this.total,
     );
   }
@@ -68,4 +75,7 @@ class ItemModel {
   factory ItemModel.fromJson(Map<String, dynamic> json) =>
       _$ItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$ItemModelToJson(this);
+
+  static servicosToJson(List<ServicoModel>? obj) =>
+      obj?.map((servico) => servico.nomeDoServico).toList();
 }

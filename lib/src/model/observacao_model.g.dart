@@ -9,7 +9,7 @@ part of 'observacao_model.dart';
 ObservacaoModel _$ObservacaoModelFromJson(Map<String, dynamic> json) =>
     ObservacaoModel(
       id: json['id'] as String?,
-      observacao: json['observacao'] as String,
+      observacao: json['observacao'] as String?,
       image: json['image'] == null
           ? null
           : ImageModel.fromJson(json['image'] as Map<String, dynamic>),

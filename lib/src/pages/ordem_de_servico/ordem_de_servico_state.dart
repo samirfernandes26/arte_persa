@@ -27,20 +27,20 @@ class OrdemDeServicoState {
           image: null,
         );
 
-  OrdemDeServicoState(
-      {required this.status,
-      this.servicos,
-      this.clientes,
-      this.message,
-      this.loading,
-      this.ordemdeServico,
-      this.image,
-      this.observacao,
-      this.itens,
-      this.itemForm,
-      this.ordemServicioForm,
-      this.observacoesForm,
-      });
+  OrdemDeServicoState({
+    required this.status,
+    this.servicos,
+    this.clientes,
+    this.message,
+    this.loading,
+    this.ordemdeServico,
+    this.image,
+    this.observacao,
+    this.itens,
+    this.itemForm,
+    this.ordemServicioForm,
+    this.observacoesForm,
+  });
 
   OrdemDeServicoStateStatus status;
   OrdemDeServicoModel? ordemdeServico;
@@ -170,6 +170,7 @@ class ItemForm {
     this.observacoes,
     this.fotoProduto,
     this.servicos,
+    this.nomeDosServicos,
     this.total,
   });
 
@@ -193,6 +194,9 @@ class ItemForm {
 
   List<ServicoModel>? servicos;
 
+  @JsonKey(name: 'nome_dos_servicos')
+  List<String>? nomeDosServicos;
+
   @StringToDoubleConverter()
   double? total;
 
@@ -204,6 +208,7 @@ class ItemForm {
     ImageModel? fotoProduto,
     List<ObservacaoForm>? observacoes,
     List<ServicoModel>? servicos,
+    List<String>? nomeDosServicos,
     double? total,
   }) {
     return ItemForm(
@@ -214,6 +219,7 @@ class ItemForm {
       fotoProduto: fotoProduto ?? this.fotoProduto,
       observacoes: observacoes ?? this.observacoes,
       servicos: servicos ?? this.servicos,
+      nomeDosServicos: nomeDosServicos ?? this.nomeDosServicos,
       total: total ?? this.total,
     );
   }
@@ -223,7 +229,6 @@ class ItemForm {
   factory ItemForm.fromJson(Map<String, dynamic> json) =>
       _$ItemFormFromJson(json);
 }
-
 
 @JsonSerializable()
 class ObservacaoForm {
