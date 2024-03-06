@@ -1,4 +1,5 @@
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
+import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,10 +25,8 @@ class _OrdemDeServicoServicosPageState
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(
-      :calcularValorDoServico,
-      :finalizarCadastroItem
-    ) = ref.read(ordemDeServicoVmProvider.notifier);
+    final OrdemDeServicoVm(:calcularValorDoServico, :finalizarCadastroItem) =
+        ref.read(ordemDeServicoVmProvider.notifier);
     final servicosVm = ref.watch(ordemDeServicoVmProvider);
 
     return Scaffold(
@@ -67,7 +66,8 @@ class _OrdemDeServicoServicosPageState
                                   ),
                                 ),
                                 if (servico.valorManual == false &&
-                                    servico.valorCalculo != null && servico.valorCalculo != 0)
+                                    servico.valorCalculo != null &&
+                                    servico.valorCalculo != 0)
                                   Text(
                                     servico.valorCalculo
                                             ?.toString()
@@ -301,7 +301,11 @@ class _OrdemDeServicoServicosPageState
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {await finalizarCadastroItem();}, //loginUser,
+                onPressed: () async {
+                  await finalizarCadastroItem();
+                  Navigator.of(context).pushNamed(
+                          RouteGeneratorKeys.ordemDeServicoFaturaPage);
+                }, //loginUser,
                 child: const Text('Finalizar item'),
               ),
             ),

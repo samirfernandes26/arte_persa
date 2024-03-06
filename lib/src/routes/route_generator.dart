@@ -4,6 +4,7 @@ import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_page.dart
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_page.dart';
 import 'package:arte_persa/src/pages/home/home_page.dart';
 import 'package:arte_persa/src/pages/login/login_page.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_fatura_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_servicos_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_observacao_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_page.dart';
@@ -25,6 +26,7 @@ sealed class RouteGeneratorKeys {
   static const ordemDeServicoPage = '/ordemDeServicoPage';
   static const ordemDeServicoObservacao = '/ordemDeServicoObservacao';
   static const ordemDeServicoServicosPage = '/OrdemDeServicoServicosPage';
+  static const ordemDeServicoFaturaPage = '/ordemDeServicoFaturaPage';
   
 }
 
@@ -91,7 +93,13 @@ class RouteGenerator {
           settings: settings,
           builder: (context) => const OrdemDeServicoServicosPage(),
         );
-      
+
+      case RouteGeneratorKeys.ordemDeServicoFaturaPage:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const OrdemDeServicoFaturaPage(),
+        );
+
       default:
         return _errorRoute();
     }
