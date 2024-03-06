@@ -20,6 +20,40 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   @override
   OrdemDeServicoState build() => OrdemDeServicoState.initial();
 
+  Future<void> loadData() async {
+    final loaderHandler = AsyncLoaderHandler()..start();
+
+    List<ServicoModel> servicos = [];
+    List<ClienteModel> clientes = [];
+    FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
+    final collectionServicos = fireStore.collection('servicos');
+    final collectionCliente = fireStore.collection('clientes');
+
+    QuerySnapshot<Map<String, dynamic>> snapshotServico =
+        await collectionServicos.get();
+    QuerySnapshot<Map<String, dynamic>> snapshotCliente =
+        await collectionCliente.get();
+
+    for (var servico in snapshotServico.docs) {
+      servicos.add(ServicoModel.fromJson(servico.data()));
+    }
+
+    for (var servico in snapshotCliente.docs) {
+      clientes.add(ClienteModel.fromJson(servico.data()));
+    }
+
+    servicos.sort((a, b) => a.nomeDoServico.compareTo(b.nomeDoServico));
+
+    state = state.copyWith(
+      servicos: servicos,
+      clientes: clientes,
+      status: OrdemDeServicoStateStatus.loaded,
+    );
+
+    loaderHandler.close();
+  }
+
   calcularValorDoServico({
     required ServicoModel servico,
     required bool valueCheck,
@@ -231,40 +265,6 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
     // Saída
     return concatenatedDateTime;
-  }
-
-  Future<void> loadData() async {
-    final loaderHandler = AsyncLoaderHandler()..start();
-
-    List<ServicoModel> servicos = [];
-    List<ClienteModel> clientes = [];
-    FirebaseFirestore fireStore = FirebaseFirestore.instance;
-
-    final collectionServicos = fireStore.collection('servicos');
-    final collectionCliente = fireStore.collection('clientes');
-
-    QuerySnapshot<Map<String, dynamic>> snapshotServico =
-        await collectionServicos.get();
-    QuerySnapshot<Map<String, dynamic>> snapshotCliente =
-        await collectionCliente.get();
-
-    for (var servico in snapshotServico.docs) {
-      servicos.add(ServicoModel.fromJson(servico.data()));
-    }
-
-    for (var servico in snapshotCliente.docs) {
-      clientes.add(ClienteModel.fromJson(servico.data()));
-    }
-
-    servicos.sort((a, b) => a.nomeDoServico.compareTo(b.nomeDoServico));
-
-    state = state.copyWith(
-      servicos: servicos,
-      clientes: clientes,
-      status: OrdemDeServicoStateStatus.loaded,
-    );
-
-    loaderHandler.close();
   }
 
   Future<void> finalizarCadastroItem() async {
