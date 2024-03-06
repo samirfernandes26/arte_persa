@@ -1,5 +1,5 @@
 import 'package:arte_persa/src/core/extension/context_extension.dart';
-import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
+import 'package:arte_persa/src/model/observacao_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
@@ -80,9 +80,9 @@ class _OrdemDeServicoObservacaoState
                 ),
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: notaVm.itemForm?.observacoes?.length ?? 0,
+                  itemCount: notaVm.observacoesModelList?.length ?? 0,
                   itemBuilder: (context, index) {
-                    final observacao = notaVm.itemForm?.observacoes![index];
+                    final observacao = notaVm.observacoesModelList![index];
                     return Observacao(
                       observacaoIndex: index,
                       observacao: observacao,
@@ -158,7 +158,7 @@ class Observacao extends StatelessWidget {
     required int index,
   }) removerObservacao;
 
-  final ObservacaoForm? observacao;
+  final ObservacaoModel? observacao;
   final int observacaoIndex;
 
   @override

@@ -23,7 +23,7 @@ class OrdemDeServicoState {
       : this(
           status: OrdemDeServicoStateStatus.initial,
           servicos: [],
-          observacoesForm: [],
+          observacoesModelList: [],
           image: null,
         );
 
@@ -39,7 +39,7 @@ class OrdemDeServicoState {
     this.itens,
     this.itemForm,
     this.ordemServicioForm,
-    this.observacoesForm,
+    this.observacoesModelList,
   });
 
   OrdemDeServicoStateStatus status;
@@ -52,7 +52,7 @@ class OrdemDeServicoState {
 
   OrdemDeServicoForm? ordemServicioForm;
   ItemForm? itemForm;
-  List<ObservacaoForm>? observacoesForm;
+  List<ObservacaoModel>? observacoesModelList;
 
   ImageModel? image;
   String? message;
@@ -65,7 +65,7 @@ class OrdemDeServicoState {
     List<ItemModel>? itens,
     OrdemDeServicoForm? ordemServicioForm,
     ItemForm? itemForm,
-    List<ObservacaoForm>? observacoesForm,
+    List<ObservacaoModel>? observacoesModelList,
     OrdemDeServicoModel? ordemdeServico,
     ImageModel? image,
     ObservacaoModel? observacao,
@@ -79,7 +79,7 @@ class OrdemDeServicoState {
       itens: itens ?? this.itens,
       ordemServicioForm: ordemServicioForm ?? this.ordemServicioForm,
       itemForm: itemForm ?? this.itemForm,
-      observacoesForm: observacoesForm ?? this.observacoesForm,
+      observacoesModelList: observacoesModelList ?? this.observacoesModelList,
       ordemdeServico: ordemdeServico ?? this.ordemdeServico,
       image: image ?? this.image,
       observacao: observacao ?? this.observacao,
@@ -190,7 +190,7 @@ class ItemForm {
   ImageModel? fotoProduto;
 
   @JsonKey(name: 'observacoes')
-  List<ObservacaoForm>? observacoes;
+  List<ObservacaoModel>? observacoes;
 
   List<ServicoModel>? servicos;
 
@@ -206,7 +206,7 @@ class ItemForm {
     double? comprimento,
     double? largura,
     ImageModel? fotoProduto,
-    List<ObservacaoForm>? observacoes,
+    List<ObservacaoModel>? observacoes,
     List<ServicoModel>? servicos,
     List<String>? nomeDosServicos,
     double? total,
@@ -228,33 +228,4 @@ class ItemForm {
 
   factory ItemForm.fromJson(Map<String, dynamic> json) =>
       _$ItemFormFromJson(json);
-}
-
-@JsonSerializable()
-class ObservacaoForm {
-  ObservacaoForm({
-    this.id,
-    this.observacao,
-    this.image,
-  });
-
-  String? id;
-  String? observacao;
-  ImageModel? image;
-
-  ObservacaoForm copyWith({
-    String? id,
-    String? observacao,
-    ImageModel? image,
-  }) {
-    return ObservacaoForm(
-      id: id ?? this.id,
-      observacao: observacao ?? this.observacao,
-      image: image ?? this.image,
-    );
-  }
-
-  Map<String, dynamic> toJson() => _$ObservacaoFormToJson(this);
-  factory ObservacaoForm.fromJson(Map<String, dynamic> json) =>
-      _$ObservacaoFormFromJson(json);
 }

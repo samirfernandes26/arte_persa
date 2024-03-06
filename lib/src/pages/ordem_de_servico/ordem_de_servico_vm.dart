@@ -127,20 +127,17 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   }
 
   addObservacao() {
-    final itemFormUpdate = state.itemForm;
-    final observacoes = itemFormUpdate?.observacoes ?? state.observacoesForm;
+    final observacoes = state.observacoesModelList ?? [];
 
-    observacoes?.add(
-      ObservacaoForm(
-        observacao: null,
-        image: null,
-      ),
+    final ObservacaoModel novaObservacao = ObservacaoModel(
+      observacao: null,
+      image: null,
     );
 
+    observacoes.add(novaObservacao);
+
     state = state.copyWith(
-      itemForm: itemFormUpdate?.copyWith(
-        observacoes: observacoes,
-      ),
+      observacoesModelList:observacoes
     );
   }
 
@@ -193,21 +190,18 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   }
 
   cadastroObservacoes(Map<String, dynamic> dataItem) {
-    final itemForm = state.itemForm;
-    final observacoes = itemForm?.observacoes;
+    final List<ObservacaoModel>? observacoes = state.itemForm?.observacoes;
 
     if (observacoes != null) {
       for (int index = 0; index < observacoes.length; index++) {
-        final observacaoForm = observacoes[index].copyWith(
+        final observacoesModel = observacoes[index].copyWith(
           observacao: dataItem['observacao[$index]'],
         );
 
-        observacoes[index] = observacaoForm;
+        observacoes[index] = observacoesModel;
       }
       state = state.copyWith(
-        itemForm: itemForm?.copyWith(
-          observacoes: observacoes,
-        ),
+        observacoesModelList: observacoes,
       );
     }
   }
@@ -276,59 +270,38 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     late List<ItemModel> itemModelList = [];
     late final itemForm = state.itemForm!;
     late ItemModel itemModel;
-    late List<ObservacaoModel> observacaoModel;
+    late final observacoesModelList = state.observacoesModelList;
 
     double total = 0;
-    List<String>  nomeDosServicos = [];
+    List<String> nomeDosServicos = [];
 
-    for(ServicoModel servico in state.servicos!){
+    for (ServicoModel servico in state.servicos!) {
       double valorCalculo = servico.valorCalculo ?? 0;
       total = total + valorCalculo;
-      if(servico.valor != null && servico.valor != 0){
+      if (servico.valor != null && servico.valor != 0) {
         nomeDosServicos.add(servico.nomeDoServico);
       }
     }
 
     itemForm.servicos = null;
+    itemForm.fotoProduto = null;
     late Map<String, dynamic> itemFormJson = itemForm.toJson();
     itemModel = ItemModel.fromJson(itemFormJson);
     itemModel.servicos = state.servicos;
     itemModel.total = total;
-    // itemModel.observacoes = observacaoModel;
+    itemForm.fotoProduto = state.itemForm?.fotoProduto;
 
-
-  
-
-
-    final batata = '';
-    // itemModel = itemModel.copyWith(
-    //   servicos: state.servicos,
-    //   nomeDosServicos: nomeDosServicos,
-    //   total: total,
-    // );
-
-    if (state.itemForm != null &&
-        state.itemForm?.observacoes != null &&
-        state.itemForm!.observacoes!.isNotEmpty) {
-      observacaoModel = state.itemForm!.observacoes!
-          .map(
-            (observacao) => ObservacaoModel.fromJson(
-              observacao.toJson(),
-            ),
-          )
-          .toList();
-
-      itemModel = itemModel.copyWith(
-        observacoes: observacaoModel,
-      );
-    }
+    itemModel = itemModel.copyWith(
+      servicos: state.servicos,
+      nomeDosServicos: nomeDosServicos,
+      total: total,
+      observacoes: observacoesModelList
+    );
 
     itemModelList.add(itemModel);
 
     if (itemModelList.isNotEmpty) {
-      state = state.copyWith(
-        itens: itemModelList
-      );
+      state = state.copyWith(itens: itemModelList);
     }
   }
 }
