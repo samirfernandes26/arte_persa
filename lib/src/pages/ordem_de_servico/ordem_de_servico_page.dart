@@ -23,7 +23,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:loadDataClientes, :loadDataServicos, :cadastroDeItem, :selectImageProdo) =
+    final OrdemDeServicoVm(:loadData, :cadastroDeItem, :selectImageProdo) =
         ref.read(ordemDeServicoVmProvider.notifier);
     final ordemDeServicoVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -34,8 +34,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
         arguments?['reload'] == true) {
       Future(
         () async {
-          await loadDataClientes();
-          await loadDataServicos();
+          await loadData();
           arguments?['reload'] = false;
         },
       );
@@ -53,7 +52,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
             Messages.showSuccess(state.message!, context);
             Future(
               () async {
-                await loadDataClientes();
+                await loadData();
               },
             );
             break;
@@ -281,7 +280,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   backgroundColor: Colors.red.shade300,
                 ),
                 onPressed: () async {
-                  await loadDataClientes();
+                  await loadData();
                 }, //loginUser,
                 child: const Text('Cancelar'),
               ),

@@ -25,50 +25,53 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     required bool valueCheck,
     Map<String, bool>? lado,
   }) {
-    ServicoModel servicoData = servico;
-    List<ServicoModel> servicos = state.servicos!;
-    int servicoIndex = servicos.indexOf(servico);
+    final ServicoModel servicoData = servico;
+    final List<ServicoModel> servicos = state.servicos!;
+    final int servicoIndex = servicos.indexOf(servico);
     final ItemForm item = state.itemForm!;
-    double largura = item.largura!;
-    double comprimento = item.comprimento!;
-    double areaTotal = largura * comprimento;
+    final double largura = item.largura!;
+    final double comprimento = item.comprimento!;
+    final double areaTotal = largura * comprimento;
     double valorCalculo = 0;
     servicoData.valor = servicoData.valor ?? 0;
     List<String> nomeDosServicos = item.nomeDosServicos ?? [];
 
-    if (servicoData.metroQuadrado == true) {
-      valorCalculo = valorCalculo + (servicoData.valor! * areaTotal);
-    }
-
-    if (servicoData.metroLinear == true && lado != null) {
-      if (lado['ambos_os_comprimentos'] == true &&
-          lado['apenas_um_comprimento'] == false) {
-        valorCalculo = valorCalculo + (servicoData.valor! * (comprimento * 2));
+    if (valueCheck == true) {
+      if (servicoData.metroQuadrado == true) {
+        valorCalculo = valorCalculo + (servicoData.valor! * areaTotal);
       }
 
-      if (lado['apenas_um_comprimento'] == true &&
-          lado['ambos_os_comprimentos'] == false) {
-        valorCalculo = valorCalculo + (servicoData.valor! * comprimento);
+      if (servicoData.metroLinear == true && lado != null) {
+        if (lado['ambos_os_comprimentos'] == true &&
+            lado['apenas_um_comprimento'] == false) {
+          valorCalculo =
+              valorCalculo + (servicoData.valor! * (comprimento * 2));
+        }
+
+        if (lado['apenas_um_comprimento'] == true &&
+            lado['ambos_os_comprimentos'] == false) {
+          valorCalculo = valorCalculo + (servicoData.valor! * comprimento);
+        }
+
+        if (lado['ambas_as_larguras'] == true &&
+            lado['apenas_uma_largura'] == false) {
+          valorCalculo = valorCalculo + (servicoData.valor! * (largura * 2));
+        }
+
+        if (lado['apenas_uma_largura'] == true &&
+            lado['ambas_as_larguras'] == false) {
+          valorCalculo = valorCalculo + (servicoData.valor! * largura);
+        }
       }
 
-      if (lado['ambas_as_larguras'] == true &&
-          lado['apenas_uma_largura'] == false) {
-        valorCalculo = valorCalculo + (servicoData.valor! * (largura * 2));
+      if (servicoData.valorFixo == true) {
+        valorCalculo = valorCalculo + (servicoData.valor!);
       }
 
-      if (lado['apenas_uma_largura'] == true &&
-          lado['ambas_as_larguras'] == false) {
-        valorCalculo = valorCalculo + (servicoData.valor! * largura);
+      if (servicoData.porcentagemServico == true) {
+        //Todo pensar em uma forma de fazer esse calculo.
+        // servico.servicoSelecionando
       }
-    }
-
-    if (servicoData.valorFixo == true) {
-      valorCalculo = valorCalculo + (servicoData.valor!);
-    }
-
-    if (servicoData.porcentagemServico == true) {
-      //Todo pensar em uma forma de fazer esse calculo.
-      // servico.servicoSelecionando
     }
 
     servicos[servicoIndex] = servicoData.copyWith(
@@ -189,7 +192,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       observacoes?[index] = observacaoForm;
 
       state = state.copyWith(
-        observacoesModelList:observacoes,
+        observacoesModelList: observacoes,
         image: null,
       );
     }
@@ -230,46 +233,38 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     return concatenatedDateTime;
   }
 
-  Future<void> loadDataServicos() async {
+  Future<void> loadData() async {
     final loaderHandler = AsyncLoaderHandler()..start();
 
     List<ServicoModel> servicos = [];
+    List<ClienteModel> clientes = [];
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
-    final collection = fireStore.collection('servicos');
+    final collectionServicos = fireStore.collection('servicos');
+    final collectionCliente = fireStore.collection('clientes');
 
-    QuerySnapshot<Map<String, dynamic>> snapshot = await collection.get();
+    QuerySnapshot<Map<String, dynamic>> snapshotServico =
+        await collectionServicos.get();
+    QuerySnapshot<Map<String, dynamic>> snapshotCliente =
+        await collectionCliente.get();
 
-    for (var servico in snapshot.docs) {
+    for (var servico in snapshotServico.docs) {
       servicos.add(ServicoModel.fromJson(servico.data()));
+    }
+
+    for (var servico in snapshotCliente.docs) {
+      clientes.add(ClienteModel.fromJson(servico.data()));
     }
 
     servicos.sort((a, b) => a.nomeDoServico.compareTo(b.nomeDoServico));
 
     state = state.copyWith(
       servicos: servicos,
+      clientes: clientes,
       status: OrdemDeServicoStateStatus.loaded,
     );
 
     loaderHandler.close();
-  }
-
-  Future<void> loadDataClientes() async {
-    List<ClienteModel> clientes = [];
-    FirebaseFirestore fireStore = FirebaseFirestore.instance;
-
-    final collection = fireStore.collection('clientes');
-
-    QuerySnapshot<Map<String, dynamic>> snapshot = await collection.get();
-
-    for (var servico in snapshot.docs) {
-      clientes.add(ClienteModel.fromJson(servico.data()));
-    }
-
-    state = state.copyWith(
-      clientes: clientes,
-      status: OrdemDeServicoStateStatus.loaded,
-    );
   }
 
   Future<void> finalizarCadastroItem() async {
@@ -279,14 +274,10 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     late final observacoesModelList = state.observacoesModelList;
 
     double total = 0;
-    List<String> nomeDosServicos = [];
 
     for (ServicoModel servico in state.servicos!) {
       double valorCalculo = servico.valorCalculo ?? 0;
       total = total + valorCalculo;
-      if (servico.valor != null && servico.valor != 0) {
-        nomeDosServicos.add(servico.nomeDoServico);
-      }
     }
 
     itemForm.servicos = null;
@@ -299,7 +290,6 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
     itemModel = itemModel.copyWith(
         servicos: state.servicos,
-        nomeDosServicos: nomeDosServicos,
         total: total,
         observacoes: observacoesModelList);
 

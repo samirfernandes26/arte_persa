@@ -67,7 +67,7 @@ class _OrdemDeServicoServicosPageState
                                   ),
                                 ),
                                 if (servico.valorManual == false &&
-                                    servico.valorCalculo != null)
+                                    servico.valorCalculo != null && servico.valorCalculo != 0)
                                   Text(
                                     servico.valorCalculo
                                             ?.toString()
