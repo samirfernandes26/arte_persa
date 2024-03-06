@@ -34,6 +34,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     double areaTotal = largura * comprimento;
     double valorCalculo = 0;
     servicoData.valor = servicoData.valor ?? 0;
+    List<String> nomeDosServicos = item.nomeDosServicos ?? [];
 
     if (servicoData.metroQuadrado == true) {
       valorCalculo = valorCalculo + (servicoData.valor! * areaTotal);
@@ -74,9 +75,18 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       valorCalculo: valorCalculo,
     );
 
+    if (valueCheck == true) {
+      if (!nomeDosServicos.contains(servicoData.nomeDoServico)) {
+        nomeDosServicos.add(servicoData.nomeDoServico);
+      }
+    } else {
+      nomeDosServicos.remove(servicoData.nomeDoServico);
+    }
+
     state = state.copyWith(
       itemForm: item.copyWith(
         servicos: servicos,
+        nomeDosServicos: nomeDosServicos,
       ),
       servicos: servicos,
     );
@@ -136,9 +146,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
     observacoes.add(novaObservacao);
 
-    state = state.copyWith(
-      observacoesModelList:observacoes
-    );
+    state = state.copyWith(observacoesModelList: observacoes);
   }
 
   removerObservacao({required int index}) {
@@ -171,26 +179,24 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     final image = state.image;
 
     if (image != null) {
-      final itemForm = state.itemForm;
-      final observacoes = itemForm?.observacoes;
+      final List<ObservacaoModel>? observacoes = state.observacoesModelList;
       final observacao = observacoes?[index];
 
       final observacaoForm = observacao!.copyWith(
         image: image,
       );
+
       observacoes?[index] = observacaoForm;
 
       state = state.copyWith(
-        itemForm: itemForm?.copyWith(
-          observacoes: observacoes,
-        ),
+        observacoesModelList:observacoes,
         image: null,
       );
     }
   }
 
   cadastroObservacoes(Map<String, dynamic> dataItem) {
-    final List<ObservacaoModel>? observacoes = state.itemForm?.observacoes;
+    final List<ObservacaoModel>? observacoes = state.observacoesModelList;
 
     if (observacoes != null) {
       for (int index = 0; index < observacoes.length; index++) {
@@ -292,11 +298,10 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     itemForm.fotoProduto = state.itemForm?.fotoProduto;
 
     itemModel = itemModel.copyWith(
-      servicos: state.servicos,
-      nomeDosServicos: nomeDosServicos,
-      total: total,
-      observacoes: observacoesModelList
-    );
+        servicos: state.servicos,
+        nomeDosServicos: nomeDosServicos,
+        total: total,
+        observacoes: observacoesModelList);
 
     itemModelList.add(itemModel);
 
