@@ -1,4 +1,3 @@
-
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
@@ -114,7 +113,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   // validator: Validatorless.required('Tipo de produto e obrigatorio'),
                   options: const [
                     FormBuilderFieldOption(
-                      value:  'Tapete',
+                      value: 'Tapete',
                       child: Text(
                         'Tapete',
                         style: TextStyle(
@@ -264,6 +263,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                     );
                   },
                 ),
+                
               ],
             ),
           ),

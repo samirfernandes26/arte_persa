@@ -245,29 +245,6 @@ class Observacao extends StatelessWidget {
                                     Navigator.of(context).pop();
                                   },
                                 ),
-                                // Row(
-                                //   children: [
-                                //     if (observacao.image != null &&
-                                //         observacao.image?.pathDownloadImage !=
-                                //             null)
-                                //       Image.network(
-                                //         observacao.image!.pathDownloadImage!,
-                                //         width: 124,
-                                //         height: 124,
-                                //         fit: BoxFit.cover,
-                                //       ),
-                                //     if (observacao.image != null &&
-                                //         observacao.image?.pathLocal != null &&
-                                //         observacao.image?.pathDownloadImage ==
-                                //             null)
-                                //       Image.network(
-                                //         observacao.image!.pathLocal!,
-                                //         width: 124,
-                                //         height: 124,
-                                //         fit: BoxFit.cover,
-                                //       ),
-                                //   ],
-                                // ),
                               ],
                             ),
                           ),
