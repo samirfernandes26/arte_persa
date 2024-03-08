@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
@@ -263,7 +265,65 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                     );
                   },
                 ),
-                
+                const SizedBox(
+                  height: 16,
+                ),
+                if (ordemDeServicoVm.image?.pathLocal != null)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.file(
+                        File(ordemDeServicoVm.image!.pathLocal!),
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                else if (ordemDeServicoVm.image?.pathDownloadImage != null)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.network(
+                        ordemDeServicoVm.image!.pathDownloadImage!,
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                if (ordemDeServicoVm.image?.pathDownloadImage == null &&
+                    ordemDeServicoVm.itemForm?.fotoProduto?.pathDownloadImage !=
+                        null)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.network(
+                        ordemDeServicoVm.image!.pathDownloadImage!,
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                if (ordemDeServicoVm.image?.pathLocal == null &&
+                    ordemDeServicoVm.itemForm?.fotoProduto?.pathLocal !=
+                        null)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.file(
+                        File(ordemDeServicoVm.image!.pathLocal!),
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
               ],
             ),
           ),
