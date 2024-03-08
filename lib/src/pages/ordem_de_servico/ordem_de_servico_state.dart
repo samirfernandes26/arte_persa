@@ -35,6 +35,7 @@ class OrdemDeServicoState {
     this.loading,
     this.ordemdeServico,
     this.image,
+    this.fotoProduto,
     this.observacao,
     this.itens,
     this.itemForm,
@@ -55,6 +56,7 @@ class OrdemDeServicoState {
   List<ObservacaoModel>? observacoesModelList;
 
   ImageModel? image;
+  ImageModel? fotoProduto;
   String? message;
   bool? loading;
 
@@ -68,6 +70,7 @@ class OrdemDeServicoState {
     List<ObservacaoModel>? observacoesModelList,
     OrdemDeServicoModel? ordemdeServico,
     ImageModel? image,
+    ImageModel? fotoProduto,
     ObservacaoModel? observacao,
     String? message,
     bool? loading,
@@ -82,6 +85,7 @@ class OrdemDeServicoState {
       observacoesModelList: observacoesModelList ?? this.observacoesModelList,
       ordemdeServico: ordemdeServico ?? this.ordemdeServico,
       image: image ?? this.image,
+      fotoProduto: fotoProduto ?? this.fotoProduto,
       observacao: observacao ?? this.observacao,
       message: message ?? this.message,
       loading: loading ?? this.loading,

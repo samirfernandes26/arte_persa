@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arte_persa/src/model/item_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
@@ -90,135 +92,170 @@ class _OrdemDeServicoFaturaPageState
                     ],
                   ),
                   padding: EdgeInsets.all(16), // Preenchimento interno
-                  child: Column(
+                  child: Row(
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Tipo do item',
-                            style: TextStyle(
-                              color: Colors.grey.shade900,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Tipo do item',
+                                  style: TextStyle(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  item?.tipoIdetem ?? 'Tipo Não encotrado',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            item?.tipoIdetem ?? 'Tipo Não encotrado',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
+                            const SizedBox(
+                              height: 16,
                             ),
-                          ),
-                        ],
+                            Row(
+                              children: [
+                                Text(
+                                  'Nome do Item',
+                                  style: TextStyle(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  item?.nomeDoItem ??
+                                      'Nome do item não encotrado',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Numéro de Observaçoes',
+                                  style: TextStyle(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  item?.observacoes != null
+                                      ? item!.observacoes!.length.toString()
+                                      : 'Sem observações',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Servicos selecionados',
+                                  style: TextStyle(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                const Text(
+                                  'Ver aqui depois ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Valor do serviço',
+                                  style: TextStyle(
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  item?.total?.toString().replaceAll('.', ',') ??
+                                      '0,00',
+                                  style: TextStyle(
+                                    color: Colors.orange.shade300,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(
-                        height: 16,
+                        width: 16,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            'Nome do Item',
-                            style: TextStyle(
-                              color: Colors.grey.shade900,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
+                      if (item?.fotoProduto?.pathLocal != null)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20.0),
+                            child: Image.file(
+                              File(item!.fotoProduto!.pathLocal!),
+                              width: 124,
+                              height: 124,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            item?.nomeDoItem ?? 'Nome do item não encotrado',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
+                        )
+                      else if (item?.fotoProduto?.pathDownloadImage != null)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20.0),
+                            child: Image.network(
+                              item!.fotoProduto!.pathDownloadImage!,
+                              width: 124,
+                              height: 124,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Numéro de Observaçoes',
-                            style: TextStyle(
-                              color: Colors.grey.shade900,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            item?.observacoes != null
-                                ? item!.observacoes!.length.toString()
-                                : 'Sem observações', 
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Servicos selecionados',
-                            style: TextStyle(
-                              color: Colors.grey.shade900,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          const Text(
-                            'Ver aqui depois ',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'Valor do serviço',
-                            style: TextStyle(
-                              color: Colors.grey.shade900,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            item?.total?.toString()
-                                            .replaceAll('.', ',') ??
-                                        '0,00',
-                            style: TextStyle(
-                              color: Colors.orange.shade300,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 24,
-                            ),
-                          ),
-                        ],
-                      )
+                        ),
                     ],
                   ),
                 )

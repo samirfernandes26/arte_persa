@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/model/observacao_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
@@ -279,10 +281,42 @@ class Observacao extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
               ],
             ),
           ],
         ),
+        const SizedBox(
+          height: 8,
+        ),
+        if (observacao?.image?.pathLocal != null)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image.file(
+                File(observacao!.image!.pathLocal!),
+                width: 124,
+                height: 124,
+                fit: BoxFit.cover,
+              ),
+            ),
+          )
+        else if (observacao?.image?.pathDownloadImage != null)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image.network(
+                observacao!.image!.pathDownloadImage!,
+                width: 124,
+                height: 124,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
       ],
     );
   }

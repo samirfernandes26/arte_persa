@@ -136,6 +136,12 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       itemForm: itemForm.copyWith(fotoProduto: state.image),
       image: null,
     );
+
+    final fotoProduto =  state.itemForm?.fotoProduto;
+
+    state = state.copyWith(
+      fotoProduto: fotoProduto
+    );
   }
 
   Future<void> selectImageProdo({
@@ -285,13 +291,12 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     late Map<String, dynamic> itemFormJson = itemForm.toJson();
     itemModel = ItemModel.fromJson(itemFormJson);
     itemModel.servicos = state.servicos;
-    itemModel.total = total;
-    itemForm.fotoProduto = state.itemForm?.fotoProduto;
 
     itemModel = itemModel.copyWith(
         servicos: state.servicos,
         total: total,
-        observacoes: observacoesModelList);
+        observacoes: observacoesModelList,
+        fotoProduto: state.fotoProduto);
 
     itemModelList.add(itemModel);
 
