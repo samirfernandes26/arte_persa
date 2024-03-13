@@ -432,8 +432,7 @@ class _OrdemDeServicoFaturaPageState
                       break;
                     case (true):
                       // await cadastroObservacoes(formKey.currentState!.value);
-                      Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.ordemDeServicoServicosPage);
+                      Navigator.of(context).pushNamed(RouteGeneratorKeys.ordemDeServicoTermoAssinatura);
                   }
                 }, //loginUser,
                 child: const Text('Proximo'),

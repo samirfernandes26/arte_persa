@@ -8,10 +8,9 @@ import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_fatura_pa
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_servicos_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_observacao_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_page.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_termo_assinatura.dart';
 import 'package:arte_persa/src/pages/servicos/servicos_page.dart';
 import 'package:arte_persa/src/pages/splash/splash_page.dart';
-// import 'package:arte_persa/src/pages/home/home_page.dart';
-// import 'package:arte_persa/src/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
 sealed class RouteGeneratorKeys {
@@ -27,6 +26,7 @@ sealed class RouteGeneratorKeys {
   static const ordemDeServicoObservacao = '/ordemDeServicoObservacao';
   static const ordemDeServicoServicosPage = '/OrdemDeServicoServicosPage';
   static const ordemDeServicoFaturaPage = '/ordemDeServicoFaturaPage';
+  static const ordemDeServicoTermoAssinatura = '/ordemDeServicoTermoAssinatura';
   
 }
 
@@ -99,6 +99,15 @@ class RouteGenerator {
           settings: settings,
           builder: (context) => const OrdemDeServicoFaturaPage(),
         );
+
+        case RouteGeneratorKeys.ordemDeServicoTermoAssinatura:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const OrdemDeServicoTermoAssinatura(),
+        );
+
+
+        
 
       default:
         return _errorRoute();
