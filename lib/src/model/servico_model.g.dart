@@ -14,10 +14,6 @@ ServicoModel _$ServicoModelFromJson(Map<String, dynamic> json) => ServicoModel(
       metroLinear: json['metro_linear'] as bool,
       valorFixo: json['valor_fixo'] as bool,
       valorManual: json['valor_manual'] as bool,
-      porcentagemServico: json['porcentagem_servico'] as bool,
-      servicoSelecionando: json['servico_selecionado'] as String?,
-      porcentagem: _$JsonConverterFromJson<String, int>(
-          json['porcentagem'], const StringToIntConverter().fromJson),
       userId: json['user_id'] as String,
       valor: _$JsonConverterFromJson<String, double>(
           json['valor'], const StringToDoubleConverter().fromJson),
@@ -34,8 +30,6 @@ ServicoModel _$ServicoModelFromJson(Map<String, dynamic> json) => ServicoModel(
 Map<String, dynamic> _$ServicoModelToJson(ServicoModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'porcentagem': _$JsonConverterToJson<String, int>(
-          instance.porcentagem, const StringToIntConverter().toJson),
       'valor': _$JsonConverterToJson<String, double>(
           instance.valor, const StringToDoubleConverter().toJson),
       'user_id': instance.userId,
@@ -47,8 +41,6 @@ Map<String, dynamic> _$ServicoModelToJson(ServicoModel instance) =>
       'metro_linear': instance.metroLinear,
       'valor_fixo': instance.valorFixo,
       'valor_manual': instance.valorManual,
-      'porcentagem_servico': instance.porcentagemServico,
-      'servico_selecionado': instance.servicoSelecionando,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };

@@ -59,9 +59,6 @@ class CadastrosServicoForm {
     required this.metroLinear,
     required this.valorFixo,
     required this.valorManual,
-    required this.porcentagemServico,
-    this.servicoSelecionando,
-    this.porcentagem,
     this.valor,
     this.createdAt,
     this.updatedAt,
@@ -75,9 +72,6 @@ class CadastrosServicoForm {
   bool metroLinear;
   bool valorFixo;
   bool valorManual;
-  bool porcentagemServico;
-  String? servicoSelecionando;
-  int? porcentagem;
   double? valor;
 
   @JsonKey(name: 'created_at')

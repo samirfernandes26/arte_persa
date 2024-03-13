@@ -102,10 +102,6 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
         valorCalculo = valorCalculo + (servicoData.valor!);
       }
 
-      if (servicoData.porcentagemServico == true) {
-        //Todo pensar em uma forma de fazer esse calculo.
-        // servico.servicoSelecionando
-      }
     }
 
     servicos[servicoIndex] = servicoData.copyWith(

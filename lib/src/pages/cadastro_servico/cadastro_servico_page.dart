@@ -22,7 +22,7 @@ class CadastroServicoPage extends ConsumerStatefulWidget {
 
 class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
   final formKey = GlobalKey<FormBuilderState>();
-  bool checkPorcentagem = false;
+  
 
   @override
   void dispose() {
@@ -205,90 +205,13 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                FormBuilderSwitch(
-                  name: 'porcentagem_servico',
-                  title: const DefaultTextStyle(
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                    ),
-                    child: Text(
-                      'Porcentage serviço',
-                    ),
+                FormBuilderTextField(
+                  name: 'valor',
+                  onTapOutside: (_) => context.unfocus(),
+                  decoration: const InputDecoration(
+                    labelText: 'valor do serviço',
                   ),
-                  initialValue: false,
-                  onChanged: (value) {
-                    loadDataServicos().then(
-                      (_) {
-                        setState(
-                          () {
-                            checkPorcentagem = value ?? false;
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
-                Visibility(
-                  visible: checkPorcentagem,
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      FormBuilderDropdown(
-                        name: 'servico_selecionando',
-                        decoration: const InputDecoration(
-                          labelText: 'Selecione uma o serviço',
-                        ),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                        ), // Define a,
-                        items: servicoVm.servicos?.map(
-                              (servico) {
-                                return DropdownMenuItem(
-                                  value: servico.id,
-                                  child: Text(
-                                    servico.nomeDoServico,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ).toList() ??
-                            [],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Visibility(
-                  visible: checkPorcentagem,
-                  child: FormBuilderTextField(
-                    name: 'porcentagem',
-                    onTapOutside: (_) => context.unfocus(),
-                    decoration: const InputDecoration(
-                      labelText: 'Porcentagem do serviço',
-                    ),
-                    validator: Validatorless.required(
-                      'Porcentagem do serviço e obrigatório.',
-                    ),
-                    keyboardType: TextInputType.phone,
-                  ),
-                ),
-                Visibility(
-                  visible: !checkPorcentagem,
-                  child: FormBuilderTextField(
-                    name: 'valor',
-                    onTapOutside: (_) => context.unfocus(),
-                    decoration: const InputDecoration(
-                      labelText: 'valor do serviço',
-                    ),
-                    keyboardType: TextInputType.phone,
-                  ),
+                  keyboardType: TextInputType.phone,
                 ),
                 const SizedBox(
                   height: 16,

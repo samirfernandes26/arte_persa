@@ -17,9 +17,6 @@ CadastrosServicoForm _$CadastrosServicoFormFromJson(
       metroLinear: json['metroLinear'] as bool,
       valorFixo: json['valorFixo'] as bool,
       valorManual: json['valorManual'] as bool,
-      porcentagemServico: json['porcentagemServico'] as bool,
-      servicoSelecionando: json['servicoSelecionando'] as String?,
-      porcentagem: json['porcentagem'] as int?,
       valor: (json['valor'] as num?)?.toDouble(),
       createdAt: json['created_at'] == null
           ? null
@@ -40,9 +37,6 @@ Map<String, dynamic> _$CadastrosServicoFormToJson(
       'metroLinear': instance.metroLinear,
       'valorFixo': instance.valorFixo,
       'valorManual': instance.valorManual,
-      'porcentagemServico': instance.porcentagemServico,
-      'servicoSelecionando': instance.servicoSelecionando,
-      'porcentagem': instance.porcentagem,
       'valor': instance.valor,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),

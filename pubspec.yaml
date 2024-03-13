@@ -81,6 +81,7 @@ dependencies:
   percent_indicator: ^4.2.3
   json_annotation: ^4.8.1
   image_picker: ^1.0.7
+  flutter_signature_pad: ^3.0.1
 
 
 dev_dependencies:

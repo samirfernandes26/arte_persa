@@ -13,9 +13,6 @@ class ServicoModel {
     required this.metroLinear,
     required this.valorFixo,
     required this.valorManual,
-    required this.porcentagemServico,
-    this.servicoSelecionando,
-    this.porcentagem,
     required this.userId,
     this.valor,
     this.valorCalculo,
@@ -24,9 +21,6 @@ class ServicoModel {
   });
 
   String? id;
-  
-  @StringToIntConverter()
-  int? porcentagem;
 
   @StringToDoubleConverter()
   double? valor;
@@ -56,12 +50,6 @@ class ServicoModel {
   @JsonKey(name: 'valor_manual')
   bool valorManual;
 
-  @JsonKey(name: 'porcentagem_servico')
-  bool porcentagemServico;
-
-  @JsonKey(name: 'servico_selecionado')
-  String? servicoSelecionando;
-
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
 
@@ -70,7 +58,7 @@ class ServicoModel {
 
   ServicoModel copyWith({
     String? id,
-    int? porcentagem,
+
     double? valor,
     String? userId,
     double? valorCalculo,
@@ -80,14 +68,12 @@ class ServicoModel {
     bool? metroLinear,
     bool? valorFixo,
     bool? valorManual,
-    bool? porcentagemServico,
-    String? servicoSelecionando,
+
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     return ServicoModel(
       id: id ?? this.id,
-      porcentagem: porcentagem ?? this.porcentagem,
       valor: valor ?? this.valor,
       userId: userId ?? this.userId,
       valorCalculo: valorCalculo ?? this.valorCalculo,
@@ -97,8 +83,6 @@ class ServicoModel {
       metroLinear: metroLinear ?? this.metroLinear,
       valorFixo: valorFixo ?? this.valorFixo,
       valorManual: valorManual ?? this.valorManual,
-      porcentagemServico: porcentagemServico ?? this.porcentagemServico,
-      servicoSelecionando: servicoSelecionando ?? this.servicoSelecionando,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
