@@ -298,11 +298,24 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
     if (itemModelList.isNotEmpty) {
       state = state.copyWith(itens: itemModelList);
+      resetItem();
     }
   }
 
+  resetItem(){
+    state = state.copyWith(
+      observacao: null,
+      servicos: null,
+      clientes: null,
+      itemForm: null,
+      observacoesModelList: null,
+      image: null,
+      fotoProduto: null,
+    );
+  }
+
   Future<void> cadastrarOrdemDeServico() async {
-    
+
 
   }
 }

@@ -46,19 +46,19 @@ class OrdemDeServicoState {
   OrdemDeServicoStateStatus status;
   OrdemDeServicoModel? ordemdeServico;
   List<ItemModel>? itens;
-  ObservacaoModel? observacao;
 
+  ObservacaoModel? observacao;
   List<ServicoModel>? servicos;
   List<ClienteModel>? clientes;
-
-  OrdemDeServicoForm? ordemServicioForm;
   ItemForm? itemForm;
   List<ObservacaoModel>? observacoesModelList;
-
   ImageModel? image;
   ImageModel? fotoProduto;
+
   String? message;
   bool? loading;
+
+  OrdemDeServicoForm? ordemServicioForm;
 
   OrdemDeServicoState copyWith({
     OrdemDeServicoStateStatus? status,
