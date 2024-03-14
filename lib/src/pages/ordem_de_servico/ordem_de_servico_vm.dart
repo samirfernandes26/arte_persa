@@ -300,4 +300,9 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       state = state.copyWith(itens: itemModelList);
     }
   }
+
+  Future<void> cadastrarOrdemDeServico() async {
+
+
+  }
 }
