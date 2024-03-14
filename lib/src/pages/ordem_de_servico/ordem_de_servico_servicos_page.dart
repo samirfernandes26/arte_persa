@@ -303,8 +303,8 @@ class _OrdemDeServicoServicosPageState
                     backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
                 onPressed: () async {
                   await finalizarCadastroItem();
-                  Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.ordemDeServicoFaturaPage);
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                          RouteGeneratorKeys.ordemDeServicoFaturaPage, (route) =>  false,);
                 }, //loginUser,
                 child: const Text('Finalizar item'),
               ),
