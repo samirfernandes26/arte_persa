@@ -302,7 +302,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   }
 
   Future<void> cadastrarOrdemDeServico() async {
-
+    
 
   }
 }
