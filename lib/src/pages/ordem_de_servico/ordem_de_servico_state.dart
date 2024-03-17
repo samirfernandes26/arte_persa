@@ -24,6 +24,7 @@ class OrdemDeServicoState {
           status: OrdemDeServicoStateStatus.initial,
           servicos: [],
           observacoesModelList: [],
+          faturaOs:null,
           image: null,
         );
 
@@ -34,6 +35,7 @@ class OrdemDeServicoState {
     this.message,
     this.loading,
     this.ordemdeServico,
+    this.faturaOs,
     this.image,
     this.fotoProduto,
     this.observacao,
@@ -45,6 +47,7 @@ class OrdemDeServicoState {
 
   OrdemDeServicoStateStatus status;
   OrdemDeServicoModel? ordemdeServico;
+  FaturamentoModel? faturaOs;
   List<ItemModel>? itens;
 
   ObservacaoModel? observacao;
@@ -66,6 +69,7 @@ class OrdemDeServicoState {
     List<ClienteModel>? clientes,
     List<ItemModel>? itens,
     OrdemDeServicoForm? ordemServicioForm,
+    FaturamentoModel? faturaOs,
     ItemForm? itemForm,
     List<ObservacaoModel>? observacoesModelList,
     OrdemDeServicoModel? ordemdeServico,
@@ -81,6 +85,7 @@ class OrdemDeServicoState {
       clientes: clientes ?? this.clientes,
       itens: itens ?? this.itens,
       ordemServicioForm: ordemServicioForm ?? this.ordemServicioForm,
+      faturaOs: faturaOs ?? this.faturaOs,
       itemForm: itemForm ?? this.itemForm,
       observacoesModelList: observacoesModelList ?? this.observacoesModelList,
       ordemdeServico: ordemdeServico ?? this.ordemdeServico,

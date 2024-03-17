@@ -8,19 +8,18 @@ part 'faturamento_model.g.dart';
 @JsonSerializable()
 class FaturamentoModel {
   FaturamentoModel({
-    this.servicosIds,
     this.clienteId,
     this.ordemDeServicoId,
-    this.descontoDado,
+    this.descontoAplicado,
     this.valorFinalDaNota,
+    this.totalBruto,
     this.adiantamento,
     this.formaDePagamento,
     this.statusDoPagamento,
     this.comprovantePagamento,
   });
 
-  @JsonKey(name: 'servicos_ids')
-  List<String>? servicosIds;
+
 
   @JsonKey(name: 'cliente_id')
   String? clienteId;
@@ -28,13 +27,17 @@ class FaturamentoModel {
   @JsonKey(name: 'ordem_de_servico_id')
   String? ordemDeServicoId;
 
-  @JsonKey(name: 'desconto_dado')
+  @JsonKey(name: 'desconto_aplicado')
   @StringToDoubleConverter()
-  double? descontoDado;
+  double? descontoAplicado;
 
   @StringToDoubleConverter()
   @JsonKey(name: 'valor_final_da_nota')
   double? valorFinalDaNota;
+
+  @StringToDoubleConverter()
+  @JsonKey(name: 'total_bruto')
+  double? totalBruto;
 
   @StringToDoubleConverter()
   double? adiantamento;
@@ -49,22 +52,22 @@ class FaturamentoModel {
   ImageModel? comprovantePagamento;
 
   FaturamentoModel copyWith({
-    List<String>? servicosIds,
     String? clienteId,
     String? ordemDeServicoId,
-    double? descontoDado,
+    double? descontoAplicado,
     double? valorFinalDaNota,
+    double? totalBruto,
     double? adiantamento,
     String? formaDePagamento,
     String? statusDoPagamento,
     ImageModel? comprovantePagamento,
   }) {
     return FaturamentoModel(
-      servicosIds: servicosIds ?? this.servicosIds,
       clienteId: clienteId ?? this.clienteId,
       ordemDeServicoId: ordemDeServicoId ?? this.ordemDeServicoId,
-      descontoDado: descontoDado ?? this.descontoDado,
+      descontoAplicado: descontoAplicado ?? this.descontoAplicado,
       valorFinalDaNota: valorFinalDaNota ?? this.valorFinalDaNota,
+      totalBruto: totalBruto ?? this.totalBruto,
       adiantamento: adiantamento ?? this.adiantamento,
       formaDePagamento: formaDePagamento ?? this.formaDePagamento,
       statusDoPagamento: statusDoPagamento ?? this.statusDoPagamento,

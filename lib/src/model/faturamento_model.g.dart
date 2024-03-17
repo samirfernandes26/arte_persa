@@ -8,16 +8,15 @@ part of 'faturamento_model.dart';
 
 FaturamentoModel _$FaturamentoModelFromJson(Map<String, dynamic> json) =>
     FaturamentoModel(
-      servicosIds: (json['servicos_ids'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
       clienteId: json['cliente_id'] as String?,
       ordemDeServicoId: json['ordem_de_servico_id'] as String?,
-      descontoDado: _$JsonConverterFromJson<String, double>(
-          json['desconto_dado'], const StringToDoubleConverter().fromJson),
+      descontoAplicado: _$JsonConverterFromJson<String, double>(
+          json['desconto_aplicado'], const StringToDoubleConverter().fromJson),
       valorFinalDaNota: _$JsonConverterFromJson<String, double>(
           json['valor_final_da_nota'],
           const StringToDoubleConverter().fromJson),
+      totalBruto: _$JsonConverterFromJson<String, double>(
+          json['total_bruto'], const StringToDoubleConverter().fromJson),
       adiantamento: _$JsonConverterFromJson<String, double>(
           json['adiantamento'], const StringToDoubleConverter().fromJson),
       formaDePagamento: json['forma_de_pagamento'] as String?,
@@ -30,13 +29,14 @@ FaturamentoModel _$FaturamentoModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$FaturamentoModelToJson(FaturamentoModel instance) =>
     <String, dynamic>{
-      'servicos_ids': instance.servicosIds,
       'cliente_id': instance.clienteId,
       'ordem_de_servico_id': instance.ordemDeServicoId,
-      'desconto_dado': _$JsonConverterToJson<String, double>(
-          instance.descontoDado, const StringToDoubleConverter().toJson),
+      'desconto_aplicado': _$JsonConverterToJson<String, double>(
+          instance.descontoAplicado, const StringToDoubleConverter().toJson),
       'valor_final_da_nota': _$JsonConverterToJson<String, double>(
           instance.valorFinalDaNota, const StringToDoubleConverter().toJson),
+      'total_bruto': _$JsonConverterToJson<String, double>(
+          instance.totalBruto, const StringToDoubleConverter().toJson),
       'adiantamento': _$JsonConverterToJson<String, double>(
           instance.adiantamento, const StringToDoubleConverter().toJson),
       'forma_de_pagamento': instance.formaDePagamento,

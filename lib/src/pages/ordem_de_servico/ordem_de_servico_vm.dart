@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:arte_persa/src/model/faturamento_model.dart';
 import 'package:arte_persa/src/model/image_model.dart';
 import 'package:arte_persa/src/model/item_model.dart';
 import 'package:arte_persa/src/model/observacao_model.dart';
@@ -101,7 +100,6 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       if (servicoData.valorFixo == true) {
         valorCalculo = valorCalculo + (servicoData.valor!);
       }
-
     }
 
     servicos[servicoIndex] = servicoData.copyWith(
@@ -133,11 +131,9 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       image: null,
     );
 
-    final fotoProduto =  state.itemForm?.fotoProduto;
+    final fotoProduto = state.itemForm?.fotoProduto;
 
-    state = state.copyWith(
-      fotoProduto: fotoProduto
-    );
+    state = state.copyWith(fotoProduto: fotoProduto);
   }
 
   Future<void> selectImageProdo({
@@ -271,9 +267,10 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
   Future<void> finalizarCadastroItem() async {
     late List<ItemModel> itemModelList = [];
-    late final itemForm = state.itemForm!;
+    final itemForm = state.itemForm!;
     late ItemModel itemModel;
-    late final observacoesModelList = state.observacoesModelList;
+    late FaturamentoModel? faturaOs;
+    final observacoesModelList = state.observacoesModelList;
 
     double total = 0;
 
@@ -288,34 +285,69 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     itemModel = ItemModel.fromJson(itemFormJson);
     itemModel.servicos = state.servicos;
 
+    if (state.faturaOs != null) {
+      faturaOs = state.faturaOs;
+      final valorAux = faturaOs?.totalBruto ?? 0;
+      faturaOs?.totalBruto = valorAux + total;
+    } else {
+      faturaOs = FaturamentoModel(totalBruto: total);
+    }
+
     itemModel = itemModel.copyWith(
-        servicos: state.servicos,
-        total: total,
-        observacoes: observacoesModelList,
-        fotoProduto: state.fotoProduto);
+      servicos: state.servicos,
+      total: total,
+      observacoes: observacoesModelList,
+      fotoProduto: state.fotoProduto,
+    );
+
+    if (state.itens != null && state.itens!.isNotEmpty) {
+      itemModelList = state.itens!;
+    }
 
     itemModelList.add(itemModel);
 
     if (itemModelList.isNotEmpty) {
-      state = state.copyWith(itens: itemModelList);
+      state = state.copyWith(
+        itens: itemModelList,
+        faturaOs: faturaOs,
+      );
       resetItem();
     }
   }
 
-  resetItem(){
-    state = state.copyWith(
-      observacao: null,
-      servicos: null,
-      clientes: null,
-      itemForm: null,
-      observacoesModelList: null,
-      image: null,
-      fotoProduto: null,
+  resetItem() {
+    ImageModel imagemNull = ImageModel(
+      pathLocal: null,
+      pathService: null,
+      fileName: null,
+      pathDownloadImage: null,
     );
-  }
 
-  Future<void> cadastrarOrdemDeServico() async {
+    ObservacaoModel observacaoNull = ObservacaoModel(
+      id: null,
+      observacao: null,
+      image: imagemNull,
+    );
 
+    List<String> nomeDosServicosNull = [];
+    List<ObservacaoModel> observacoesNull = [];
 
+    ItemForm itemForm = ItemForm(
+      nomeDoItem: null,
+      comprimento: null,
+      largura: null,
+      fotoProduto: imagemNull,
+      nomeDosServicos: nomeDosServicosNull,
+      observacoes: observacoesNull,
+      tipoIdetem: null,
+    );
+
+    state = state.copyWith(
+      observacao: observacaoNull,
+      itemForm: itemForm,
+      observacoesModelList: observacoesNull,
+      image: imagemNull,
+      fotoProduto: imagemNull,
+    );
   }
 }

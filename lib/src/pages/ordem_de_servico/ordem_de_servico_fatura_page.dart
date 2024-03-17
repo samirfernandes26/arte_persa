@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/model/faturamento_model.dart';
 import 'package:arte_persa/src/model/item_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
@@ -23,6 +24,7 @@ class _OrdemDeServicoFaturaPageState
 
   late ItemModel? item;
   late List<ItemModel>? itens;
+  late FaturamentoModel? fatura;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class _OrdemDeServicoFaturaPageState
 
     final notaVm = ref.watch(ordemDeServicoVmProvider);
     itens = notaVm.itens!;
+    fatura = notaVm.faturaOs;
 
     return Scaffold(
       appBar: AppBar(
@@ -55,7 +58,11 @@ class _OrdemDeServicoFaturaPageState
                     minimumSize: const Size.fromHeight(60),
                     backgroundColor: Colors.orange.shade300,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      RouteGeneratorKeys.ordemDeServicoPage,
+                    );
+                  },
                   child: const Row(
                     children: [
                       Expanded(
@@ -83,186 +90,191 @@ class _OrdemDeServicoFaturaPageState
                   itemCount: notaVm.itens?.length ?? 0,
                   itemBuilder: (context, index) {
                     final item = notaVm.itens![index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade600,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 2,
-                            blurRadius: 3,
-                            offset: const Offset(0, 1),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Tipo do item',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      item.tipoIdetem,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Nome do Item',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      item.nomeDoItem,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Numéro de Observaçoes',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      item.observacoes != null
-                                          ? item.observacoes!.length.toString()
-                                          : 'Sem observações',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Servicos selecionados',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    const Text(
-                                      'Ver aqui depois ',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Valor do serviço',
-                                      style: TextStyle(
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      item.total
-                                              ?.toString()
-                                              .replaceAll('.', ',') ??
-                                          '0,00',
-                                      style: TextStyle(
-                                        color: Colors.orange.shade300,
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 24,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade600,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              offset: const Offset(0, 1),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          if (item.fotoProduto?.pathLocal != null)
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20.0),
-                                child: Image.file(
-                                  File(item.fotoProduto!.pathLocal!),
-                                  width: 124,
-                                  height: 124,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            )
-                          else if (item.fotoProduto?.pathDownloadImage != null)
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20.0),
-                                child: Image.network(
-                                  item.fotoProduto!.pathDownloadImage!,
-                                  width: 124,
-                                  height: 124,
-                                  fit: BoxFit.cover,
-                                ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Tipo do item',
+                                        style: TextStyle(
+                                          color: Colors.grey.shade900,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        item.tipoIdetem,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Nome do Item',
+                                        style: TextStyle(
+                                          color: Colors.grey.shade900,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        item.nomeDoItem,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Numéro de Observaçoes',
+                                        style: TextStyle(
+                                          color: Colors.grey.shade900,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        item.observacoes != null
+                                            ? item.observacoes!.length
+                                                .toString()
+                                            : 'Sem observações',
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Servicos selecionados',
+                                        style: TextStyle(
+                                          color: Colors.grey.shade900,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      const Text(
+                                        'Ver aqui depois ',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Valor do serviço',
+                                        style: TextStyle(
+                                          color: Colors.grey.shade900,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        item.total
+                                                ?.toString()
+                                                .replaceAll('.', ',') ??
+                                            '0,00',
+                                        style: TextStyle(
+                                          color: Colors.orange.shade300,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                        ],
+                            const SizedBox(
+                              width: 16,
+                            ),
+                            if (item.fotoProduto?.pathLocal != null)
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.file(
+                                    File(item.fotoProduto!.pathLocal!),
+                                    width: 124,
+                                    height: 124,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
+                            else if (item.fotoProduto?.pathDownloadImage !=
+                                null)
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.network(
+                                    item.fotoProduto!.pathDownloadImage!,
+                                    width: 124,
+                                    height: 124,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -295,9 +307,12 @@ class _OrdemDeServicoFaturaPageState
                           color: Colors.grey.shade600,
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: const Text(
-                          'Total',
-                          style: TextStyle(
+                        child: Text(
+                          fatura?.totalBruto
+                                  ?.toString()
+                                  .replaceAll('.', ',') ??
+                              '0,00',
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
@@ -382,7 +397,12 @@ class _OrdemDeServicoFaturaPageState
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                   ),
-                  items: ['Cartão de credito', 'Cartão de debito', 'Pix', 'Dinheiro']
+                  items: [
+                    'Cartão de credito',
+                    'Cartão de debito',
+                    'Pix',
+                    'Dinheiro'
+                  ]
                       .map(
                         (option) => DropdownMenuItem(
                           value: option,
@@ -432,7 +452,8 @@ class _OrdemDeServicoFaturaPageState
                       break;
                     case (true):
                       // await cadastroObservacoes(formKey.currentState!.value);
-                      Navigator.of(context).pushNamed(RouteGeneratorKeys.ordemDeServicoTermoAssinatura);
+                      Navigator.of(context).pushNamed(
+                          RouteGeneratorKeys.ordemDeServicoTermoAssinatura);
                   }
                 }, //loginUser,
                 child: const Text('Proximo'),
