@@ -1,14 +1,15 @@
 import 'dart:io';
 
-import 'package:arte_persa/src/core/extension/context_extension.dart';
-import 'package:arte_persa/src/core/ui/helpers/messages.dart';
-import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
-import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
-import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:validatorless/validatorless.dart';
+
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
+import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/routes/route_generator.dart';
 
 class OrdemDeServico extends ConsumerStatefulWidget {
   const OrdemDeServico({super.key});
@@ -65,12 +66,17 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Orden de serviço'),
+        title: const Text(
+          'Orden de serviço',
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back,
+          ),
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                RouteGeneratorKeys.authLogin, (route) => false);
+            Navigator.of(context).popAndPushNamed(
+              RouteGeneratorKeys.home,
+            );
           },
         ),
       ),
@@ -83,7 +89,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 FormBuilderDropdown(
-                  name: 'cliente_id',
+                  name: 'cliente',
                   decoration: const InputDecoration(
                     labelText: 'Selecione um cliente',
                   ),
@@ -92,7 +98,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   ),
                   items: ordemDeServicoVm.clientes?.map((cliente) {
                         return DropdownMenuItem(
-                          value: cliente.nome,
+                          value: cliente,
                           child: Text(
                             cliente.nome!,
                             style: const TextStyle(
@@ -169,7 +175,8 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                           ),
                         ),
                         keyboardType: TextInputType.number,
-                        validator: Validatorless.required('Comprimento é obrigatório'),
+                        validator:
+                            Validatorless.required('Comprimento é obrigatório'),
                       ),
                     ),
                     const SizedBox(
@@ -184,7 +191,8 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                           hintText: 'Largura (m)',
                         ),
                         keyboardType: TextInputType.number,
-                        validator: Validatorless.required('Largura é obrigatório'),
+                        validator:
+                            Validatorless.required('Largura é obrigatório'),
                       ),
                     ),
                   ],
@@ -310,8 +318,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                     ),
                   ),
                 if (ordemDeServicoVm.image?.pathLocal == null &&
-                    ordemDeServicoVm.itemForm?.fotoProduto?.pathLocal !=
-                        null)
+                    ordemDeServicoVm.itemForm?.fotoProduto?.pathLocal != null)
                   Align(
                     alignment: Alignment.centerLeft,
                     child: ClipRRect(

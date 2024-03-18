@@ -22,7 +22,6 @@ class CadastroServicoPage extends ConsumerStatefulWidget {
 
 class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
   final formKey = GlobalKey<FormBuilderState>();
-  
 
   @override
   void dispose() {
@@ -69,9 +68,13 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de novo tipo de serviço'),
+        title: const Text(
+          'Cadastro de novo tipo de serviço',
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back,
+          ),
           onPressed: () {
             Navigator.of(context).popAndPushNamed(
               RouteGeneratorKeys.home,

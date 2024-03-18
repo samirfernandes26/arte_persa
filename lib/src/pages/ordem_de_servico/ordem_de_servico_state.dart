@@ -32,6 +32,7 @@ class OrdemDeServicoState {
     required this.status,
     this.servicos,
     this.clientes,
+    this.clienteSelecionando,
     this.message,
     this.loading,
     this.ordemdeServico,
@@ -49,6 +50,7 @@ class OrdemDeServicoState {
   OrdemDeServicoModel? ordemdeServico;
   FaturamentoModel? faturaOs;
   List<ItemModel>? itens;
+  ClienteModel? clienteSelecionando;
 
   ObservacaoModel? observacao;
   List<ServicoModel>? servicos;
@@ -68,6 +70,7 @@ class OrdemDeServicoState {
     List<ServicoModel>? servicos,
     List<ClienteModel>? clientes,
     List<ItemModel>? itens,
+    ClienteModel? clienteSelecionando,
     OrdemDeServicoForm? ordemServicioForm,
     FaturamentoModel? faturaOs,
     ItemForm? itemForm,
@@ -84,6 +87,7 @@ class OrdemDeServicoState {
       servicos: servicos ?? this.servicos,
       clientes: clientes ?? this.clientes,
       itens: itens ?? this.itens,
+      clienteSelecionando: clienteSelecionando ?? this.clienteSelecionando,
       ordemServicioForm: ordemServicioForm ?? this.ordemServicioForm,
       faturaOs: faturaOs ?? this.faturaOs,
       itemForm: itemForm ?? this.itemForm,

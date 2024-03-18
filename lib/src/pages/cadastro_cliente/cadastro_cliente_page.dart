@@ -26,19 +26,23 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
 
   @override
   Widget build(BuildContext context) {
-    final CadastroClienteVm(
-      :updateStateCliente
-    ) = ref.read(cadastroClienteVmProvider.notifier);
+    final CadastroClienteVm(:updateStateCliente) =
+        ref.read(cadastroClienteVmProvider.notifier);
     final clienteVm = ref.watch(cadastroClienteVmProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de Cliente'),
+        title: const Text(
+          'Cadastro de Cliente',
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back,
+          ),
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                RouteGeneratorKeys.authLogin, (route) => false);
+            Navigator.of(context).popAndPushNamed(
+              RouteGeneratorKeys.home,
+            );
           },
         ),
       ),

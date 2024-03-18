@@ -1,16 +1,16 @@
-import 'package:arte_persa/src/model/faturamento_model.dart';
-import 'package:arte_persa/src/model/image_model.dart';
-import 'package:arte_persa/src/model/item_model.dart';
-import 'package:arte_persa/src/model/observacao_model.dart';
 import 'package:asyncstate/asyncstate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:arte_persa/src/model/cliente_model.dart';
-import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
+import 'package:arte_persa/src/model/cliente_model.dart';
+import 'package:arte_persa/src/model/item_model.dart';
+import 'package:arte_persa/src/model/servico_model.dart';
+import 'package:arte_persa/src/model/image_model.dart';
+import 'package:arte_persa/src/model/observacao_model.dart';
+import 'package:arte_persa/src/model/faturamento_model.dart';
 
 part 'ordem_de_servico_vm.g.dart';
 
@@ -123,12 +123,19 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     );
   }
 
-  cadastroDeItem(Map<String, dynamic> dataItem) {
-    final itemForm = ItemForm.fromJson(dataItem);
+  cadastroDeItem(Map<String, dynamic> data) {
+    final itemForm = ItemForm.fromJson(data);
+
+    late ClienteModel? clienteSelecionando;
+
+    if(data['cliente'] != null ){
+      clienteSelecionando = data['cliente'];
+    }
 
     state = state.copyWith(
       itemForm: itemForm.copyWith(fotoProduto: state.image),
       image: null,
+      clienteSelecionando:clienteSelecionando,
     );
 
     final fotoProduto = state.itemForm?.fotoProduto;

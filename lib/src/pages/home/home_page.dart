@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/core/ui/widgets/drawer/custom_drawer.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -16,8 +17,29 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const CustomDrawer(currentPage: 0),
       appBar: AppBar(
-        title: const Text('Home'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                RouteGeneratorKeys.ordemDeServicoPage,
+              );
+            },
+            icon: const Icon(
+              Icons.assignment_add,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications_none,
+              color: Colors.white,
+              size: 24,
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -25,93 +47,6 @@ class _HomePageState extends ConsumerState<HomePage> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.blueAccent.shade700,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    RouteGeneratorKeys.cadastroServico,
-                  );
-                },
-                child: const Text(
-                  'Cadastro de serviço teste',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.orange.shade300,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    RouteGeneratorKeys.cadastroCliente,
-                  );
-                },
-                child: const Text(
-                  'Cadastro de cliente teste',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.green.shade300,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    RouteGeneratorKeys.ordemDeServicoPage,
-                  );
-                },
-                child: const Text(
-                  'Cadastro de ordem de serviço teste',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-
-              const SizedBox(
-                height: 16,
-              ),
-              
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.green.shade300,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed(
-                    RouteGeneratorKeys.ordemDeServicoObservacao,
-                  );
-                },
-                child: const Text(
-                  'Cadastro de ordem de serviço teste',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
             ],
           ),
         ),

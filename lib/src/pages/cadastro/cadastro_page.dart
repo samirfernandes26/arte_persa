@@ -61,12 +61,15 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de usuário'),
+        title: const Text(
+          'Cadastro de usuário',
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                RouteGeneratorKeys.authLogin, (route) => false);
+            Navigator.of(context).popAndPushNamed(
+              RouteGeneratorKeys.home,
+            );
           },
         ),
       ),
