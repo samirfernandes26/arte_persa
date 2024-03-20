@@ -1,10 +1,11 @@
-import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
-import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
+
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
+import 'package:arte_persa/src/routes/route_generator.dart';
 
 class OrdemDeServicoTermoAssinatura extends ConsumerStatefulWidget {
   const OrdemDeServicoTermoAssinatura({super.key});
@@ -21,7 +22,8 @@ class _OrdemDeServicoTermoAssinaturaState
 
   @override
   Widget build(BuildContext context) {
-    // final OrdemDeServicoVm() = ref.read(ordemDeServicoVmProvider.notifier);
+    final OrdemDeServicoVm(:stateAssinatura) =
+        ref.read(ordemDeServicoVmProvider.notifier);
 
     // final notaVm = ref.watch(ordemDeServicoVmProvider);
 
@@ -173,10 +175,10 @@ class _OrdemDeServicoTermoAssinaturaState
                   case (false || null):
                     break;
                   case (true):
-                    // await cadastroObservacoes(formKey.currentState!.value);
-                    Navigator.of(context).pushNamed(
-                      RouteGeneratorKeys.ordemDeServicoServicosPage,
-                    );
+                    await stateAssinatura(_sign);
+                  // Navigator.of(context).pushNamed(
+                  //   RouteGeneratorKeys.ordemDeServicoServicosPage,
+                  // );
                 }
               },
             ),

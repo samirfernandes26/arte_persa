@@ -9,15 +9,14 @@ part 'ordem_de_servico_model.g.dart';
 
 @JsonSerializable()
 class OrdemDeServicoModel {
-  
   OrdemDeServicoModel({
     this.id,
     this.clienteId,
     this.numeroPedido,
     required this.itens,
     required this.fatura,
-    this.pathAssinaturaCliente,
-    this.pathFotoAltorizacaoCliente,
+    this.assinaturaCliente,
+    this.fotoAltorizacaoCliente,
     this.createdAt,
     this.updatedAt,
   });
@@ -35,11 +34,11 @@ class OrdemDeServicoModel {
 
   List<FaturamentoModel> fatura;
 
-  @JsonKey(name: 'path_assinatura_cliente')
-  ImageModel? pathAssinaturaCliente;
+  @JsonKey(name: 'assinatura_cliente')
+  ImageModel? assinaturaCliente;
 
-  @JsonKey(name: 'path_foto_altorizacao_cliente')
-  ImageModel? pathFotoAltorizacaoCliente;
+  @JsonKey(name: 'foto_altorizacao_cliente')
+  ImageModel? fotoAltorizacaoCliente;
 
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
@@ -53,8 +52,8 @@ class OrdemDeServicoModel {
     int? numeroPedido,
     List<ItemModel>? itens,
     List<FaturamentoModel>? fatura,
-    ImageModel? pathAssinaturaCliente,
-    ImageModel? pathFotoAltorizacaoCliente,
+    ImageModel? assinaturaCliente,
+    ImageModel? fotoAltorizacaoCliente,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -64,8 +63,9 @@ class OrdemDeServicoModel {
       numeroPedido: numeroPedido ?? this.numeroPedido,
       itens: itens ?? this.itens,
       fatura: fatura ?? this.fatura,
-      pathAssinaturaCliente: pathAssinaturaCliente ?? this.pathAssinaturaCliente,
-      pathFotoAltorizacaoCliente: pathFotoAltorizacaoCliente ?? this.pathFotoAltorizacaoCliente,
+      assinaturaCliente: assinaturaCliente ?? this.assinaturaCliente,
+      fotoAltorizacaoCliente:
+          fotoAltorizacaoCliente ?? this.fotoAltorizacaoCliente,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -74,6 +74,4 @@ class OrdemDeServicoModel {
   Map<String, dynamic> toJson() => _$OrdemDeServicoModelToJson(this);
   factory OrdemDeServicoModel.fromJson(Map<String, dynamic> json) =>
       _$OrdemDeServicoModelFromJson(json);
-
-  
 }

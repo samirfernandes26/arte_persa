@@ -1,8 +1,15 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:asyncstate/asyncstate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'dart:ui' as ui;
 
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
 import 'package:arte_persa/src/model/cliente_model.dart';
@@ -18,6 +25,26 @@ part 'ordem_de_servico_vm.g.dart';
 class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   @override
   OrdemDeServicoState build() => OrdemDeServicoState.initial();
+
+  int geradorDeNumeroDePedido() {
+    // Obter a data e hora atual
+    DateTime now = DateTime.now();
+
+    // Formatar a data e hora
+    String formattedDateTime = DateFormat('yy-MM-dd HH:mm:ss').format(now);
+
+    // Remover os caracteres especiais da data e hora formatada
+    String cleanFormattedDateTime =
+        formattedDateTime.replaceAll(RegExp(r'[-: ]'), '');
+
+    // Converter para um número inteiro
+    int concatenatedDateTime = int.parse(cleanFormattedDateTime);
+
+    state = state.copyWith(numeroOs: concatenatedDateTime);
+
+    // Saída
+    return concatenatedDateTime;
+  }
 
   Future<void> loadData() async {
     final loaderHandler = AsyncLoaderHandler()..start();
@@ -50,7 +77,44 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       status: OrdemDeServicoStateStatus.loaded,
     );
 
+    geradorDeNumeroDePedido();
+
     loaderHandler.close();
+  }
+
+  Future<void> selectImageProdo({
+    required String tipoFoto,
+    required String source,
+    required String fileName,
+  }) async {
+    ImagePicker imagePicker = ImagePicker();
+    late XFile? resImage;
+    if (source == 'Camera') {
+      resImage = await imagePicker.pickImage(
+        source: ImageSource.camera,
+        maxWidth: 2000,
+        maxHeight: 2000,
+        imageQuality: 90,
+      );
+    }
+
+    if (source == 'Galeria') {
+      resImage = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 2000,
+        maxHeight: 2000,
+        imageQuality: 90,
+      );
+    }
+
+    if (resImage != null) {
+      ImageModel imagem = ImageModel(
+        pathLocal: resImage.path,
+        fileName: "$fileName${geradorDeNumeroDePedido()}",
+      );
+
+      state = state.copyWith(image: imagem);
+    }
   }
 
   calcularValorDoServico({
@@ -127,6 +191,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     final itemForm = ItemForm.fromJson(data);
 
     late ClienteModel? clienteSelecionando;
+    late OrdemDeServicoForm? ordemdeServicoForm;
 
     if (data['cliente'] != null) {
       clienteSelecionando = data['cliente'];
@@ -140,42 +205,15 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
     final fotoProduto = state.itemForm?.fotoProduto;
 
-    state = state.copyWith(fotoProduto: fotoProduto);
-  }
+    ordemdeServicoForm = OrdemDeServicoForm(
+      clienteId: clienteSelecionando!.id,
+      numeroOs: state.numeroOs,
+    );
 
-  Future<void> selectImageProdo({
-    required String tipoFoto,
-    required String source,
-    required String fileName,
-  }) async {
-    ImagePicker imagePicker = ImagePicker();
-    late XFile? resImage;
-    if (source == 'Camera') {
-      resImage = await imagePicker.pickImage(
-        source: ImageSource.camera,
-        maxWidth: 2000,
-        maxHeight: 2000,
-        imageQuality: 90,
-      );
-    }
-
-    if (source == 'Galeria') {
-      resImage = await imagePicker.pickImage(
-        source: ImageSource.gallery,
-        maxWidth: 2000,
-        maxHeight: 2000,
-        imageQuality: 90,
-      );
-    }
-
-    if (resImage != null) {
-      ImageModel imagem = ImageModel(
-        pathLocal: resImage.path,
-        fileName: "$fileName${geradorDeNumeroDePedido()}",
-      );
-
-      state = state.copyWith(image: imagem);
-    }
+    state = state.copyWith(
+      fotoProduto: fotoProduto,
+      ordemdeServicoForm: ordemdeServicoForm,
+    );
   }
 
   addObservacao() {
@@ -252,24 +290,6 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
         observacoesModelList: observacoes,
       );
     }
-  }
-
-  int geradorDeNumeroDePedido() {
-    // Obter a data e hora atual
-    DateTime now = DateTime.now();
-
-    // Formatar a data e hora
-    String formattedDateTime = DateFormat('yy-MM-dd HH:mm:ss').format(now);
-
-    // Remover os caracteres especiais da data e hora formatada
-    String cleanFormattedDateTime =
-        formattedDateTime.replaceAll(RegExp(r'[-: ]'), '');
-
-    // Converter para um número inteiro
-    int concatenatedDateTime = int.parse(cleanFormattedDateTime);
-
-    // Saída
-    return concatenatedDateTime;
   }
 
   Future<void> finalizarCadastroItem() async {
@@ -368,5 +388,41 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     faturaOs.valorFinalDaNota = valorComDesconto;
 
     state = state.copyWith(faturaOs: faturaOs);
+  }
+
+  Future<void> stateAssinatura(GlobalKey<SignatureState>? data) async {
+    if (data != null && data.currentState != null) {
+      // Obtendo a imagem
+      final image = await data.currentState!.getData();
+      var imageData = await image.toByteData(format: ui.ImageByteFormat.png);
+
+      // Convertendo os dados da imagem em Uint8List
+      Uint8List pngBytes = imageData!.buffer.asUint8List();
+
+      // Salvando a imagem como um arquivo no dispositivo
+      // Nome do arquivo
+      String fileName = 'assinatura.png';
+      // Obtendo o diretório de documentos do app
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+      // Caminho do arquivo onde a imagem será salva
+      File file = File('$appDocPath/$fileName');
+      // Salvando os bytes da imagem no arquivo
+      await file.writeAsBytes(pngBytes);
+
+      // Atualizando o modelo ImageModel com o caminho local do arquivo
+      ImageModel assinatura = ImageModel(
+        pathLocal: file.path, // Caminho do arquivo salvo
+        fileName: fileName, // Nome do arquivo
+        // pathService e pathDownloadImage podem ser atualizados conforme necessário
+      );
+
+      OrdemDeServicoForm? ordemdeServicoForm = state.ordemdeServicoForm;
+      ordemdeServicoForm!.assinaturaCliente = assinatura;
+
+      state = state.copyWith(
+        ordemdeServicoForm: ordemdeServicoForm,
+      );
+    }
   }
 }

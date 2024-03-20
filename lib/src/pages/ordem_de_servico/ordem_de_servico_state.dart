@@ -24,7 +24,7 @@ class OrdemDeServicoState {
           status: OrdemDeServicoStateStatus.initial,
           servicos: [],
           observacoesModelList: [],
-          faturaOs:null,
+          faturaOs: null,
           image: null,
         );
 
@@ -42,8 +42,9 @@ class OrdemDeServicoState {
     this.observacao,
     this.itens,
     this.itemForm,
-    this.ordemServicioForm,
+    this.ordemdeServicoForm,
     this.observacoesModelList,
+    this.numeroOs,
   });
 
   OrdemDeServicoStateStatus status;
@@ -62,8 +63,9 @@ class OrdemDeServicoState {
 
   String? message;
   bool? loading;
+  int? numeroOs;
 
-  OrdemDeServicoForm? ordemServicioForm;
+  OrdemDeServicoForm? ordemdeServicoForm;
 
   OrdemDeServicoState copyWith({
     OrdemDeServicoStateStatus? status,
@@ -71,7 +73,7 @@ class OrdemDeServicoState {
     List<ClienteModel>? clientes,
     List<ItemModel>? itens,
     ClienteModel? clienteSelecionando,
-    OrdemDeServicoForm? ordemServicioForm,
+    OrdemDeServicoForm? ordemdeServicoForm,
     FaturamentoModel? faturaOs,
     ItemForm? itemForm,
     List<ObservacaoModel>? observacoesModelList,
@@ -81,24 +83,25 @@ class OrdemDeServicoState {
     ObservacaoModel? observacao,
     String? message,
     bool? loading,
+    int? numeroOs,
   }) {
     return OrdemDeServicoState(
-      status: status ?? this.status,
-      servicos: servicos ?? this.servicos,
-      clientes: clientes ?? this.clientes,
-      itens: itens ?? this.itens,
-      clienteSelecionando: clienteSelecionando ?? this.clienteSelecionando,
-      ordemServicioForm: ordemServicioForm ?? this.ordemServicioForm,
-      faturaOs: faturaOs ?? this.faturaOs,
-      itemForm: itemForm ?? this.itemForm,
-      observacoesModelList: observacoesModelList ?? this.observacoesModelList,
-      ordemdeServico: ordemdeServico ?? this.ordemdeServico,
-      image: image ?? this.image,
-      fotoProduto: fotoProduto ?? this.fotoProduto,
-      observacao: observacao ?? this.observacao,
-      message: message ?? this.message,
-      loading: loading ?? this.loading,
-    );
+        status: status ?? this.status,
+        servicos: servicos ?? this.servicos,
+        clientes: clientes ?? this.clientes,
+        itens: itens ?? this.itens,
+        clienteSelecionando: clienteSelecionando ?? this.clienteSelecionando,
+        ordemdeServicoForm: ordemdeServicoForm ?? this.ordemdeServicoForm,
+        faturaOs: faturaOs ?? this.faturaOs,
+        itemForm: itemForm ?? this.itemForm,
+        observacoesModelList: observacoesModelList ?? this.observacoesModelList,
+        ordemdeServico: ordemdeServico ?? this.ordemdeServico,
+        image: image ?? this.image,
+        fotoProduto: fotoProduto ?? this.fotoProduto,
+        observacao: observacao ?? this.observacao,
+        message: message ?? this.message,
+        loading: loading ?? this.loading,
+        numeroOs: numeroOs ?? this.numeroOs);
   }
 }
 
@@ -107,11 +110,11 @@ class OrdemDeServicoForm {
   OrdemDeServicoForm({
     this.id,
     this.clienteId,
-    this.numeroPedido,
+    this.numeroOs,
     this.itens,
     this.fatura,
-    this.pathAssinaturaCliente,
-    this.pathFotoAltorizacaoCliente,
+    this.assinaturaCliente,
+    this.fotoAltorizacaoCliente,
     this.createdAt,
     this.updatedAt,
   });
@@ -123,17 +126,17 @@ class OrdemDeServicoForm {
 
   @StringToIntConverter()
   @JsonKey(name: 'numero_pedido')
-  int? numeroPedido;
+  int? numeroOs;
 
   List<ItemForm>? itens;
 
   List<FaturamentoModel>? fatura;
 
-  @JsonKey(name: 'path_assinatura_cliente')
-  ImageModel? pathAssinaturaCliente;
+  @JsonKey(name: 'assinatura_cliente')
+  ImageModel? assinaturaCliente;
 
-  @JsonKey(name: 'path_foto_altorizacao_cliente')
-  ImageModel? pathFotoAltorizacaoCliente;
+  @JsonKey(name: 'foto_altorizacao_cliente')
+  ImageModel? fotoAltorizacaoCliente;
 
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
@@ -144,24 +147,23 @@ class OrdemDeServicoForm {
   OrdemDeServicoForm copyWith({
     String? id,
     String? clienteId,
-    int? numeroPedido,
+    int? numeroOs,
     List<ItemForm>? itens,
     List<FaturamentoModel>? fatura,
-    ImageModel? pathAssinaturaCliente,
-    ImageModel? pathFotoAltorizacaoCliente,
+    ImageModel? assinaturaCliente,
+    ImageModel? fotoAltorizacaoCliente,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     return OrdemDeServicoForm(
       id: id ?? this.id,
       clienteId: clienteId ?? this.clienteId,
-      numeroPedido: numeroPedido ?? this.numeroPedido,
+      numeroOs: numeroOs ?? this.numeroOs,
       itens: itens ?? this.itens,
       fatura: fatura ?? this.fatura,
-      pathAssinaturaCliente:
-          pathAssinaturaCliente ?? this.pathAssinaturaCliente,
-      pathFotoAltorizacaoCliente:
-          pathFotoAltorizacaoCliente ?? this.pathFotoAltorizacaoCliente,
+      assinaturaCliente: assinaturaCliente ?? this.assinaturaCliente,
+      fotoAltorizacaoCliente:
+          fotoAltorizacaoCliente ?? this.fotoAltorizacaoCliente,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );

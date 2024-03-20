@@ -18,14 +18,14 @@ OrdemDeServicoModel _$OrdemDeServicoModelFromJson(Map<String, dynamic> json) =>
       fatura: (json['fatura'] as List<dynamic>)
           .map((e) => FaturamentoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      pathAssinaturaCliente: json['path_assinatura_cliente'] == null
+      assinaturaCliente: json['assinatura_cliente'] == null
           ? null
           : ImageModel.fromJson(
-              json['path_assinatura_cliente'] as Map<String, dynamic>),
-      pathFotoAltorizacaoCliente: json['path_foto_altorizacao_cliente'] == null
+              json['assinatura_cliente'] as Map<String, dynamic>),
+      fotoAltorizacaoCliente: json['foto_altorizacao_cliente'] == null
           ? null
           : ImageModel.fromJson(
-              json['path_foto_altorizacao_cliente'] as Map<String, dynamic>),
+              json['foto_altorizacao_cliente'] as Map<String, dynamic>),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -43,8 +43,8 @@ Map<String, dynamic> _$OrdemDeServicoModelToJson(
           instance.numeroPedido, const StringToIntConverter().toJson),
       'itens': instance.itens,
       'fatura': instance.fatura,
-      'path_assinatura_cliente': instance.pathAssinaturaCliente,
-      'path_foto_altorizacao_cliente': instance.pathFotoAltorizacaoCliente,
+      'assinatura_cliente': instance.assinaturaCliente,
+      'foto_altorizacao_cliente': instance.fotoAltorizacaoCliente,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
