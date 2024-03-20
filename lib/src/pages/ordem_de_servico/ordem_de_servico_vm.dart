@@ -390,6 +390,18 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     state = state.copyWith(faturaOs: faturaOs);
   }
 
+  void aplicarEntrada({required double entrada}) {
+    final FaturamentoModel faturaOs = state.faturaOs!;
+    final double totalBruto = faturaOs.totalBruto ?? 0;
+
+    final double valorDepoisDaEntrada =
+        double.parse((totalBruto - entrada).toStringAsFixed(2));
+
+    faturaOs.valorFinalDaNota = valorDepoisDaEntrada;
+
+    state = state.copyWith(faturaOs: faturaOs);
+  }
+
   Future<void> stateAssinatura(GlobalKey<SignatureState>? data) async {
     if (data != null && data.currentState != null) {
       // Obtendo a imagem
