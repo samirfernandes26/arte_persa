@@ -128,14 +128,14 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
 
     late ClienteModel? clienteSelecionando;
 
-    if(data['cliente'] != null ){
+    if (data['cliente'] != null) {
       clienteSelecionando = data['cliente'];
     }
 
     state = state.copyWith(
       itemForm: itemForm.copyWith(fotoProduto: state.image),
       image: null,
-      clienteSelecionando:clienteSelecionando,
+      clienteSelecionando: clienteSelecionando,
     );
 
     final fotoProduto = state.itemForm?.fotoProduto;
@@ -356,5 +356,17 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       image: imagemNull,
       fotoProduto: imagemNull,
     );
+  }
+
+  void aplicarDesconto({required double porcentagem}) {
+    final FaturamentoModel faturaOs = state.faturaOs!;
+    final double totalBruto = faturaOs.totalBruto ?? 0;
+
+    final double valorComDesconto =
+        double.parse((totalBruto * (1 - porcentagem / 100)).toStringAsFixed(2));
+
+    faturaOs.valorFinalDaNota = valorComDesconto;
+
+    state = state.copyWith(faturaOs: faturaOs);
   }
 }

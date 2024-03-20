@@ -28,7 +28,8 @@ class _OrdemDeServicoFaturaPageState
 
   @override
   Widget build(BuildContext context) {
-    // final OrdemDeServicoVm() = ref.read(ordemDeServicoVmProvider.notifier);
+    final OrdemDeServicoVm(:aplicarDesconto) =
+        ref.read(ordemDeServicoVmProvider.notifier);
 
     final notaVm = ref.watch(ordemDeServicoVmProvider);
     itens = notaVm.itens!;
@@ -308,9 +309,7 @@ class _OrdemDeServicoFaturaPageState
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Text(
-                          fatura?.totalBruto
-                                  ?.toString()
-                                  .replaceAll('.', ',') ??
+                          fatura?.totalBruto?.toString().replaceAll('.', ',') ??
                               '0,00',
                           style: const TextStyle(
                             color: Colors.white,
@@ -349,6 +348,13 @@ class _OrdemDeServicoFaturaPageState
                           labelText: 'valor em porcentagem',
                           hintText: 'valor em porcentagem',
                         ),
+                        onChanged: (value) {
+                          final double porcentagem =
+                              value != null ? double.parse(value) : 0;
+                          aplicarDesconto(
+                            porcentagem: porcentagem,
+                          );
+                        },
                         keyboardType: TextInputType.number,
                       ),
                     ),
@@ -381,7 +387,50 @@ class _OrdemDeServicoFaturaPageState
                           hintText: 'valor adiantado',
                         ),
                         keyboardType: TextInputType.name,
-                        validator: Validatorless.required('Nome é obrigatório'),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        'Total',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Flexible(
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.all(8.0),
+                        height: 64,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade600,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          fatura?.valorFinalDaNota
+                                  ?.toString()
+                                  .replaceAll('.', ',') ??
+                              '0,00',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ],
