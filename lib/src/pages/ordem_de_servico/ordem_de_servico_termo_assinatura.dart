@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,6 @@ class _OrdemDeServicoTermoAssinaturaState
                 const SizedBox(
                   height: 16,
                 ),
-
                 const Text(
                   "- Os tapetes podem conter micropartículas de poeira oriunda da procedência ou do tempo de uso, que poderão não sair em uma única lavagem.",
                   textAlign: TextAlign.justify,
@@ -66,7 +66,6 @@ class _OrdemDeServicoTermoAssinaturaState
                 const SizedBox(
                   height: 16,
                 ),
-
                 const Text(
                   "- Após a comunicação do término do serviço, o proprietário terá 30 dias para retirar seus tapetes, após essas data será cobrado uma taxa de permanência de 5% ao mês  sobre o valor da nota. Os tapetes não procurados no prazo de 90 dias poderão ser doados a instituição beneficente ou dependendo do seu estado poderão ser jogados fora.",
                   textAlign: TextAlign.justify,
@@ -75,11 +74,9 @@ class _OrdemDeServicoTermoAssinaturaState
                     color: Colors.white,
                   ),
                 ),
-
                 const SizedBox(
                   height: 16,
                 ),
-
                 const Text(
                   "- Todas as cobranças serão feitas através de boleta bancárias.",
                   textAlign: TextAlign.justify,
@@ -88,26 +85,11 @@ class _OrdemDeServicoTermoAssinaturaState
                     color: Colors.white,
                   ),
                 ),
-
                 const SizedBox(
                   height: 16,
                 ),
-
                 const Text(
                   "Autorizo a OFICINA DE TAPETES ORIENTAIS  LTDA. Executar os serviços.",
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-
-                const SizedBox(
-                  height: 16,
-                ),
-
-                Text(
-                  " ",
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 16,
@@ -171,36 +153,32 @@ class _OrdemDeServicoTermoAssinaturaState
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.red.shade300,
-                ),
-                onPressed: () async {}, //loginUser,
-                child: const Text('Cancelar'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Cancelar',
+              colorText: Colors.white,
+              colorButton: Colors.red.shade300,
+              onPressed: () {},
             ),
             const SizedBox(
               width: 16,
             ),
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {
-                  switch (formKey.currentState?.saveAndValidate()) {
-                    case (false || null):
-                      break;
-                    case (true):
-                      // await cadastroObservacoes(formKey.currentState!.value);
-                      Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.ordemDeServicoServicosPage);
-                  }
-                }, //loginUser,
-                child: const Text('Proximo'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Proximo',
+              colorText: Colors.white,
+              colorButton: const Color(0xFF008000),
+              onPressed: () async {
+                switch (formKey.currentState?.saveAndValidate()) {
+                  case (false || null):
+                    break;
+                  case (true):
+                    // await cadastroObservacoes(formKey.currentState!.value);
+                    Navigator.of(context).pushNamed(
+                      RouteGeneratorKeys.ordemDeServicoServicosPage,
+                    );
+                }
+              },
             ),
           ],
         ),
