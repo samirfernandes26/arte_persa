@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/model/observacao_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
@@ -102,36 +103,31 @@ class _OrdemDeServicoObservacaoState
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.red.shade300,
-                ),
-                onPressed: () async {}, //loginUser,
-                child: const Text('Cancelar'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Cancelar',
+              colorText: Colors.white,
+              colorButton: Colors.red.shade300,
+              onPressed: () {},
             ),
             const SizedBox(
               width: 16,
             ),
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {
-                  switch (formKey.currentState?.saveAndValidate()) {
-                    case (false || null):
-                      break;
-                    case (true):
-                      await cadastroObservacoes(formKey.currentState!.value);
-                      Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.ordemDeServicoServicosPage);
-                  }
-                }, //loginUser,
-                child: const Text('Proximo'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Proximo',
+              colorText: Colors.white,
+              colorButton: const Color(0xFF008000),
+              onPressed: () async {
+                switch (formKey.currentState?.saveAndValidate()) {
+                  case (false || null):
+                    break;
+                  case (true):
+                    await cadastroObservacoes(formKey.currentState!.value);
+                    Navigator.of(context).pushNamed(
+                        RouteGeneratorKeys.ordemDeServicoServicosPage);
+                }
+              },
             ),
           ],
         ),

@@ -1,14 +1,16 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:validatorless/validatorless.dart';
+
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/model/faturamento_model.dart';
 import 'package:arte_persa/src/model/item_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:validatorless/validatorless.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 
 class OrdemDeServicoFaturaPage extends ConsumerStatefulWidget {
   const OrdemDeServicoFaturaPage({super.key});
@@ -477,36 +479,31 @@ class _OrdemDeServicoFaturaPageState
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.red.shade300,
-                ),
-                onPressed: () async {}, //loginUser,
-                child: const Text('Cancelar'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Cancelar',
+              colorText: Colors.white,
+              colorButton: Colors.red.shade300,
+              onPressed: () {},
             ),
             const SizedBox(
               width: 16,
             ),
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {
-                  switch (formKey.currentState?.saveAndValidate()) {
-                    case (false || null):
-                      break;
-                    case (true):
-                      // await cadastroObservacoes(formKey.currentState!.value);
-                      Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.ordemDeServicoTermoAssinatura);
-                  }
-                }, //loginUser,
-                child: const Text('Proximo'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Proximo',
+              colorText: Colors.white,
+              colorButton: const Color(0xFF008000),
+              onPressed: () async {
+                switch (formKey.currentState?.saveAndValidate()) {
+                  case (false || null):
+                    break;
+                  case (true):
+                    // await cadastroObservacoes(formKey.currentState!.value);
+                    Navigator.of(context).pushNamed(
+                        RouteGeneratorKeys.ordemDeServicoTermoAssinatura);
+                }
+              },
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -340,38 +341,31 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.red.shade300,
-                ),
-                onPressed: () async {
-                  await loadData();
-                }, //loginUser,
-                child: const Text('Cancelar'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Cancelar',
+              colorText: Colors.white,
+              colorButton: Colors.red.shade300,
+              onPressed: () {},
             ),
             const SizedBox(
               width: 16,
             ),
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {
-                  switch (formKey.currentState?.saveAndValidate()) {
-                    case (false || null):
-                      break;
-                    case (true):
-                      await cadastroDeItem(formKey.currentState!.value);
-                      Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.ordemDeServicoObservacao);
-                  }
-                },
-                child: const Text('Proximo'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Proximo',
+              colorText: Colors.white,
+              colorButton: const Color(0xFF008000),
+              onPressed: () async {
+                switch (formKey.currentState?.saveAndValidate()) {
+                  case (false || null):
+                    break;
+                  case (true):
+                    await cadastroDeItem(formKey.currentState!.value);
+                    Navigator.of(context)
+                        .pushNamed(RouteGeneratorKeys.ordemDeServicoObservacao);
+                }
+              },
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
@@ -283,30 +284,28 @@ class _OrdemDeServicoServicosPageState
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.red.shade300,
-                ),
-                onPressed: () async {}, //loginUser,
-                child: const Text('Cancelar'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Cancelar',
+              colorText: Colors.white,
+              colorButton: Colors.red.shade300,
+              onPressed: () {},
             ),
             const SizedBox(
               width: 16,
             ),
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {
-                  await finalizarCadastroItem();
-                  Navigator.of(context).pushNamedAndRemoveUntil(RouteGeneratorKeys.ordemDeServicoFaturaPage, (route) =>  false,);
-                }, //loginUser,
-                child: const Text('Finalizar item'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Proximo',
+              colorText: Colors.white,
+              colorButton: const Color(0xFF008000),
+              onPressed: () async {
+                await finalizarCadastroItem();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  RouteGeneratorKeys.ordemDeServicoFaturaPage,
+                  (route) => false,
+                );
+              },
             ),
           ],
         ),
