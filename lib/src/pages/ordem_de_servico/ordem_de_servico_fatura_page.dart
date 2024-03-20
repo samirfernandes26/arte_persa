@@ -30,7 +30,7 @@ class _OrdemDeServicoFaturaPageState
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:aplicarDesconto) =
+    final OrdemDeServicoVm(:aplicarDesconto, :aplicarEntrada) =
         ref.read(ordemDeServicoVmProvider.notifier);
 
     final notaVm = ref.watch(ordemDeServicoVmProvider);
@@ -389,6 +389,13 @@ class _OrdemDeServicoFaturaPageState
                           hintText: 'valor adiantado',
                         ),
                         keyboardType: TextInputType.name,
+                        onChanged: (value) {
+                          final double entrada =
+                              value != null ? double.parse(value) : 0;
+                          aplicarEntrada(
+                            entrada: entrada,
+                          );
+                        },
                       ),
                     ),
                   ],
