@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:arte_persa/src/core/providers/application_providers.dart';
 import 'package:arte_persa/src/model/ordem_de_servico_model.dart';
 import 'package:asyncstate/asyncstate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -367,7 +368,7 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       fotoProduto: imagemNull,
       nomeDosServicos: nomeDosServicosNull,
       observacoes: observacoesNull,
-      tipoIdetem: null,
+      tipoItem: null,
     );
 
     state = state.copyWith(
@@ -456,5 +457,9 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     state = state.copyWith(
       ordemdeServico: ordemdeServico,
     );
+
+    await ref
+        .read(ordemDeServicoServiceProvider)
+        .execute(state.ordemdeServico!);
   }
 }

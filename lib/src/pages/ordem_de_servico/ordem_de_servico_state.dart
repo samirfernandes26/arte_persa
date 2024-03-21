@@ -178,7 +178,7 @@ class OrdemDeServicoForm {
 @JsonSerializable()
 class ItemForm {
   ItemForm({
-    this.tipoIdetem,
+    this.tipoItem,
     this.nomeDoItem,
     this.comprimento,
     this.largura,
@@ -190,7 +190,7 @@ class ItemForm {
   });
 
   @JsonKey(name: 'tipo_item')
-  String? tipoIdetem;
+  String? tipoItem;
 
   @JsonKey(name: 'nome_do_item')
   String? nomeDoItem;
@@ -216,7 +216,7 @@ class ItemForm {
   double? total;
 
   ItemForm copyWith({
-    String? tipoIdetem,
+    String? tipoItem,
     String? nomeDoItem,
     double? comprimento,
     double? largura,
@@ -227,7 +227,7 @@ class ItemForm {
     double? total,
   }) {
     return ItemForm(
-      tipoIdetem: tipoIdetem ?? this.tipoIdetem,
+      tipoItem: tipoItem ?? this.tipoItem,
       nomeDoItem: nomeDoItem ?? this.nomeDoItem,
       comprimento: comprimento ?? this.comprimento,
       largura: largura ?? this.largura,

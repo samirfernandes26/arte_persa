@@ -61,7 +61,7 @@ Json? _$JsonConverterToJson<Json, Value>(
     value == null ? null : toJson(value);
 
 ItemForm _$ItemFormFromJson(Map<String, dynamic> json) => ItemForm(
-      tipoIdetem: json['tipo_item'] as String?,
+      tipoItem: json['tipo_item'] as String?,
       nomeDoItem: json['nome_do_item'] as String?,
       comprimento: _$JsonConverterFromJson<String, double>(
           json['comprimento'], const StringToDoubleConverter().fromJson),
@@ -84,7 +84,7 @@ ItemForm _$ItemFormFromJson(Map<String, dynamic> json) => ItemForm(
     );
 
 Map<String, dynamic> _$ItemFormToJson(ItemForm instance) => <String, dynamic>{
-      'tipo_item': instance.tipoIdetem,
+      'tipo_item': instance.tipoItem,
       'nome_do_item': instance.nomeDoItem,
       'comprimento': _$JsonConverterToJson<String, double>(
           instance.comprimento, const StringToDoubleConverter().toJson),

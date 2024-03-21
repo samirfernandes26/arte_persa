@@ -128,7 +128,7 @@ class _OrdemDeServicoFaturaPageState
                                         width: 8,
                                       ),
                                       Text(
-                                        item.tipoIdetem,
+                                        item.tipoItem,
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,

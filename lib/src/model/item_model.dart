@@ -9,7 +9,7 @@ part 'item_model.g.dart';
 @JsonSerializable()
 class ItemModel {
   ItemModel({
-    required this.tipoIdetem,
+    required this.tipoItem,
     required this.nomeDoItem,
     this.comprimento,
     this.largura,
@@ -20,9 +20,8 @@ class ItemModel {
     this.total,
   });
 
-
   @JsonKey(name: 'tipo_item')
-  String tipoIdetem;
+  String tipoItem;
 
   @JsonKey(name: 'nome_do_item')
   String nomeDoItem;
@@ -49,18 +48,18 @@ class ItemModel {
   double? total;
 
   ItemModel copyWith({
-    String? tipoIdetem,
+    String? tipoItem,
     String? nomeDoItem,
     double? comprimento,
     double? largura,
     ImageModel? fotoProduto,
     List<ObservacaoModel>? observacoes,
     List<ServicoModel>? servicos,
-    List<String>?  nomeDosServicos,
+    List<String>? nomeDosServicos,
     double? total,
   }) {
     return ItemModel(
-      tipoIdetem: tipoIdetem ?? this.tipoIdetem,
+      tipoItem: tipoItem ?? this.tipoItem,
       nomeDoItem: nomeDoItem ?? this.nomeDoItem,
       comprimento: comprimento ?? this.comprimento,
       largura: largura ?? this.largura,

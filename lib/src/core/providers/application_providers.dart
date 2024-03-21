@@ -12,6 +12,8 @@ import 'package:arte_persa/src/services/cadastro_servico_service/cadastro_servic
 
 import 'package:arte_persa/src/services/firebase_storage_service/firebase_storage_service.dart';
 import 'package:arte_persa/src/services/firebase_storage_service/firebase_storage_service_imp.dart';
+import 'package:arte_persa/src/services/ordem_de_servico_service/ordem_de_servico_service.dart';
+import 'package:arte_persa/src/services/ordem_de_servico_service/ordem_de_servico_service_imp.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'application_providers.g.dart';
@@ -24,10 +26,17 @@ CadastroService cadastroService(CadastroServiceRef ref) => CadastroServiceImp();
 AuthService authService(AuthServiceRef ref) => AuthServiceImpl();
 
 @Riverpod(keepAlive: true)
-CadastroServicoService cadastroServicoService (CadastroServicoServiceRef ref) => CadastroServicoServiceImp();
+CadastroServicoService cadastroServicoService(CadastroServicoServiceRef ref) =>
+    CadastroServicoServiceImp();
 
 @Riverpod(keepAlive: true)
-CadastroClienteService cadastroClienteService (CadastroClienteServiceRef ref) => CadastroClienteServiceImp();
+CadastroClienteService cadastroClienteService(CadastroClienteServiceRef ref) =>
+    CadastroClienteServiceImp();
 
 @Riverpod(keepAlive: true)
-FirebaseStorageService firebaseStorageService (FirebaseStorageServiceRef ref) => FirebaseStorageServiceImp();
+FirebaseStorageService firebaseStorageService(FirebaseStorageServiceRef ref) =>
+    FirebaseStorageServiceImp();
+
+@Riverpod(keepAlive: true)
+OrdemDeServicoService ordemDeServicoService(OrdemDeServicoServiceRef ref) =>
+    OrdemDeServicoServiceImp();
