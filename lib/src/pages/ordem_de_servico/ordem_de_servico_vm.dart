@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:arte_persa/src/model/ordem_de_servico_model.dart';
 import 'package:asyncstate/asyncstate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -436,5 +437,24 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
         ordemdeServicoForm: ordemdeServicoForm,
       );
     }
+  }
+
+  Future<void> finalizarCadastroDaOs(GlobalKey<SignatureState>? data) async {
+    await stateAssinatura(data);
+    final OrdemDeServicoForm ordemdeServicoForm = state.ordemdeServicoForm!;
+    final List<ItemModel> itensModel = state.itens!;
+    final FaturamentoModel fatura = state.faturaOs!;
+    final OrdemDeServicoModel ordemdeServico = OrdemDeServicoModel(
+      itens: itensModel,
+      fatura: fatura,
+      assinaturaCliente: ordemdeServicoForm.assinaturaCliente,
+      clienteId: ordemdeServicoForm.clienteId,
+      fotoAltorizacaoCliente: ordemdeServicoForm.fotoAltorizacaoCliente,
+      numeroPedido: ordemdeServicoForm.numeroOs,
+    );
+
+    state = state.copyWith(
+      ordemdeServico: ordemdeServico,
+    );
   }
 }

@@ -15,9 +15,7 @@ OrdemDeServicoModel _$OrdemDeServicoModelFromJson(Map<String, dynamic> json) =>
       itens: (json['itens'] as List<dynamic>)
           .map((e) => ItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      fatura: (json['fatura'] as List<dynamic>)
-          .map((e) => FaturamentoModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      fatura: FaturamentoModel.fromJson(json['fatura'] as Map<String, dynamic>),
       assinaturaCliente: json['assinatura_cliente'] == null
           ? null
           : ImageModel.fromJson(

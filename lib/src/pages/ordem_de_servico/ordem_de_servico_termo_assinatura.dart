@@ -22,7 +22,7 @@ class _OrdemDeServicoTermoAssinaturaState
 
   @override
   Widget build(BuildContext context) {
-    final OrdemDeServicoVm(:stateAssinatura) =
+    final OrdemDeServicoVm(:finalizarCadastroDaOs) =
         ref.read(ordemDeServicoVmProvider.notifier);
 
     // final notaVm = ref.watch(ordemDeServicoVmProvider);
@@ -175,7 +175,7 @@ class _OrdemDeServicoTermoAssinaturaState
                   case (false || null):
                     break;
                   case (true):
-                    await stateAssinatura(_sign);
+                    await finalizarCadastroDaOs(_sign);
                   // Navigator.of(context).pushNamed(
                   //   RouteGeneratorKeys.ordemDeServicoServicosPage,
                   // );

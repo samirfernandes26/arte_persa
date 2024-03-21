@@ -32,7 +32,7 @@ class OrdemDeServicoModel {
 
   List<ItemModel> itens;
 
-  List<FaturamentoModel> fatura;
+  FaturamentoModel fatura;
 
   @JsonKey(name: 'assinatura_cliente')
   ImageModel? assinaturaCliente;
@@ -51,7 +51,7 @@ class OrdemDeServicoModel {
     String? clienteId,
     int? numeroPedido,
     List<ItemModel>? itens,
-    List<FaturamentoModel>? fatura,
+    FaturamentoModel? fatura,
     ImageModel? assinaturaCliente,
     ImageModel? fotoAltorizacaoCliente,
     DateTime? createdAt,
