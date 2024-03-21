@@ -29,7 +29,10 @@ class FirebaseStorageServiceImp extends FirebaseStorageService {
       fileName: rest.metadata!.name,
     );
 
-    // String pathDownloadImage = await getDownLoadUrlByFileName(fileName: rest.metadata!.name, pathService: rest.ref.parent!.fullPath );
+    String pathDownloadImage = await getDownLoadUrlByFileName(
+      fileName: rest.metadata!.name,
+      pathService: rest.ref.parent!.fullPath,
+    );
 
     return Success(image);
   }
@@ -40,8 +43,9 @@ class FirebaseStorageServiceImp extends FirebaseStorageService {
     required String fileName,
   }) async {
     final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    final rest = await firebaseStorage.ref("$pathService/$fileName").getDownloadURL();
-    
+    final rest =
+        await firebaseStorage.ref("$pathService/$fileName").getDownloadURL();
+
     return rest;
   }
 }
