@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:arte_persa/src/core/exceptions/service_exception.dart';
+import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/core/providers/application_providers.dart';
 import 'package:arte_persa/src/model/ordem_de_servico_model.dart';
 import 'package:asyncstate/asyncstate.dart';
@@ -441,6 +443,9 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   }
 
   Future<void> finalizarCadastroDaOs(GlobalKey<SignatureState>? data) async {
+    final loaderHandler = AsyncLoaderHandler()..start();
+    late Either<ServiceException, OrdemDeServicoModel> response;
+
     await stateAssinatura(data);
     final OrdemDeServicoForm ordemdeServicoForm = state.ordemdeServicoForm!;
     final List<ItemModel> itensModel = state.itens!;
@@ -454,12 +459,28 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
       numeroPedido: ordemdeServicoForm.numeroOs,
     );
 
-    state = state.copyWith(
-      ordemdeServico: ordemdeServico,
-    );
+    state = state.copyWith(ordemdeServico: ordemdeServico);
 
-    await ref
+    response = await ref
         .read(ordemDeServicoServiceProvider)
         .execute(state.ordemdeServico!);
+
+    switch (response) {
+      case Success():
+        state = state.copyWith(
+          status: OrdemDeServicoStateStatus.success,
+          message: 'Os cadastrado com sucesso',
+        );
+        loaderHandler.close();
+
+      case Failure(exception: ServiceException(:final message)):
+        state = state.copyWith(
+          status: OrdemDeServicoStateStatus.error,
+          message: message,
+        );
+        loaderHandler.close();
+    }
+
+    loaderHandler.close();
   }
 }

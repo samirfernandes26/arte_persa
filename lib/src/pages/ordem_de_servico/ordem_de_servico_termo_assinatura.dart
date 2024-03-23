@@ -1,3 +1,5 @@
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +29,28 @@ class _OrdemDeServicoTermoAssinaturaState
 
     // final notaVm = ref.watch(ordemDeServicoVmProvider);
 
+    ref.listen(
+      ordemDeServicoVmProvider,
+      (_, state) {
+        switch (state.status) {
+          case OrdemDeServicoStateStatus.initial:
+            break;
+          case OrdemDeServicoStateStatus.loaded:
+            break;
+          case OrdemDeServicoStateStatus.success:
+            Messages.showSuccess(state.message!, context);
+            // Future(
+            //   () async {
+            //     await loadData();
+            //   },
+            // );
+            break;
+          case OrdemDeServicoStateStatus.error:
+            break;
+        }
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cadastro de observações'),
@@ -34,7 +58,9 @@ class _OrdemDeServicoTermoAssinaturaState
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
-                RouteGeneratorKeys.authLogin, (route) => false);
+              RouteGeneratorKeys.authLogin,
+              (route) => false,
+            );
           },
         ),
       ),
@@ -157,7 +183,7 @@ class _OrdemDeServicoTermoAssinaturaState
           children: [
             Button(
               formKey: formKey,
-              textButton: 'Cancelar',
+              textButton: 'Voltar',
               colorText: Colors.white,
               colorButton: Colors.red.shade300,
               onPressed: () {},
@@ -167,7 +193,7 @@ class _OrdemDeServicoTermoAssinaturaState
             ),
             Button(
               formKey: formKey,
-              textButton: 'Proximo',
+              textButton: 'Finalizar',
               colorText: Colors.white,
               colorButton: const Color(0xFF008000),
               onPressed: () async {
