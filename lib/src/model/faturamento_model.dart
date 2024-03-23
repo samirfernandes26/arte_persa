@@ -8,6 +8,7 @@ part 'faturamento_model.g.dart';
 @JsonSerializable()
 class FaturamentoModel {
   FaturamentoModel({
+    this.id,
     this.clienteId,
     this.ordemDeServicoId,
     this.descontoAplicado,
@@ -19,7 +20,7 @@ class FaturamentoModel {
     this.comprovantePagamento,
   });
 
-
+  String? id;
 
   @JsonKey(name: 'cliente_id')
   String? clienteId;
@@ -52,6 +53,7 @@ class FaturamentoModel {
   ImageModel? comprovantePagamento;
 
   FaturamentoModel copyWith({
+    String? id,
     String? clienteId,
     String? ordemDeServicoId,
     double? descontoAplicado,
@@ -63,6 +65,7 @@ class FaturamentoModel {
     ImageModel? comprovantePagamento,
   }) {
     return FaturamentoModel(
+      id: id ?? this.id,
       clienteId: clienteId ?? this.clienteId,
       ordemDeServicoId: ordemDeServicoId ?? this.ordemDeServicoId,
       descontoAplicado: descontoAplicado ?? this.descontoAplicado,

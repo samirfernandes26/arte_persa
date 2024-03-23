@@ -9,6 +9,7 @@ part 'item_model.g.dart';
 @JsonSerializable()
 class ItemModel {
   ItemModel({
+    this.id,
     required this.tipoItem,
     required this.nomeDoItem,
     this.comprimento,
@@ -19,6 +20,8 @@ class ItemModel {
     this.nomeDosServicos,
     this.total,
   });
+
+  String? id;
 
   @JsonKey(name: 'tipo_item')
   String tipoItem;
@@ -48,6 +51,7 @@ class ItemModel {
   double? total;
 
   ItemModel copyWith({
+    String? id,
     String? tipoItem,
     String? nomeDoItem,
     double? comprimento,
@@ -59,6 +63,7 @@ class ItemModel {
     double? total,
   }) {
     return ItemModel(
+      id: id ?? this.id,
       tipoItem: tipoItem ?? this.tipoItem,
       nomeDoItem: nomeDoItem ?? this.nomeDoItem,
       comprimento: comprimento ?? this.comprimento,
