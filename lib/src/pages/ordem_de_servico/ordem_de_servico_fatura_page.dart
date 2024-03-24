@@ -488,10 +488,12 @@ class _OrdemDeServicoFaturaPageState
           children: [
             Button(
               formKey: formKey,
-              textButton: 'Cancelar',
+              textButton: 'Voltar',
               colorText: Colors.white,
               colorButton: Colors.red.shade300,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
             const SizedBox(
               width: 16,

@@ -186,7 +186,9 @@ class _OrdemDeServicoTermoAssinaturaState
               textButton: 'Voltar',
               colorText: Colors.white,
               colorButton: Colors.red.shade300,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
             const SizedBox(
               width: 16,
