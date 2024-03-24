@@ -97,18 +97,20 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                   ),
-                  items: ordemDeServicoVm.clientes?.map((cliente) {
-                        return DropdownMenuItem(
-                          value: cliente,
-                          child: Text(
-                            cliente.nome!,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.black87,
+                  items: ordemDeServicoVm.clientes?.map(
+                        (cliente) {
+                          return DropdownMenuItem(
+                            value: cliente,
+                            child: Text(
+                              cliente.nome!,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black87,
+                              ),
                             ),
-                          ),
-                        );
-                      }).toList() ??
+                          );
+                        },
+                      ).toList() ??
                       [],
                 ),
                 const SizedBox(
@@ -118,6 +120,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                   name: 'tipo_item',
                   decoration: const InputDecoration(
                     labelText: 'Selecione o tipo de produto',
+                    contentPadding: EdgeInsets.all(8),
                   ),
                   // validator: Validatorless.required('Tipo de produto e obrigatorio'),
                   options: const [

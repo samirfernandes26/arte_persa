@@ -1,6 +1,7 @@
 import 'package:arte_persa/src/core/ui/helpers/form_help.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_state.dart';
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
@@ -98,8 +99,10 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                 FormBuilderTextField(
                   name: 'nome_do_servico',
                   onTapOutside: (_) => context.unfocus(),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Titudo serviço',
+                    fillColor: Colors.grey.withOpacity(0.4),
+                    contentPadding: const EdgeInsets.all(8),
                   ),
                   validator: Validatorless.required(
                     'Nome do serviço e obrigatório.',
@@ -110,8 +113,10 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                 ),
                 FormBuilderDropdown(
                   name: 'categoria_selecionada',
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Selecione uma o serviço',
+                    fillColor: Colors.grey.withOpacity(0.4),
+                    contentPadding: const EdgeInsets.all(8),
                   ),
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
@@ -141,6 +146,10 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                     Flexible(
                       child: FormBuilderSwitch(
                         name: 'metro_quadrado',
+                        decoration: InputDecoration(
+                          fillColor: Colors.grey.withOpacity(0.4),
+                          contentPadding: const EdgeInsets.all(8),
+                        ),
                         title: const DefaultTextStyle(
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -157,6 +166,10 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                     Flexible(
                       child: FormBuilderSwitch(
                         name: 'metro_linear',
+                        decoration: InputDecoration(
+                          fillColor: Colors.grey.withOpacity(0.4),
+                          contentPadding: const EdgeInsets.all(8),
+                        ),
                         title: const DefaultTextStyle(
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -177,6 +190,10 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                     Flexible(
                       child: FormBuilderSwitch(
                         name: 'valor_fixo',
+                        decoration: InputDecoration(
+                          fillColor: Colors.grey.withOpacity(0.4),
+                          contentPadding: const EdgeInsets.all(8),
+                        ),
                         title: const DefaultTextStyle(
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -193,6 +210,10 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                     Flexible(
                       child: FormBuilderSwitch(
                         name: 'valor_manual',
+                        decoration: InputDecoration(
+                          fillColor: Colors.grey.withOpacity(0.4),
+                          contentPadding: const EdgeInsets.all(8),
+                        ),
                         title: const DefaultTextStyle(
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -211,8 +232,10 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                 FormBuilderTextField(
                   name: 'valor',
                   onTapOutside: (_) => context.unfocus(),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'valor do serviço',
+                    fillColor: Colors.grey.withOpacity(0.4),
+                    contentPadding: const EdgeInsets.all(8),
                   ),
                   keyboardType: TextInputType.phone,
                 ),
@@ -226,11 +249,11 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size.fromHeight(60),
-            backgroundColor: const Color.fromRGBO(0, 128, 0, 1),
-          ),
+        child: Button(
+          formKey: formKey,
+          textButton: 'Cadastrar',
+          colorText: Colors.white,
+          colorButton: const Color(0xFF008000),
           onPressed: () async {
             switch (formKey.currentState?.saveAndValidate()) {
               case (false || null):
@@ -242,8 +265,7 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
                 // Navigator.of(context).pop();
                 break;
             }
-          }, //loginUser,
-          child: const Text('Cadastrar'),
+          },
         ),
       ),
     );

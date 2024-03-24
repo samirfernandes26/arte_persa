@@ -1,5 +1,6 @@
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/pages/login/login_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -89,11 +90,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         const SizedBox(
                           height: 16,
                         ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(56),
-                              backgroundColor:
-                                  const Color.fromRGBO(0, 128, 0, 1)),
+                        Button(
+                          formKey: formKey,
+                          textButton: 'Cadastrar',
+                          colorText: Colors.white,
+                          colorButton: const Color(0xFF008000),
                           onPressed: () async {
                             switch (formKey.currentState?.saveAndValidate()) {
                               case (false || null):
@@ -112,22 +113,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 // navigator.pop();
                                 break;
                             }
-                          }, //loginUser,
-                          child: const Text('Entrar'),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(56),
-                              backgroundColor:
-                                  const Color.fromRGBO(231, 64, 74, 1)),
-                          onPressed: () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                RouteGeneratorKeys.home, (route) => false);
-                          }, //loginUser,
-                          child: const Text('Cadastrar'),
+                          },
                         ),
                       ],
                     ),

@@ -111,7 +111,7 @@ class _OrdemDeServicoServicosPageState
                             children: [
                               Text(
                                 "ATENÇÃO",
-                                textAlign: TextAlign.justify,
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,
@@ -139,12 +139,18 @@ class _OrdemDeServicoServicosPageState
                                     Flexible(
                                       child: FormBuilderSwitch(
                                         name: 'ambos_os_comprimentos',
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Colors.grey.withOpacity(0.3),
+                                          contentPadding:
+                                              const EdgeInsets.all(12),
+                                        ),
                                         title: const DefaultTextStyle(
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                           ),
                                           child: Text(
-                                            'Ambos os comprimentos (metros lineares)',
+                                            'Ambos os comprimentos',
                                           ),
                                         ),
                                         initialValue: false,
@@ -164,12 +170,19 @@ class _OrdemDeServicoServicosPageState
                                     Flexible(
                                       child: FormBuilderSwitch(
                                         name: 'apenas_um_comprimento',
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Colors.grey.withOpacity(0.3),
+                                          contentPadding:
+                                              const EdgeInsets.all(12),
+                                        ),
                                         title: const DefaultTextStyle(
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                           ),
                                           child: Text(
-                                              'Apenas um comprimento (metro linear)'),
+                                            'Apenas um comprimento',
+                                          ),
                                         ),
                                         initialValue: false,
                                         onChanged: (value) {
@@ -192,12 +205,19 @@ class _OrdemDeServicoServicosPageState
                                     Flexible(
                                       child: FormBuilderSwitch(
                                         name: 'ambas_as_larguras',
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Colors.grey.withOpacity(0.3),
+                                          contentPadding:
+                                              const EdgeInsets.all(12),
+                                        ),
                                         title: const DefaultTextStyle(
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                           ),
                                           child: Text(
-                                              'Ambas as larguras (metros lineares)'),
+                                            'Ambas as larguras',
+                                          ),
                                         ),
                                         initialValue: false,
                                         onChanged: (value) {
@@ -215,12 +235,19 @@ class _OrdemDeServicoServicosPageState
                                     Flexible(
                                       child: FormBuilderSwitch(
                                         name: 'apenas_uma_largura',
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Colors.grey.withOpacity(0.3),
+                                          contentPadding:
+                                              const EdgeInsets.all(12),
+                                        ),
                                         title: const DefaultTextStyle(
                                           style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                           ),
                                           child: Text(
-                                              'Apenas uma largura (metro linear)'),
+                                            'Apenas uma largura',
+                                          ),
                                         ),
                                         initialValue: false,
                                         onChanged: (value) {
