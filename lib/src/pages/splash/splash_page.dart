@@ -48,7 +48,7 @@ class _SplashState extends ConsumerState<Splash> {
                 switch (data) {
                   case SplashState.logged:
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                      RouteGeneratorKeys.home,
+                      RouteGeneratorKeys.visulizarOrdemDeServico,
                       (route) => false,
                     );
                     break;

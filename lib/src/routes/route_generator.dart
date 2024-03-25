@@ -1,17 +1,29 @@
-import 'package:arte_persa/src/pages/cadastro/cadastro_page.dart';
-import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_endereco_page.dart';
-import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_page.dart';
-import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_page.dart';
-import 'package:arte_persa/src/pages/home/home_page.dart';
+// Flutter Framework
+import 'package:flutter/material.dart';
+
+// Páginas de Autenticação e Inicialização
 import 'package:arte_persa/src/pages/login/login_page.dart';
+import 'package:arte_persa/src/pages/splash/splash_page.dart';
+
+// Páginas de Cadastro
+import 'package:arte_persa/src/pages/cadastro/cadastro_page.dart';
+import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_page.dart';
+import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_endereco_page.dart';
+import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_page.dart';
+
+// Página Principal
+import 'package:arte_persa/src/pages/home/home_page.dart';
+
+// Páginas de Serviços e Ordem de Serviço
+import 'package:arte_persa/src/pages/servicos/servicos_page.dart';
+import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_fatura_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_servicos_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_observacao_page.dart';
-import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_page.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_termo_assinatura.dart';
-import 'package:arte_persa/src/pages/servicos/servicos_page.dart';
-import 'package:arte_persa/src/pages/splash/splash_page.dart';
-import 'package:flutter/material.dart';
+
+// Páginas de Visualização
+import 'package:arte_persa/src/pages/visulizar_ordem_de_servico/visulizar_ordem_de_servico.dart';
 
 sealed class RouteGeneratorKeys {
   static const path = '/';
@@ -27,7 +39,7 @@ sealed class RouteGeneratorKeys {
   static const ordemDeServicoServicosPage = '/OrdemDeServicoServicosPage';
   static const ordemDeServicoFaturaPage = '/ordemDeServicoFaturaPage';
   static const ordemDeServicoTermoAssinatura = '/ordemDeServicoTermoAssinatura';
-  
+  static const visulizarOrdemDeServico = '/visulizarOrdemDeServico';
 }
 
 class RouteGenerator {
@@ -100,14 +112,17 @@ class RouteGenerator {
           builder: (context) => const OrdemDeServicoFaturaPage(),
         );
 
-        case RouteGeneratorKeys.ordemDeServicoTermoAssinatura:
+      case RouteGeneratorKeys.ordemDeServicoTermoAssinatura:
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => const OrdemDeServicoTermoAssinatura(),
         );
 
-
-        
+      case RouteGeneratorKeys.visulizarOrdemDeServico:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const VisulizarOrdemDeServico(),
+        );
 
       default:
         return _errorRoute();
