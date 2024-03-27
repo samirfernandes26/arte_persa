@@ -44,59 +44,57 @@ class _OrdemDeServicoObservacaoState
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(32.0),
-          child: FormBuilder(
-            key: formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: Colors.orange.shade300,
-                  ),
-                  onPressed: () {
-                    addObservacao();
-                  },
-                  child: const Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Nova observação',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                          ),
+      body: Container(
+        padding: const EdgeInsets.all(32.0),
+        child: FormBuilder(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(60),
+                  backgroundColor: Colors.orange.shade300,
+                ),
+                onPressed: () {
+                  addObservacao();
+                },
+                child: const Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Nova observação',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
                         ),
                       ),
-                      Icon(
-                        Icons.add,
-                        size: 32,
-                      ),
-                    ],
-                  ),
+                    ),
+                    Icon(
+                      Icons.add,
+                      size: 32,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: notaVm.observacoesModelList?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    final observacao = notaVm.observacoesModelList![index];
-                    return Observacao(
-                      observacaoIndex: index,
-                      observacao: observacao,
-                      removerObservacao: removerObservacao,
-                      addFotoObservacao: addFotoObservacao,
-                    );
-                  },
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: notaVm.observacoesModelList?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final observacao = notaVm.observacoesModelList![index];
+                  return Observacao(
+                    observacaoIndex: index,
+                    observacao: observacao,
+                    removerObservacao: removerObservacao,
+                    addFotoObservacao: addFotoObservacao,
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

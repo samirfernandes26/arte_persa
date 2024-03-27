@@ -91,10 +91,13 @@ class _OrdemDeServicoFaturaPageState
                 ),
                 ListView.builder(
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: notaVm.itens?.length ?? 0,
                   itemBuilder: (context, index) {
                     final item = notaVm.itens![index];
-                    return ItemCard(item: item);
+                    return ItemCard(
+                      item: item,
+                    );
                   },
                 ),
                 const SizedBox(

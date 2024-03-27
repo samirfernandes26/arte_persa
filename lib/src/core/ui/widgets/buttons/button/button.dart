@@ -4,7 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 class Button extends StatelessWidget {
   const Button({
     super.key,
-    required this.formKey,
+    this.formKey,
     required this.textButton,
     required this.colorText,
     required this.colorButton,
@@ -12,16 +12,18 @@ class Button extends StatelessWidget {
     this.traillingIcon,
     this.leadingIcon,
     this.textAlign,
+    this.fontWeight,
     this.fontSize,
   });
 
-  final GlobalKey<FormBuilderState> formKey;
+  final GlobalKey<FormBuilderState>? formKey;
 
   final Widget? leadingIcon, traillingIcon;
   final String textButton;
   final TextAlign? textAlign;
   final double? fontSize;
   final Color colorText, colorButton;
+  final FontWeight? fontWeight;
   final void Function()? onPressed;
 
   @override
@@ -31,12 +33,16 @@ class Button extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(60),
+          minimumSize: const Size.fromHeight(48),
           backgroundColor: colorButton,
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (leadingIcon != null) leadingIcon ?? const SizedBox.shrink(),
+            const SizedBox(
+              width: 4,
+            ),
             Expanded(
               child: Text(
                 textAlign: textAlign ?? TextAlign.center,
@@ -44,8 +50,12 @@ class Button extends StatelessWidget {
                 style: TextStyle(
                   fontSize: fontSize ?? 16,
                   color: colorText,
+                  fontWeight: fontWeight ?? FontWeight.normal,
                 ),
               ),
+            ),
+            const SizedBox(
+              width: 4,
             ),
             if (traillingIcon != null) traillingIcon ?? const SizedBox.shrink(),
           ],

@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:arte_persa/src/model/image_model.dart';
+import 'package:arte_persa/src/core/ui/widgets/tiles/observacao_tile/observacao_tile.dart';
 import 'package:arte_persa/src/model/item_model.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 part './components.dart';
@@ -85,41 +84,12 @@ class ItemCard extends StatelessWidget {
                     final observacaoData = item.observacoes?[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 4,
+                        horizontal: 4,
+                        vertical: 2,
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (observacaoData!.image?.pathLocal != null)
-                            renderImage(
-                              pathImage: observacaoData.image!.pathLocal!,
-                              borderRadio: 10.0,
-                              size: 40,
-                            )
-                          else if (observacaoData.image?.pathDownloadImage !=
-                              null)
-                            renderImage(
-                              pathImage:
-                                  observacaoData.image!.pathDownloadImage!,
-                              borderRadio: 10.0,
-                              size: 40,
-                            ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Flexible(
-                            child: AutoSizeText(
-                              observacaoData.observacao ?? '',
-                              maxLines: 4,
-                              minFontSize: 12,
-                              maxFontSize: 12,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.grey.shade900),
-                              textAlign: TextAlign.justify,
-                            ),
-                          ),
-                        ],
+                      child: ObservacaoTile(
+                        image: observacaoData!.image,
+                        descricao: observacaoData.observacao,
                       ),
                     );
                   },
