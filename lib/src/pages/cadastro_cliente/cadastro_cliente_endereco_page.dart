@@ -1,14 +1,16 @@
-import 'package:arte_persa/src/core/extension/context_extension.dart';
-import 'package:arte_persa/src/core/ui/constants.dart';
-import 'package:arte_persa/src/core/ui/helpers/messages.dart';
-import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_state.dart';
-import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
-import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+
+import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
+import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_state.dart';
+import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
+import 'package:arte_persa/src/routes/route_generator.dart';
 
 class CadastroClienteEnderecoPage extends ConsumerStatefulWidget {
   const CadastroClienteEnderecoPage({
@@ -84,9 +86,7 @@ class _CadastroClienteEnderecoPageState
                 FormBuilderTextField(
                   name: 'cep',
                   initialValue: enderecoVm.enderecoForm?.cep,
-                  inputFormatters: [
-                    MaskTextInputFormatter(mask: '##.###-###')
-                  ],
+                  inputFormatters: [MaskTextInputFormatter(mask: '##.###-###')],
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'Cep',
@@ -202,45 +202,41 @@ class _CadastroClienteEnderecoPageState
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.red.shade300,
-                ),
-                onPressed: () async{
-                  switch (formKey.currentState?.saveAndValidate()) {
-                    case (false || null):
-                      break;
-                    case (true):
-                      await updateStateEndereco(formKey.currentState!.value);
-                      Navigator.maybePop(context);
-                      break;
-                  }
-                }, //loginUser,
-                child: const Text('Voltar'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Sair',
+              colorText: Colors.white,
+              colorButton: Colors.red.shade300,
+              onPressed: () async {
+                switch (formKey.currentState?.saveAndValidate()) {
+                  case (false || null):
+                    break;
+                  case (true):
+                    await updateStateEndereco(formKey.currentState!.value);
+                    Navigator.maybePop(context);
+                    break;
+                }
+              },
             ),
             const SizedBox(
               width: 16,
             ),
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {
-                  switch (formKey.currentState?.saveAndValidate()) {
-                    case (false || null):
-                      break;
-                    case (true):
-                      await registerCliente(formKey.currentState!.value);
-                      Navigator.of(context).pushNamedAndRemoveUntil(RouteGeneratorKeys.home, (route) => false);
-                      break;
-                  }
-                }, //loginUser,
-                child: const Text('Finalizar'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Proximo',
+              colorText: Colors.white,
+              colorButton: const Color(0xFF008000),
+              onPressed: () async {
+                switch (formKey.currentState?.saveAndValidate()) {
+                  case (false || null):
+                    break;
+                  case (true):
+                    await registerCliente(formKey.currentState!.value);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        RouteGeneratorKeys.home, (route) => false);
+                    break;
+                }
+              },
             ),
           ],
         ),

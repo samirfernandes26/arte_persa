@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:validatorless/validatorless.dart';
 
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
@@ -59,6 +60,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                   // initialValue: clienteVm.clienteForm?.tipoCliente ?? 1,
                   decoration: const InputDecoration(
                     labelText: 'Selecione o tipo de cliente*',
+                    contentPadding: EdgeInsets.all(8),
                   ),
                   onChanged: (value) {
                     // updateStatePessoaFisicaJuridica(value);
@@ -365,37 +367,32 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(60),
-                  backgroundColor: Colors.red.shade300,
-                ),
-                onPressed: () {}, //loginUser,
-                child: const Text('Sair'),
-              ),
+            Button(
+              formKey: formKey,
+              textButton: 'Sair',
+              colorText: Colors.white,
+              colorButton: Colors.red.shade300,
+              onPressed: () {},
             ),
             const SizedBox(
               width: 16,
             ),
-            Flexible(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(60),
-                    backgroundColor: const Color.fromRGBO(0, 128, 0, 1)),
-                onPressed: () async {
-                  switch (formKey.currentState?.saveAndValidate()) {
-                    case (false || null):
-                      break;
-                    case (true):
-                      await updateStateCliente(formKey.currentState!.value);
-                      Navigator.of(context).pushNamed(
-                          RouteGeneratorKeys.cadastroClienteEndereco);
-                  }
-                },
-                child: const Text('Proximo'),
-              ),
-            ),
+            Button(
+              formKey: formKey,
+              textButton: 'Proximo',
+              colorText: Colors.white,
+              colorButton: const Color(0xFF008000),
+              onPressed: () async {
+                switch (formKey.currentState?.saveAndValidate()) {
+                  case (false || null):
+                    break;
+                  case (true):
+                    await updateStateCliente(formKey.currentState!.value);
+                    Navigator.of(context)
+                        .pushNamed(RouteGeneratorKeys.cadastroClienteEndereco);
+                }
+              },
+            )
           ],
         ),
       ),
