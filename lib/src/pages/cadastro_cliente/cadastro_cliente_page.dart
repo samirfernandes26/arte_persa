@@ -27,8 +27,11 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
 
   @override
   Widget build(BuildContext context) {
-    final CadastroClienteVm(:updateStateCliente) =
-        ref.read(cadastroClienteVmProvider.notifier);
+    final CadastroClienteVm(
+      :updateStateCliente,
+      :updateContatoWhatsapp,
+    ) = ref.read(cadastroClienteVmProvider.notifier);
+
     final clienteVm = ref.watch(cadastroClienteVmProvider);
 
     return Scaffold(
@@ -281,16 +284,19 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     ),
                     InkWell(
                       onTap: () {
-                        // Atualiza o estado do checkbox quando clicado
-                        setState(() {
-                          checkTeleconeConatatoUm = !checkTeleconeConatatoUm;
-                        });
+                        updateContatoWhatsapp(
+                          tipoContato: 1,
+                          whatsapp: !clienteVm.telefoneContatoUmWhatsapp,
+                        );
                       },
                       child: SizedBox(
                         width: 48,
                         height: 48,
                         child: Opacity(
-                          opacity: checkTeleconeConatatoUm ? 0.25 : 1.0,
+                          // opacity: 1,
+                          opacity: clienteVm.telefoneContatoUmWhatsapp != true
+                              ? 0.25
+                              : 1.0,
                           child: Image.asset(
                             ImagesConstants.whatsapp,
                             fit: BoxFit.cover,
@@ -325,17 +331,19 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     ),
                     InkWell(
                       onTap: () {
-                        // Atualiza o estado do checkbox quando clicado
-                        setState(() {
-                          checkTeleconeConatatoDois =
-                              !checkTeleconeConatatoDois;
-                        });
+                        updateContatoWhatsapp(
+                          tipoContato: 2,
+                          whatsapp: !clienteVm.telefoneContatoDoisWhatsapp,
+                        );
                       },
                       child: SizedBox(
                         width: 48,
                         height: 48,
                         child: Opacity(
-                          opacity: checkTeleconeConatatoDois ? 0.25 : 1.0,
+                          // opacity: 1,
+                          opacity: clienteVm.telefoneContatoDoisWhatsapp != true
+                              ? 0.25
+                              : 1.0,
                           child: Image.asset(
                             ImagesConstants.whatsapp,
                             fit: BoxFit.cover,

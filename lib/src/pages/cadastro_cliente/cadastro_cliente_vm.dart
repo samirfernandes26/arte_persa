@@ -21,26 +21,16 @@ class CadastroClienteVm extends _$CadastroClienteVm {
   Future<void> registerCliente(Map<String, dynamic> endereco) async {
     final loaderHandler = AsyncLoaderHandler()..start();
     late Either<ServiceException, ClienteModel> response;
-    late ClienteModel dadosClienteForm;
-    late EnderecoModel dadosEnderecoForm;
+    final ClienteModel dadosClienteForm = state.clienteForm!;
+    final EnderecoModel dadosEnderecoForm = EnderecoModel.fromJson(endereco);
 
-    if (state.clienteForm != null) {
-      dadosClienteForm = state.clienteForm!;
-    }
-
-    if (state.enderecoForm != null) {
-      dadosEnderecoForm = state.enderecoForm!;
-    } else {
-      dadosEnderecoForm = EnderecoModel.fromJson(endereco);
-      state = state.copyWith(
-        enderecoForm: dadosEnderecoForm,
-      );
-    }
+    state = state.copyWith(enderecoForm: dadosEnderecoForm);
 
     if (dadosClienteForm.id == null) {
-      response = await ref
-          .read(cadastroClienteServiceProvider)
-          .execute(state.clienteJson!, endereco);
+      response = await ref.read(cadastroClienteServiceProvider).execute(
+            dadosClienteForm.toJson(),
+            dadosEnderecoForm.toJson(),
+          );
     } else {}
 
     switch (response) {
@@ -61,10 +51,27 @@ class CadastroClienteVm extends _$CadastroClienteVm {
   }
 
   Future<void> updateStateCliente(Map<String, dynamic> cliente) async {
-    ClienteModel dadosClienteForm = ClienteModel.fromJson(cliente);
+    ClienteModel dadosClienteForm = ClienteModel.fromJson(
+      {
+        ...cliente,
+        'telefone_contato_um_Whatsapp': cliente['telefone_contato_um'] != null
+            ? state.telefoneContatoUmWhatsapp
+            : false,
+        'telefone_contato_dois_Whatsapp':
+            cliente['telefone_contato_dois'] != null
+                ? state.telefoneContatoDoisWhatsapp
+                : false,
+      },
+    );
+
     state = state.copyWith(
       clienteForm: dadosClienteForm,
-      clienteJson: cliente,
+      telefoneContatoUmWhatsapp: dadosClienteForm.telefoneContatoUm != null
+          ? state.telefoneContatoUmWhatsapp
+          : false,
+      telefoneContatoDoisWhatsapp: dadosClienteForm.telefoneContatoDois != null
+          ? state.telefoneContatoDoisWhatsapp
+          : false,
     );
   }
 
@@ -94,6 +101,30 @@ class CadastroClienteVm extends _$CadastroClienteVm {
         state = state.copyWith(
           radioPF: false,
           radioPJ: false,
+        );
+        break;
+    }
+  }
+
+  updateContatoWhatsapp({
+    required int tipoContato,
+    required bool whatsapp,
+  }) {
+    switch (tipoContato) {
+      case 1:
+        state = state.copyWith(
+          telefoneContatoUmWhatsapp: whatsapp,
+        );
+        break;
+      case 2:
+        state = state.copyWith(
+          telefoneContatoDoisWhatsapp: whatsapp,
+        );
+        break;
+      default:
+        state = state.copyWith(
+          telefoneContatoUmWhatsapp: false,
+          telefoneContatoDoisWhatsapp: false,
         );
         break;
     }

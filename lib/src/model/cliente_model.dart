@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/core/helpers/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cliente_model.g.dart';
@@ -21,6 +22,7 @@ class ClienteModel {
     this.telefoneContatoDoisWhatsapp,
     this.email,
     this.userId,
+    this.mediaDaAvaliacao,
   });
 
   String? id;
@@ -66,6 +68,11 @@ class ClienteModel {
   @JsonKey(name: 'user_id')
   String? userId;
 
+  @JsonKey(name: 'media_da_avaliacao')
+  @StringToDoubleConverter()
+  double? mediaDaAvaliacao;
+
   Map<String, dynamic> toJson() => _$ClienteModelToJson(this);
-  factory ClienteModel.fromJson(Map<String, dynamic> json) => _$ClienteModelFromJson(json); 
+  factory ClienteModel.fromJson(Map<String, dynamic> json) =>
+      _$ClienteModelFromJson(json);
 }
