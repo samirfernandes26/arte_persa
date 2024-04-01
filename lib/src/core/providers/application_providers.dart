@@ -12,8 +12,12 @@ import 'package:arte_persa/src/services/cadastro_servico_service/cadastro_servic
 
 import 'package:arte_persa/src/services/firebase_storage_service/firebase_storage_service.dart';
 import 'package:arte_persa/src/services/firebase_storage_service/firebase_storage_service_imp.dart';
+
 import 'package:arte_persa/src/services/ordem_de_servico_service/ordem_de_servico_service.dart';
 import 'package:arte_persa/src/services/ordem_de_servico_service/ordem_de_servico_service_imp.dart';
+
+import 'package:arte_persa/src/services/geolocation/geolocation_service_impl.dart';
+import 'package:arte_persa/src/services/geolocation/geolocation_service.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'application_providers.g.dart';
@@ -40,3 +44,7 @@ FirebaseStorageService firebaseStorageService(FirebaseStorageServiceRef ref) =>
 @Riverpod(keepAlive: true)
 OrdemDeServicoService ordemDeServicoService(OrdemDeServicoServiceRef ref) =>
     OrdemDeServicoServiceImp();
+
+@Riverpod(keepAlive: true)
+GeolocationService geolocationService(GeolocationServiceRef ref) =>
+    GeolocationServiceImpl();

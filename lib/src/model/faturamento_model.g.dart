@@ -8,6 +8,7 @@ part of 'faturamento_model.dart';
 
 FaturamentoModel _$FaturamentoModelFromJson(Map<String, dynamic> json) =>
     FaturamentoModel(
+      id: json['id'] as String?,
       clienteId: json['cliente_id'] as String?,
       ordemDeServicoId: json['ordem_de_servico_id'] as String?,
       descontoAplicado: _$JsonConverterFromJson<String, double>(
@@ -29,6 +30,7 @@ FaturamentoModel _$FaturamentoModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$FaturamentoModelToJson(FaturamentoModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'cliente_id': instance.clienteId,
       'ordem_de_servico_id': instance.ordemDeServicoId,
       'desconto_aplicado': _$JsonConverterToJson<String, double>(

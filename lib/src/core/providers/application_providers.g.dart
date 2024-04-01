@@ -104,5 +104,21 @@ final ordemDeServicoServiceProvider = Provider<OrdemDeServicoService>.internal(
 );
 
 typedef OrdemDeServicoServiceRef = ProviderRef<OrdemDeServicoService>;
+String _$geolocationServiceHash() =>
+    r'ba1b46541e6bd333c3d5256dd388670835573bc3';
+
+/// See also [geolocationService].
+@ProviderFor(geolocationService)
+final geolocationServiceProvider = Provider<GeolocationService>.internal(
+  geolocationService,
+  name: r'geolocationServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$geolocationServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef GeolocationServiceRef = ProviderRef<GeolocationService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -24,6 +24,8 @@ ClienteModel _$ClienteModelFromJson(Map<String, dynamic> json) => ClienteModel(
           json['telefone_contato_dois_Whatsapp'] as bool?,
       email: json['email'] as String?,
       userId: json['user_id'] as String?,
+      mediaDaAvaliacao: _$JsonConverterFromJson<String, double>(
+          json['media_da_avaliacao'], const StringToDoubleConverter().fromJson),
     );
 
 Map<String, dynamic> _$ClienteModelToJson(ClienteModel instance) =>
@@ -44,4 +46,18 @@ Map<String, dynamic> _$ClienteModelToJson(ClienteModel instance) =>
       'telefone_contato_dois_Whatsapp': instance.telefoneContatoDoisWhatsapp,
       'email': instance.email,
       'user_id': instance.userId,
+      'media_da_avaliacao': _$JsonConverterToJson<String, double>(
+          instance.mediaDaAvaliacao, const StringToDoubleConverter().toJson),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

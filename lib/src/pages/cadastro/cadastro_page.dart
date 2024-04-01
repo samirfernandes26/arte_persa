@@ -1,15 +1,16 @@
-import 'package:arte_persa/src/core/ui/helpers/messages.dart';
-import 'package:arte_persa/src/pages/cadastro/cadastro_state.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:arte_persa/src/core/extension/context_extension.dart';
-import 'package:arte_persa/src/core/ui/constants.dart';
-import 'package:arte_persa/src/pages/cadastro/cadastro_vm.dart';
-import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:validatorless/validatorless.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/pages/cadastro/cadastro_state.dart';
+import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/pages/cadastro/cadastro_vm.dart';
+import 'package:arte_persa/src/routes/route_generator.dart';
+import 'package:arte_persa/src/core/extension/context_extension.dart';
 
 class CadastroPage extends ConsumerStatefulWidget {
   const CadastroPage({
