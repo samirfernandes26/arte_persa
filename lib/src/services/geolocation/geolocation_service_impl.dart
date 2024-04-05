@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:arte_persa/src/core/exceptions/service_exception.dart';
 import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/services/geolocation/geolocation_service.dart';
@@ -68,28 +69,46 @@ class GeolocationServiceImpl implements GeolocationService {
     );
   }
 
-  void getCoordinates() async {
-    String enderecoCliente = "Rua Exemplo, 123, Bairro, Cidade, Estado, CEP";
+  Future<Map<String, dynamic>> buscarCoordenadas(String endereco) async {
+    final url = Uri.parse(
+        'https://maps.googleapis.com/maps/api/geocode/json?address=$endereco&key=SUA_CHAVE_AQUI');
 
-    try {
-      List<Location> locations = await getLocationFromAddress(enderecoCliente);
-      if (locations.isNotEmpty) {
-        // TODO Se localização encontrada
-      } else {
-        print("Localização não encontrada.");
-        // TODO Se localização não encontrada
+    final resposta = await http.get(url);
+
+    if (resposta.statusCode == 200) {
+      final dados = json.decode(resposta.body);
+
+      // Supondo que queremos a primeira localização encontrada
+      if (dados['results'].isNotEmpty) {
+        final localizacao = dados['results'][0]['geometry']['location'];
+        return {"lat": localizacao['lat'], "lng": localizacao['lng']};
       }
-    } catch (error) {
-      //TODO Se error na hora de pegar localização
     }
+    return {"lat": 0.0, "lng": 0.0}; // Retorno padrão em caso de falha
   }
 
-  Future<List<Location>> getLocationFromAddress(String enderecoCliente) async {
-    try {
-      List<Location> locations = await locationFromAddress(enderecoCliente);
-      return locations;
-    } catch (e) {
-      throw ServiceException(message: 'Erro ao obter localização: $e');
-    }
-  }
+  // void getCoordinates() async {
+  //   String enderecoCliente = "Rua Exemplo, 123, Bairro, Cidade, Estado, CEP";
+
+  //   try {
+  //     List<Location> locations = await getLocationFromAddress(enderecoCliente);
+  //     if (locations.isNotEmpty) {
+  //       // TODO Se localização encontrada
+  //     } else {
+  //       print("Localização não encontrada.");
+  //       // TODO Se localização não encontrada
+  //     }
+  //   } catch (error) {
+  //     //TODO Se error na hora de pegar localização
+  //   }
+  // }
+
+  // Future<List<Location>> getLocationFromAddress(String enderecoCliente) async {
+  //   try {
+  //     List<Location> locations = await locationFromAddress(enderecoCliente);
+  //     return locations;
+  //   } catch (e) {
+  //     throw ServiceException(message: 'Erro ao obter localização: $e');
+  //   }
+  // }
 }

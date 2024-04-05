@@ -1,3 +1,6 @@
+import 'package:arte_persa/src/core/rest_client/rest_client.dart';
+import 'package:arte_persa/src/repositories/convert_addresses/convert_addresses_repository.dart';
+import 'package:arte_persa/src/repositories/convert_addresses/convert_addresses_repository_impl.dart';
 import 'package:arte_persa/src/services/auth/auth_service.dart';
 import 'package:arte_persa/src/services/auth/auth_service_impl.dart';
 
@@ -21,6 +24,9 @@ import 'package:arte_persa/src/services/geolocation/geolocation_service.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'application_providers.g.dart';
+
+@Riverpod(keepAlive: true)
+RestClient restClient(RestClientRef ref) => RestClient();
 
 /// Application providers
 @Riverpod(keepAlive: true)
@@ -48,3 +54,8 @@ OrdemDeServicoService ordemDeServicoService(OrdemDeServicoServiceRef ref) =>
 @Riverpod(keepAlive: true)
 GeolocationService geolocationService(GeolocationServiceRef ref) =>
     GeolocationServiceImpl();
+
+@Riverpod(keepAlive: true)
+ConvertAddressesRepository convertAddressesRepository(
+        ConvertAddressesRepositoryRef ref) =>
+    ConvertAddressesRepositoryImpl();

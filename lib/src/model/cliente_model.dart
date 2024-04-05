@@ -23,6 +23,8 @@ class ClienteModel {
     this.email,
     this.userId,
     this.mediaDaAvaliacao,
+    this.latitude,
+    this.longitude,
   });
 
   String? id;
@@ -71,6 +73,12 @@ class ClienteModel {
   @JsonKey(name: 'media_da_avaliacao')
   @StringToDoubleConverter()
   double? mediaDaAvaliacao;
+
+  @StringToDoubleConverter()
+  double? latitude;
+
+  @StringToDoubleConverter()
+  double? longitude;
 
   Map<String, dynamic> toJson() => _$ClienteModelToJson(this);
   factory ClienteModel.fromJson(Map<String, dynamic> json) =>
