@@ -251,7 +251,6 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16.0),
         child: Button(
-          formKey: formKey,
           textButton: 'Cadastrar',
           colorText: Colors.white,
           colorButton: const Color(0xFF008000),

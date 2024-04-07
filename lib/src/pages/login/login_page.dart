@@ -91,7 +91,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           height: 16,
                         ),
                         Button(
-                          formKey: formKey,
                           textButton: 'Cadastrar',
                           colorText: Colors.white,
                           colorButton: const Color(0xFF008000),

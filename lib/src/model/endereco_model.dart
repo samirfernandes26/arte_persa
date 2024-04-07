@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/core/helpers/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'endereco_model.g.dart';
@@ -14,6 +15,8 @@ class EnderecoModel {
     this.bairro,
     this.estado,
     this.referencia,
+    this.latitude,
+    this.longitude,
   });
 
   String? id;
@@ -35,6 +38,13 @@ class EnderecoModel {
 
   String? referencia;
 
-  Map<String,dynamic> toJson() => _$EnderecoModelToJson(this);
-  factory EnderecoModel.fromJson(Map<String, dynamic> json) => _$EnderecoModelFromJson(json);
+  @StringToDoubleConverter()
+  double? latitude;
+
+  @StringToDoubleConverter()
+  double? longitude;
+
+  Map<String, dynamic> toJson() => _$EnderecoModelToJson(this);
+  factory EnderecoModel.fromJson(Map<String, dynamic> json) =>
+      _$EnderecoModelFromJson(json);
 }

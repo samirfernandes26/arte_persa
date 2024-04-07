@@ -345,20 +345,20 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
         child: Row(
           children: [
             Button(
-              formKey: formKey,
               textButton: 'Cancelar',
               colorText: Colors.white,
               colorButton: Colors.red.shade300,
+              useFlexible: true,
               onPressed: () {},
             ),
             const SizedBox(
               width: 16,
             ),
             Button(
-              formKey: formKey,
               textButton: 'Proximo',
               colorText: Colors.white,
               colorButton: const Color(0xFF008000),
+              useFlexible: true,
               onPressed: () async {
                 switch (formKey.currentState?.saveAndValidate()) {
                   case (false || null):

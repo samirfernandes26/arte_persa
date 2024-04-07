@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
@@ -35,8 +36,10 @@ class _CadastroClienteEnderecoPageState
 
   @override
   Widget build(BuildContext context) {
-    final CadastroClienteVm(:registerCliente, :updateStateEndereco) =
-        ref.read(cadastroClienteVmProvider.notifier);
+    final CadastroClienteVm(
+      :registerCliente,
+      :updateStateEndereco,
+    ) = ref.read(cadastroClienteVmProvider.notifier);
     final enderecoVm = ref.watch(cadastroClienteVmProvider);
 
     ref.listen(cadastroClienteVmProvider, (_, state) async {
@@ -58,12 +61,16 @@ class _CadastroClienteEnderecoPageState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro Endereço do Cliente'),
+        title: const Text(
+          'Cadastro Endereço do Cliente',
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
-                RouteGeneratorKeys.authLogin, (route) => false);
+              RouteGeneratorKeys.authLogin,
+              (route) => false,
+            );
           },
         ),
       ),
@@ -155,11 +162,12 @@ class _CadastroClienteEnderecoPageState
                         initialValue: enderecoVm.enderecoForm?.bairro,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: InputDecoration(
-                            labelText: 'Bairro',
-                            hintText: 'Bairro',
-                            hintStyle: TextStyle(
-                              color: Colors.grey.shade600,
-                            )),
+                          labelText: 'Bairro',
+                          hintText: 'Bairro',
+                          hintStyle: TextStyle(
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                         keyboardType: TextInputType.name,
                       ),
                     ),
@@ -203,17 +211,17 @@ class _CadastroClienteEnderecoPageState
         child: Row(
           children: [
             Button(
-              formKey: formKey,
               textButton: 'Sair',
               colorText: Colors.white,
               colorButton: Colors.red.shade300,
+              useFlexible: true,
               onPressed: () async {
                 switch (formKey.currentState?.saveAndValidate()) {
                   case (false || null):
                     break;
                   case (true):
                     await updateStateEndereco(formKey.currentState!.value);
-                    Navigator.maybePop(context);
+                    Navigator.pop(context);
                     break;
                 }
               },
@@ -222,10 +230,10 @@ class _CadastroClienteEnderecoPageState
               width: 16,
             ),
             Button(
-              formKey: formKey,
               textButton: 'Proximo',
               colorText: Colors.white,
               colorButton: const Color(0xFF008000),
+              useFlexible: true,
               onPressed: () async {
                 switch (formKey.currentState?.saveAndValidate()) {
                   case (false || null):
@@ -233,7 +241,9 @@ class _CadastroClienteEnderecoPageState
                   case (true):
                     await registerCliente(formKey.currentState!.value);
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                        RouteGeneratorKeys.home, (route) => false);
+                      RouteGeneratorKeys.home,
+                      (route) => false,
+                    );
                     break;
                 }
               },

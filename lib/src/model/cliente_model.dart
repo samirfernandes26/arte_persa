@@ -1,4 +1,5 @@
 import 'package:arte_persa/src/core/helpers/json_converter.dart';
+import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cliente_model.g.dart';
@@ -23,8 +24,7 @@ class ClienteModel {
     this.email,
     this.userId,
     this.mediaDaAvaliacao,
-    this.latitude,
-    this.longitude,
+    this.endereco,
   });
 
   String? id;
@@ -74,11 +74,7 @@ class ClienteModel {
   @StringToDoubleConverter()
   double? mediaDaAvaliacao;
 
-  @StringToDoubleConverter()
-  double? latitude;
-
-  @StringToDoubleConverter()
-  double? longitude;
+  EnderecoModel? endereco;
 
   Map<String, dynamic> toJson() => _$ClienteModelToJson(this);
   factory ClienteModel.fromJson(Map<String, dynamic> json) =>

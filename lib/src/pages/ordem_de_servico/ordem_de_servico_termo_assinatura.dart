@@ -182,10 +182,10 @@ class _OrdemDeServicoTermoAssinaturaState
         child: Row(
           children: [
             Button(
-              formKey: formKey,
               textButton: 'Voltar',
               colorText: Colors.white,
               colorButton: Colors.red.shade300,
+              useFlexible: true,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -194,10 +194,10 @@ class _OrdemDeServicoTermoAssinaturaState
               width: 16,
             ),
             Button(
-              formKey: formKey,
               textButton: 'Finalizar',
               colorText: Colors.white,
               colorButton: const Color(0xFF008000),
+              useFlexible: true,
               onPressed: () async {
                 switch (formKey.currentState?.saveAndValidate()) {
                   case (false || null):

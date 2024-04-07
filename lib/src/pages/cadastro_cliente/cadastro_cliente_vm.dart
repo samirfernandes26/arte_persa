@@ -21,16 +21,20 @@ class CadastroClienteVm extends _$CadastroClienteVm {
   Future<void> registerCliente(Map<String, dynamic> endereco) async {
     final loaderHandler = AsyncLoaderHandler()..start();
     late Either<ServiceException, ClienteModel> response;
-    final ClienteModel dadosClienteForm = state.clienteForm!;
     final EnderecoModel dadosEnderecoForm = EnderecoModel.fromJson(endereco);
+    final ClienteModel dadosClienteForm = state.clienteForm!;
 
-    state = state.copyWith(enderecoForm: dadosEnderecoForm);
+    dadosClienteForm.endereco = dadosEnderecoForm;
+
+    state = state.copyWith(
+      enderecoForm: dadosEnderecoForm,
+      clienteForm: dadosClienteForm,
+    );
 
     if (dadosClienteForm.id == null) {
-      response = await ref.read(cadastroClienteServiceProvider).execute(
-            dadosClienteForm.toJson(),
-            dadosEnderecoForm.toJson(),
-          );
+      response = await ref
+          .read(cadastroClienteServiceProvider)
+          .execute(cliente: dadosClienteForm);
     } else {}
 
     switch (response) {

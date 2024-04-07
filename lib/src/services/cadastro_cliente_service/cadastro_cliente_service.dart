@@ -3,5 +3,7 @@ import 'package:arte_persa/src/core/fp/either.dart';
 import 'package:arte_persa/src/model/cliente_model.dart';
 
 abstract class CadastroClienteService {
-  Future<Either<ServiceException, ClienteModel>> execute(Map<String, dynamic> cliente, Map<String, dynamic> endereco);
+  Future<Either<ServiceException, ClienteModel>> execute({
+    required ClienteModel cliente,
+  });
 }

@@ -267,10 +267,10 @@ class _OrdemDeServicoServicosPageState
                                 Row(
                                   children: [
                                     Button(
-                                      formKey: formKey,
                                       textButton: 'Cancelar',
                                       colorText: Colors.white,
                                       colorButton: Colors.red.shade300,
+                                      useFlexible: true,
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
@@ -279,10 +279,10 @@ class _OrdemDeServicoServicosPageState
                                       width: 16,
                                     ),
                                     Button(
-                                      colorButton: const Color(0xFF008000),
-                                      colorText: Colors.white,
-                                      formKey: formKey,
                                       textButton: 'Calcular',
+                                      colorText: Colors.white,
+                                      colorButton: const Color(0xFF008000),
+                                      useFlexible: true,
                                       onPressed: () {
                                         calcularValorDoServico(
                                           servico: servicos[index],
@@ -320,10 +320,10 @@ class _OrdemDeServicoServicosPageState
         child: Row(
           children: [
             Button(
-              formKey: formKey,
               textButton: 'Voltar',
               colorText: Colors.white,
               colorButton: Colors.red.shade300,
+              useFlexible: true,
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -332,10 +332,10 @@ class _OrdemDeServicoServicosPageState
               width: 16,
             ),
             Button(
-              formKey: formKey,
               textButton: 'Proximo',
               colorText: Colors.white,
               colorButton: const Color(0xFF008000),
+              useFlexible: true,
               onPressed: () async {
                 await finalizarCadastroItem();
                 Navigator.of(context).pushNamedAndRemoveUntil(

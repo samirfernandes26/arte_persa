@@ -2,7 +2,10 @@ import 'dart:async';
 import 'package:arte_persa/src/core/providers/application_providers.dart';
 
 import 'package:arte_persa/src/core/ui/widgets/drawer/custom_drawer.dart';
+import 'package:arte_persa/src/model/cliente_model.dart';
+import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,13 +20,29 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   final formKey = GlobalKey<FormBuilderState>();
 
-  Future<void> buscarCoordenadasPorEndereco() async {
+  Future<void> testes() async {
     try {
-      final repository = ref.read(convertAddressesRepositoryProvider);
-      final response = await repository.convertAddressesToGeolocation(
-        endereco:
-            "Rua Leandro Martins Costa, 89, Limoeiro, Caratinga, MG, 3530-010, Brasil",
-      );
+      List<ClienteModel> clientes = [];
+      FirebaseFirestore fireStore = FirebaseFirestore.instance;
+      final collectionCliente = fireStore.collection('clientes');
+      QuerySnapshot<Map<String, dynamic>> snapshotCliente =
+          await collectionCliente.get();
+
+      for (var docCliente in snapshotCliente.docs) {
+        ClienteModel cliente = ClienteModel.fromJson(docCliente.data());
+
+        QuerySnapshot<Map<String, dynamic>> snapshotEndereco =
+            await docCliente.reference.collection('enderecos').limit(1).get();
+
+        if (snapshotEndereco.docs.isNotEmpty) {
+          EnderecoModel endereco =
+              EnderecoModel.fromJson(snapshotEndereco.docs.first.data());
+          cliente.endereco = endereco;
+        }
+
+        clientes.add(cliente);
+      }
+
       final batata = '';
     } catch (e) {
       // Trate qualquer outro tipo de erro que possa ocorrer
@@ -62,16 +81,60 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: Container(
           padding: const EdgeInsets.all(32.0),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             children: [
-              IconButton(
-                onPressed: () async {
-                  await buscarCoordenadasPorEndereco();
-                },
-                icon: const Icon(
-                  Icons.build_circle_outlined,
-                  color: Colors.white,
-                  size: 124,
+              Center(
+                child: IconButton(
+                  onPressed: () async {
+                    await testes();
+                  },
+                  icon: const Icon(
+                    Icons.adb_outlined,
+                    color: Colors.white,
+                    size: 124,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 64,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade600,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        'titulo',
+                        style: TextStyle(
+                          color: Colors.grey.shade900,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      const Text(
+                        'conteudo',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
