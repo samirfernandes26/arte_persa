@@ -9,9 +9,10 @@ import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part './components.dart';
 
@@ -266,6 +267,43 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  SizedBox(
+                    height: 300,
+                    child: GoogleMap(
+                      initialCameraPosition: const CameraPosition(
+                        target: LatLng(
+                          -19.9381385,
+                          -43.9384428,
+                        ),
+                        zoom: 16,
+                      ),
+                      // Passa o conjunto de marcadores para o GoogleMap
+                      markers: {
+                        const Marker(
+                          markerId: MarkerId('meu_marcador'),
+                          position: LatLng(-19.9381385, -43.9384428),
+                          infoWindow: InfoWindow(
+                            title: 'Endereço de Samir',
+                            snippet: '',
+                          ),
+                          // (Opcional) Usa um ícone personalizado para o marcador
+                          // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+                        ),
+                      },
+
+                      onMapCreated: (GoogleMapController controller) async {
+                        String mapStyle = await rootBundle
+                            .loadString('assets/map_style.json');
+                        controller.setMapStyle(mapStyle);
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 64,
                   ),
                 ],
               )
