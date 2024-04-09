@@ -22,8 +22,6 @@ class CadastroClientePage extends ConsumerStatefulWidget {
 
 class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
   final formKey = GlobalKey<FormBuilderState>();
-  bool checkTeleconeConatatoUm = true;
-  bool checkTeleconeConatatoDois = true;
 
   @override
   Widget build(BuildContext context) {

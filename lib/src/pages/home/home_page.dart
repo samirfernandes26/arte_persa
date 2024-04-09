@@ -1,14 +1,19 @@
 import 'dart:async';
-import 'package:arte_persa/src/core/providers/application_providers.dart';
+import 'dart:io';
 
+import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/core/ui/widgets/drawer/custom_drawer.dart';
 import 'package:arte_persa/src/model/cliente_model.dart';
 import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+part './components.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -79,63 +84,190 @@ class _HomePageState extends ConsumerState<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(32.0),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
           child: Column(
             children: [
-              Center(
-                child: IconButton(
-                  onPressed: () async {
-                    await testes();
-                  },
-                  icon: const Icon(
-                    Icons.adb_outlined,
-                    color: Colors.white,
-                    size: 124,
-                  ),
-                ),
-              ),
               const SizedBox(
                 height: 64,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade600,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 3,
-                      offset: const Offset(0, 1),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Center(
+                    child: Text(
+                      'Samir Frenandes Lima',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 32,
+                      ),
                     ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(16),
-                child: Expanded(
-                  child: Row(
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Row(
                     children: [
-                      Text(
-                        'titulo',
-                        style: TextStyle(
-                          color: Colors.grey.shade900,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16,
+                      SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: Image.asset(
+                          ImagesConstants.whatsapp,
+                          fit: BoxFit.cover,
                         ),
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 16,
                       ),
                       const Text(
-                        'conteudo',
+                        '(33) 99928-8234',
                         style: TextStyle(
                           color: Colors.white,
+                          fontWeight: FontWeight.w700,
                           fontSize: 16,
-                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ],
                   ),
-                ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Row(
+                    children: [
+                      Icon(
+                        Icons.phone,
+                        color: Colors.white,
+                        size: 32,
+                      ),
+                      SizedBox(
+                        width: 16,
+                      ),
+                      Text(
+                        '(33) 97128-8421',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  const Text(
+                    'Endereço',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _renderLabel(
+                    titulo: 'Estado:',
+                    conteudo: 'Minas Gerais',
+                  ),
+                  _renderLabel(
+                    titulo: 'Cidade:',
+                    conteudo: 'Belo Horizonte',
+                  ),
+                  _renderLabel(
+                    titulo: 'Bairro:',
+                    conteudo: 'Centro',
+                  ),
+                  _renderLabel(
+                    titulo: 'Logradoro:',
+                    conteudo: 'Rua Sergipe',
+                  ),
+                  _renderLabel(
+                    titulo: 'Numéro:',
+                    conteudo: '1334',
+                  ),
+                  _renderLabel(
+                    titulo: 'Complemento:',
+                    conteudo: 'loja',
+                  ),
+                  _renderLabel(
+                    titulo: 'Referência:',
+                    conteudo: 'Proxima à avenida do contorno',
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  const Text(
+                    'Detalhes',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _renderLabel(
+                    titulo: 'Cpf/Cnpj:',
+                    conteudo: '119.317.836-32',
+                  ),
+                  _renderLabel(
+                    titulo: 'Procurar por:',
+                    conteudo: 'Bruna Lima',
+                  ),
+                  _renderLabel(
+                    titulo: 'Informações adicionais:',
+                    conteudo: 'Só aceita entraga entre 12:00 e 19:00',
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade600,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              'Avaliações',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                              ),
+                            ),
+                          ),
+                          Avaliacao(
+                            desable: true,
+                            initialValue: 1,
+                            onChanged: (value) {},
+                          ),
+                          const Text(
+                            '(1)',
+                            style: TextStyle(
+                              color: Colors.amber,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               )
             ],
           ),

@@ -86,6 +86,7 @@ dependencies:
   geocoding: ^3.0.0
   url_launcher: ^6.2.5
   http: ^0.13.3
+  google_maps_flutter: ^2.6.0
 
 
 dev_dependencies:
