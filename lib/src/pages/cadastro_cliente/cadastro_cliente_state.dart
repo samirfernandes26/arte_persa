@@ -12,6 +12,7 @@ enum CadastroClienteStateStatus {
 class CadastroClienteState {
   CadastroClienteState({
     required this.status,
+    this.clienteSalva,
     this.clienteForm,
     this.enderecoForm,
     this.enderecoJson,
@@ -34,6 +35,7 @@ class CadastroClienteState {
 
   CadastroClienteStateStatus status;
   ClienteModel? clienteForm;
+  ClienteModel? clienteSalva;
   EnderecoModel? enderecoForm;
   Map<String, dynamic>? enderecoJson;
   String? message;
@@ -45,6 +47,7 @@ class CadastroClienteState {
 
   CadastroClienteState copyWith({
     CadastroClienteStateStatus? status,
+    ClienteModel? clienteSalva,
     ClienteModel? clienteForm,
     EnderecoModel? enderecoForm,
     Map<String, dynamic>? enderecoJson,
@@ -57,6 +60,7 @@ class CadastroClienteState {
   }) =>
       CadastroClienteState(
         status: status ?? this.status,
+        clienteSalva: clienteSalva ?? this.clienteSalva,
         clienteForm: clienteForm ?? this.clienteForm,
         enderecoForm: enderecoForm ?? this.enderecoForm,
         enderecoJson: enderecoJson ?? this.enderecoJson,

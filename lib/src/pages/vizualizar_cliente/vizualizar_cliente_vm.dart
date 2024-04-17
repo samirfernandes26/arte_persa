@@ -10,7 +10,12 @@ class VisualizarClienteVm extends _$VisualizarClienteVm {
   VisualizarClienteState build() => VisualizarClienteState.initial();
 
   Future<void> loadData(Map<String, dynamic> data) async {
-    ClienteModel? cliente = await ClienteDao.getById(data['id']);
+    ClienteModel? cliente;
+    if (data['id'] != null) {
+      cliente = await ClienteDao.getById(data['id']);
+    } else {
+      cliente = data['cliente'];
+    }
 
     if (cliente != null) {
       state = state.copyWith(

@@ -49,8 +49,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
         clientes.add(cliente);
       }
-
-      final batata = '';
     } catch (e) {
       // Trate qualquer outro tipo de erro que possa ocorrer
       print("Ocorreu um erro inesperado: $e");

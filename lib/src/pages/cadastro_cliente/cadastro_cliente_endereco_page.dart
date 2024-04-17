@@ -1,3 +1,4 @@
+import 'package:arte_persa/src/model/cliente_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -53,8 +54,12 @@ class _CadastroClienteEnderecoPageState
           Navigator.of(context).pop(true);
         case CadastroClienteStateStatus.success:
           Messages.showSuccess(state.message!, context);
-          Navigator.of(context).popAndPushNamed(
-            RouteGeneratorKeys.authLogin,
+          Navigator.of(context).pushNamed(
+            RouteGeneratorKeys.visulizarCliente,
+            arguments: {
+              'id': null,
+              'cliente': state.clienteSalva,
+            },
           );
       }
     });
@@ -239,11 +244,24 @@ class _CadastroClienteEnderecoPageState
                   case (false || null):
                     break;
                   case (true):
-                    await registerCliente(formKey.currentState!.value);
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      RouteGeneratorKeys.home,
-                      (route) => false,
+                    ClienteModel? clienteSalva = await registerCliente(
+                      formKey.currentState!.value,
                     );
+
+                    if (clienteSalva != null) {
+                      Navigator.of(context).pushNamed(
+                        RouteGeneratorKeys.visulizarCliente,
+                        arguments: {
+                          'id': null,
+                          'cliente': clienteSalva,
+                        },
+                      );
+                    } else {
+                      Navigator.of(context).pushNamed(
+                        RouteGeneratorKeys.home,
+                      );
+                    }
+
                     break;
                 }
               },

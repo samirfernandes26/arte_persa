@@ -1,14 +1,20 @@
 import 'dart:io';
-import 'package:arte_persa/src/core/ui/constants.dart';
-import 'package:arte_persa/src/core/ui/helpers/messages.dart';
-import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
-import 'package:arte_persa/src/pages/vizualizar_cliente/vizualizar_cliente_state.dart';
-import 'package:arte_persa/src/pages/vizualizar_cliente/vizualizar_cliente_vm.dart';
-import 'package:arte_persa/src/routes/route_generator.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+
+import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/core/ui/helpers/messages.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
+
+import 'package:arte_persa/src/model/cliente_model.dart';
+
+import 'package:arte_persa/src/routes/route_generator.dart';
+
+import 'package:arte_persa/src/pages/vizualizar_cliente/vizualizar_cliente_state.dart';
+import 'package:arte_persa/src/pages/vizualizar_cliente/vizualizar_cliente_vm.dart';
 
 part './components.dart';
 
@@ -33,6 +39,8 @@ class _vizualizarClientePageState extends ConsumerState<vizualizarClientePage> {
       visualizarClienteVmProvider,
     );
 
+    ClienteModel? cliente = viewModel.cliente;
+
     Map<String, dynamic> arguments =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
             {};
@@ -47,36 +55,41 @@ class _vizualizarClientePageState extends ConsumerState<vizualizarClientePage> {
       );
     }
 
-    ref.listen(visualizarClienteVmProvider, (_, state) {
-      switch (state.status) {
-        case VisualizarClienteStateStatus.initial:
-          break;
-        case VisualizarClienteStateStatus.loaded:
-          break;
-        case VisualizarClienteStateStatus.success:
-          break;
-        case VisualizarClienteStateStatus.error:
-          if (state.message != null) {
-            Messages.showErrors(state.message!, context);
-          }
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            RouteGeneratorKeys.home,
-            (route) => false,
-            arguments: {
-              'reload': true,
-            },
-          );
-      }
-    });
+    ref.listen(
+      visualizarClienteVmProvider,
+      (_, state) {
+        switch (state.status) {
+          case VisualizarClienteStateStatus.initial:
+            break;
+          case VisualizarClienteStateStatus.loaded:
+            break;
+          case VisualizarClienteStateStatus.success:
+            break;
+          case VisualizarClienteStateStatus.error:
+            if (state.message != null) {
+              Messages.showErrors(state.message!, context);
+            }
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              RouteGeneratorKeys.home,
+              (route) => false,
+              arguments: {
+                'reload': true,
+              },
+            );
+        }
+      },
+    );
 
     return PopScope(
       canPop: false,
       onPopInvoked: (canPop) async {
         Navigator.of(context).pushNamedAndRemoveUntil(
-            RouteGeneratorKeys.home, (route) => false,
-            arguments: {
-              'reload': true,
-            });
+          RouteGeneratorKeys.home,
+          (route) => false,
+          arguments: {
+            'reload': true,
+          },
+        );
       },
       child: Scaffold(
         appBar: AppBar(
@@ -87,24 +100,29 @@ class _vizualizarClientePageState extends ConsumerState<vizualizarClientePage> {
             icon: const Icon(
               Icons.arrow_back,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                RouteGeneratorKeys.home,
+                (route) => false,
+              );
+            },
           ),
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 64,
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Center(
+                    Center(
                       child: Text(
-                        'Samir Frenandes Lima',
-                        style: TextStyle(
+                        cliente!.tipoCliente! == 2
+                            ? cliente.razaoSocial ??
+                                'Razão social não encontrado'
+                            : cliente.nome ?? 'Nome não encontrado',
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 32,
@@ -114,52 +132,54 @@ class _vizualizarClientePageState extends ConsumerState<vizualizarClientePage> {
                     const SizedBox(
                       height: 32,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 32,
-                          height: 32,
-                          child: Image.asset(
-                            ImagesConstants.whatsapp,
-                            fit: BoxFit.cover,
+                    if (cliente.telefoneContatoUm != null)
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 32,
+                            height: 32,
+                            child: Image.asset(
+                              ImagesConstants.whatsapp,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        const Text(
-                          '(33) 99928-8234',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                          const SizedBox(
+                            width: 16,
                           ),
-                        ),
-                      ],
-                    ),
+                          Text(
+                            cliente.telefoneContatoUm!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
                     const SizedBox(
                       height: 16,
                     ),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.phone,
-                          color: Colors.white,
-                          size: 32,
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Text(
-                          '(33) 97128-8421',
-                          style: TextStyle(
+                    if (cliente.telefoneContatoDois != null)
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.phone,
                             color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                            size: 32,
                           ),
-                        ),
-                      ],
-                    ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Text(
+                            cliente.telefoneContatoDois!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
                     const SizedBox(
                       height: 32,
                     ),
@@ -176,31 +196,33 @@ class _vizualizarClientePageState extends ConsumerState<vizualizarClientePage> {
                     ),
                     _renderLabel(
                       titulo: 'Estado:',
-                      conteudo: 'Minas Gerais',
+                      conteudo: cliente.endereco!.estado ?? 'Não Informado',
                     ),
+                    // TODO verificar aqui
                     _renderLabel(
                       titulo: 'Cidade:',
                       conteudo: 'Belo Horizonte',
                     ),
                     _renderLabel(
                       titulo: 'Bairro:',
-                      conteudo: 'Centro',
+                      conteudo: cliente.endereco!.bairro ?? 'Não Informado',
                     ),
                     _renderLabel(
                       titulo: 'Logradoro:',
-                      conteudo: 'Rua Sergipe',
+                      conteudo: cliente.endereco!.logradouro ?? 'Não Informado',
                     ),
                     _renderLabel(
                       titulo: 'Numéro:',
-                      conteudo: '1334',
+                      conteudo: cliente.endereco!.numero ?? 'Não Informado',
                     ),
                     _renderLabel(
                       titulo: 'Complemento:',
-                      conteudo: 'loja',
+                      conteudo:
+                          cliente.endereco!.complemento ?? 'Não Informado',
                     ),
                     _renderLabel(
                       titulo: 'Referência:',
-                      conteudo: 'Proxima à avenida do contorno',
+                      conteudo: cliente.endereco!.referencia ?? 'Não Informado',
                     ),
                     const SizedBox(
                       height: 32,
@@ -216,18 +238,39 @@ class _vizualizarClientePageState extends ConsumerState<vizualizarClientePage> {
                     const SizedBox(
                       height: 16,
                     ),
-                    _renderLabel(
-                      titulo: 'Cpf/Cnpj:',
-                      conteudo: '119.317.836-32',
-                    ),
+
+                    if (cliente.tipoCliente! == 1)
+                      _renderLabel(
+                        titulo: 'Cpf:',
+                        conteudo: cliente.cpf ?? 'Não Informado',
+                      ),
+
+                    if (cliente.tipoCliente! == 2)
+                      Column(
+                        children: [
+                          _renderLabel(
+                            titulo: 'Cnpj:',
+                            conteudo: cliente.cnpj ?? 'Não Informado',
+                          ),
+                          _renderLabel(
+                            titulo: 'Cnpj:',
+                            conteudo: cliente.retemIss != null
+                                ? cliente.retemIss == true
+                                    ? 'Sim'
+                                    : 'Não'
+                                : 'Não Informado',
+                          ),
+                        ],
+                      ),
+
                     _renderLabel(
                       titulo: 'Procurar por:',
-                      conteudo: 'Bruna Lima',
+                      conteudo: cliente.porQuemProcurar ?? 'Não Informado',
                     ),
-                    _renderLabel(
-                      titulo: 'Informações adicionais:',
-                      conteudo: 'Só aceita entraga entre 12:00 e 19:00',
-                    ),
+                    // _renderLabel(
+                    //   titulo: 'Informações adicionais:',
+                    //   conteudo: cliente.endereco.,
+                    // ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -305,6 +348,7 @@ class _vizualizarClientePageState extends ConsumerState<vizualizarClientePage> {
                         onMapCreated: (GoogleMapController controller) async {
                           String mapStyle = await rootBundle
                               .loadString('assets/map_style.json');
+                          // ignore: deprecated_member_use
                           controller.setMapStyle(mapStyle);
                         },
                       ),

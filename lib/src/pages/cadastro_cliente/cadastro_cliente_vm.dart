@@ -18,7 +18,7 @@ class CadastroClienteVm extends _$CadastroClienteVm {
     ref.invalidateSelf();
   }
 
-  Future<void> registerCliente(Map<String, dynamic> endereco) async {
+  Future<ClienteModel?> registerCliente(Map<String, dynamic> endereco) async {
     final loaderHandler = AsyncLoaderHandler()..start();
     late Either<ServiceException, ClienteModel> response;
     final EnderecoModel dadosEnderecoForm = EnderecoModel.fromJson(endereco);
@@ -42,8 +42,10 @@ class CadastroClienteVm extends _$CadastroClienteVm {
         state = state.copyWith(
           status: CadastroClienteStateStatus.success,
           message: 'Cliente cadastrado com sucesso',
+          clienteSalva: response.right,
         );
         loaderHandler.close();
+        return response.right;
 
       case Failure(exception: ServiceException(:final message)):
         state = state.copyWith(
@@ -51,7 +53,9 @@ class CadastroClienteVm extends _$CadastroClienteVm {
           message: message,
         );
         loaderHandler.close();
+        return null;
     }
+    // return
   }
 
   Future<void> updateStateCliente(Map<String, dynamic> cliente) async {
