@@ -17,6 +17,8 @@ EnderecoModel _$EnderecoModelFromJson(Map<String, dynamic> json) =>
       bairro: json['bairro'] as String?,
       estado: json['estado'] as String?,
       referencia: json['referencia'] as String?,
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$EnderecoModelToJson(EnderecoModel instance) =>
@@ -30,4 +32,6 @@ Map<String, dynamic> _$EnderecoModelToJson(EnderecoModel instance) =>
       'bairro': instance.bairro,
       'estado': instance.estado,
       'referencia': instance.referencia,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
     };

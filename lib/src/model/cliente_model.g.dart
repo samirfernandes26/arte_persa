@@ -26,6 +26,9 @@ ClienteModel _$ClienteModelFromJson(Map<String, dynamic> json) => ClienteModel(
       userId: json['user_id'] as String?,
       mediaDaAvaliacao: _$JsonConverterFromJson<String, double>(
           json['media_da_avaliacao'], const StringToDoubleConverter().fromJson),
+      endereco: json['endereco'] == null
+          ? null
+          : EnderecoModel.fromJson(json['endereco'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ClienteModelToJson(ClienteModel instance) =>
@@ -48,6 +51,7 @@ Map<String, dynamic> _$ClienteModelToJson(ClienteModel instance) =>
       'user_id': instance.userId,
       'media_da_avaliacao': _$JsonConverterToJson<String, double>(
           instance.mediaDaAvaliacao, const StringToDoubleConverter().toJson),
+      'endereco': instance.endereco,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

@@ -1,4 +1,5 @@
 // Flutter Framework
+import 'package:arte_persa/src/pages/vizualizar_cliente/vizualizar_cliente_page.dart';
 import 'package:flutter/material.dart';
 
 // Páginas de Autenticação e Inicialização
@@ -40,6 +41,7 @@ sealed class RouteGeneratorKeys {
   static const ordemDeServicoFaturaPage = '/ordemDeServicoFaturaPage';
   static const ordemDeServicoTermoAssinatura = '/ordemDeServicoTermoAssinatura';
   static const visulizarOrdemDeServico = '/visulizarOrdemDeServico';
+  static const visulizarCliente = '/visulizarCliente';
 }
 
 class RouteGenerator {
@@ -122,6 +124,12 @@ class RouteGenerator {
         return MaterialPageRoute(
           settings: settings,
           builder: (context) => const VisulizarOrdemDeServico(),
+        );
+
+      case RouteGeneratorKeys.visulizarCliente:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const vizualizarClientePage(),
         );
 
       default:

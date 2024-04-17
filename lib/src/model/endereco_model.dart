@@ -38,10 +38,8 @@ class EnderecoModel {
 
   String? referencia;
 
-  @StringToDoubleConverter()
   double? latitude;
 
-  @StringToDoubleConverter()
   double? longitude;
 
   Map<String, dynamic> toJson() => _$EnderecoModelToJson(this);

@@ -3,23 +3,35 @@ import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 sealed class ClienteDao {
-  // Busca toda a lista de cliente do firebase
-  static Future<List<ClienteModel>> getClientes() async {
+  static Future<List<ClienteModel>> getAll() async {
     List<ClienteModel> clientes = [];
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    final collectionCliente = fireStore.collection('clientes');
+
+    final collectionCliente = fireStore.collection(
+      'clientes',
+    );
+
     QuerySnapshot<Map<String, dynamic>> snapshotCliente =
         await collectionCliente.get();
 
     for (var docCliente in snapshotCliente.docs) {
-      ClienteModel cliente = ClienteModel.fromJson(docCliente.data());
+      ClienteModel cliente = ClienteModel.fromJson(
+        docCliente.data(),
+      );
 
       QuerySnapshot<Map<String, dynamic>> snapshotEndereco =
-          await docCliente.reference.collection('enderecos').limit(1).get();
+          await docCliente.reference
+              .collection(
+                'enderecos',
+              )
+              .limit(1)
+              .get();
 
       if (snapshotEndereco.docs.isNotEmpty) {
-        EnderecoModel endereco =
-            EnderecoModel.fromJson(snapshotEndereco.docs.first.data());
+        EnderecoModel endereco = EnderecoModel.fromJson(
+          snapshotEndereco.docs.first.data(),
+        );
+
         cliente.endereco = endereco;
       }
 
@@ -29,23 +41,46 @@ sealed class ClienteDao {
     return clientes;
   }
 
-  // Busca Apenas um cliente em especifico
-  Future<ClienteModel?> buscarClientePorId(String clienteId) async {
-    FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    DocumentReference clienteRef =
-        fireStore.collection('clientes').doc(clienteId);
+  static Future<ClienteModel?> getById(dynamic clienteId) async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      DocumentReference clienteRef = firestore
+          .collection(
+            'clientes',
+          )
+          .doc(clienteId);
 
-    DocumentSnapshot snapshot = await clienteRef.get();
+      DocumentSnapshot clienteSnapshot = await clienteRef.get();
 
-    if (snapshot.exists) {
-      return ClienteModel.fromJson(snapshot.data() as Map<String, dynamic>);
-    } else {
-      return null;
+      if (clienteSnapshot.exists) {
+        ClienteModel cliente = ClienteModel.fromJson(
+          clienteSnapshot.data() as Map<String, dynamic>,
+        );
+
+        QuerySnapshot enderecoSnapshot = await clienteRef
+            .collection(
+              'enderecos',
+            )
+            .limit(1)
+            .get();
+
+        if (enderecoSnapshot.docs.isNotEmpty) {
+          EnderecoModel endereco = EnderecoModel.fromJson(
+            enderecoSnapshot.docs.first.data() as Map<String, dynamic>,
+          );
+          cliente.endereco = endereco;
+        }
+
+        return cliente;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
-  // Atualiza um unico cliente em especifico
-  static Future<void> updateCliente({
+  static Future<void> update({
     required String clienteId,
     required ClienteModel clienteAtualizado,
   }) async {
