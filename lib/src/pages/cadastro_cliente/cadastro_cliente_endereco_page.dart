@@ -262,7 +262,6 @@ class _CadastroClienteEnderecoPageState
                         RouteGeneratorKeys.home,
                       );
                     }
-
                     break;
                 }
               },
