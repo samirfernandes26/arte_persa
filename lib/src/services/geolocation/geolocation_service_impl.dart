@@ -93,13 +93,13 @@ class GeolocationServiceImpl implements GeolocationService {
   //   try {
   //     List<Location> locations = await getLocationFromAddress(enderecoCliente);
   //     if (locations.isNotEmpty) {
-  //       // TODO Se localização encontrada
+  //       //  Se localização encontrada
   //     } else {
   //       print("Localização não encontrada.");
-  //       // TODO Se localização não encontrada
+  //       //  Se localização não encontrada
   //     }
   //   } catch (error) {
-  //     //TODO Se error na hora de pegar localização
+  //     // Se error na hora de pegar localização
   //   }
   // }
 

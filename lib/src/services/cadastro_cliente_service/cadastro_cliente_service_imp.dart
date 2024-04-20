@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:arte_persa/src/repositories/convert_addresses/convert_addresses_repository_impl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';

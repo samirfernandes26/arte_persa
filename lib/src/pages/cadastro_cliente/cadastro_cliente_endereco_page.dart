@@ -37,6 +37,7 @@ class _CadastroClienteEnderecoPageState
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     final CadastroClienteVm(
       :registerCliente,
       :updateStateEndereco,
@@ -226,7 +227,7 @@ class _CadastroClienteEnderecoPageState
                     break;
                   case (true):
                     await updateStateEndereco(formKey.currentState!.value);
-                    Navigator.pop(context);
+                    navigator.pop();
                     break;
                 }
               },
@@ -249,7 +250,7 @@ class _CadastroClienteEnderecoPageState
                     );
 
                     if (clienteSalva != null) {
-                      Navigator.of(context).pushNamed(
+                      navigator.pushNamed(
                         RouteGeneratorKeys.visulizarCliente,
                         arguments: {
                           'id': null,
@@ -257,7 +258,7 @@ class _CadastroClienteEnderecoPageState
                         },
                       );
                     } else {
-                      Navigator.of(context).pushNamed(
+                      navigator.pushNamed(
                         RouteGeneratorKeys.home,
                       );
                     }

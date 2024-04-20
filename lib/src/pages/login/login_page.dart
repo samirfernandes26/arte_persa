@@ -20,6 +20,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     final LoginVm(:login) = ref.read(loginVmProvider.notifier);
 
     return Scaffold(
@@ -105,7 +106,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 );
 
                                 if (rest) {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                  navigator.pushNamedAndRemoveUntil(
                                       RouteGeneratorKeys.cadastroServico,
                                       (route) => false);
                                 }

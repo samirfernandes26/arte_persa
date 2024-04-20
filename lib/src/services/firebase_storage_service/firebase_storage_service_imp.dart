@@ -29,10 +29,10 @@ class FirebaseStorageServiceImp extends FirebaseStorageService {
       fileName: rest.metadata!.name,
     );
 
-    String pathDownloadImage = await getDownLoadUrlByFileName(
-      fileName: rest.metadata!.name,
-      pathService: rest.ref.parent!.fullPath,
-    );
+    //String pathDownloadImage = await getDownLoadUrlByFileName(
+    // fileName: rest.metadata!.name,
+    // pathService: rest.ref.parent!.fullPath,
+    // );
 
     return Success(image);
   }

@@ -30,6 +30,7 @@ class Observacao extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     return Column(
       children: [
         const Text(
@@ -99,7 +100,7 @@ class Observacao extends StatelessWidget {
                                         fileName: 'foto_observacao_',
                                         index: observacaoIndex,
                                       );
-                                      Navigator.of(context).pop();
+                                      navigator.pop();
                                     },
                                     icon: const Icon(
                                       Icons.camera_alt_sharp,
@@ -127,7 +128,7 @@ class Observacao extends StatelessWidget {
                                         fileName: 'foto_observao_',
                                         index: observacaoIndex,
                                       );
-                                      Navigator.of(context).pop();
+                                      navigator.pop();
                                     },
                                     icon: const Icon(
                                       Icons.image,

@@ -26,6 +26,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     final OrdemDeServicoVm(:loadData, :cadastroDeItem, :selectImageProdo) =
         ref.read(ordemDeServicoVmProvider.notifier);
     final ordemDeServicoVm = ref.watch(ordemDeServicoVmProvider);
@@ -248,7 +249,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                                       source: 'Camera',
                                       fileName: 'foto_produto_',
                                     );
-                                    Navigator.of(context).pop();
+                                    navigator.pop();
                                   },
                                 ),
                                 const Padding(
@@ -266,7 +267,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                                       source: 'Galeria',
                                       fileName: 'foto_produto_',
                                     );
-                                    Navigator.of(context).pop();
+                                    navigator.pop();
                                   },
                                 ),
                               ],
@@ -365,7 +366,7 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
                     break;
                   case (true):
                     await cadastroDeItem(formKey.currentState!.value);
-                    Navigator.of(context)
+                    navigator
                         .pushNamed(RouteGeneratorKeys.ordemDeServicoObservacao);
                 }
               },

@@ -229,15 +229,15 @@ class OrdemDeServicoServiceImp extends OrdemDeServicoService {
     return image;
   }
 
-  @override
-  Future<String> getDownLoadUrlByFileName({
-    required String pathService,
-    required String fileName,
-  }) async {
-    final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    final rest =
-        await firebaseStorage.ref("$pathService/$fileName").getDownloadURL();
+  //@override
+  //Future<String> getDownLoadUrlByFileName({
+  //  required String pathService,
+  //  required String fileName,
+  //}) async {
+  //  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  //  final rest =
+  //      await firebaseStorage.ref("$pathService/$fileName").getDownloadURL();
 
-    return rest;
-  }
+  //    return rest;
+  //}
 }

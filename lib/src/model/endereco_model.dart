@@ -1,4 +1,3 @@
-import 'package:arte_persa/src/core/helpers/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'endereco_model.g.dart';

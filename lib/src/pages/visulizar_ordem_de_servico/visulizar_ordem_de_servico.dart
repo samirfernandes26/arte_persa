@@ -1,6 +1,5 @@
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/ui/widgets/buttons/buttons.dart';
@@ -19,6 +18,7 @@ class _VisulizarOrdemDeServicoState
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -29,7 +29,7 @@ class _VisulizarOrdemDeServicoState
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.of(context).popAndPushNamed(
+            navigator.popAndPushNamed(
               RouteGeneratorKeys.home,
             );
           },
@@ -37,7 +37,7 @@ class _VisulizarOrdemDeServicoState
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(
+              navigator.pushNamed(
                 RouteGeneratorKeys.ordemDeServicoPage,
               );
             },

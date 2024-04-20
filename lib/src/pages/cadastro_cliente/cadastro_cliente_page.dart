@@ -25,6 +25,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     final CadastroClienteVm(
       :updateStateCliente,
       :updateContatoWhatsapp,
@@ -394,7 +395,7 @@ class _CadastroClientePageState extends ConsumerState<CadastroClientePage> {
                     break;
                   case (true):
                     await updateStateCliente(formKey.currentState!.value);
-                    Navigator.of(context)
+                    navigator
                         .pushNamed(RouteGeneratorKeys.cadastroClienteEndereco);
                 }
               },

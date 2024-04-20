@@ -39,6 +39,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     final CadastroVm(
       :salvaUsuario,
     ) = ref.read(cadastroVmProvider.notifier);
@@ -300,7 +301,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                 break;
               case (true):
                 await salvaUsuario(formKey.currentState!.value);
-                Navigator.of(context).pushNamedAndRemoveUntil(
+                navigator.pushNamedAndRemoveUntil(
                     RouteGeneratorKeys.authLogin, (route) => false);
                 break;
             }

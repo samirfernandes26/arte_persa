@@ -1,9 +1,5 @@
-import 'dart:io';
-
-import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
 import 'package:arte_persa/src/core/ui/widgets/observacoes/observacao.dart';
-import 'package:arte_persa/src/model/observacao_model.dart';
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +20,7 @@ class _OrdemDeServicoObservacaoState
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     final OrdemDeServicoVm(
       :addFotoObservacao,
       :addObservacao,
@@ -125,8 +122,9 @@ class _OrdemDeServicoObservacaoState
                     break;
                   case (true):
                     await cadastroObservacoes(formKey.currentState!.value);
-                    Navigator.of(context).pushNamed(
-                        RouteGeneratorKeys.ordemDeServicoServicosPage);
+                    navigator.pushNamed(
+                      RouteGeneratorKeys.ordemDeServicoServicosPage,
+                    );
                 }
               },
             ),

@@ -37,10 +37,10 @@ class _CadastroServicoPageState extends ConsumerState<CadastroServicoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final CadastroServicoVm(:registerServico, :loadDataServicos) =
+    final CadastroServicoVm(:registerServico) =
         ref.read(cadastroServicoVmProvider.notifier);
 
-    final servicoVm = ref.watch(cadastroServicoVmProvider);
+    // final servicoVm = ref.watch(cadastroServicoVmProvider);
 
     ref.listen(
       cadastroServicoVmProvider,
