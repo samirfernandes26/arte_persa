@@ -1,69 +1,41 @@
-import 'package:arte_persa/src/model/cliente_model.dart';
+import 'package:arte_persa/src/core/extension/context_extension.dart';
+import 'package:arte_persa/src/core/ui/constants.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
+import 'package:arte_persa/src/pages/cadastro_pf/cadastro_pf_state.dart';
+import 'package:arte_persa/src/pages/cadastro_pf/cadastro_pf_vm.dart';
+import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-import 'package:arte_persa/src/core/extension/context_extension.dart';
-import 'package:arte_persa/src/core/ui/constants.dart';
-import 'package:arte_persa/src/core/ui/helpers/messages.dart';
-import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
-import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_state.dart';
-import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_vm.dart';
-import 'package:arte_persa/src/routes/route_generator.dart';
-
-class CadastroClienteEnderecoPage extends ConsumerStatefulWidget {
-  const CadastroClienteEnderecoPage({
-    Key? key,
-  }) : super(key: key);
+class CadastroPfEnderecoPage extends ConsumerStatefulWidget {
+  const CadastroPfEnderecoPage({super.key});
 
   @override
-  ConsumerState<CadastroClienteEnderecoPage> createState() =>
-      _CadastroClienteEnderecoPageState();
+  ConsumerState<CadastroPfEnderecoPage> createState() =>
+      _CadastroPfEnderecoPageState();
 }
 
-class _CadastroClienteEnderecoPageState
-    extends ConsumerState<CadastroClienteEnderecoPage> {
+class _CadastroPfEnderecoPageState
+    extends ConsumerState<CadastroPfEnderecoPage> {
   final formKey = GlobalKey<FormBuilderState>();
-  bool checkTeleconeConatatoUm = true;
-  bool checkTeleconeConatatoDois = true;
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final navigator = Navigator.of(context);
-    final CadastroClienteVm(
-      :registerCliente,
-      :updateStateEndereco,
-    ) = ref.read(cadastroClienteVmProvider.notifier);
-    final enderecoVm = ref.watch(cadastroClienteVmProvider);
 
-    ref.listen(cadastroClienteVmProvider, (_, state) async {
-      switch (state.status) {
-        case CadastroClienteStateStatus.initial:
-          break;
-        case CadastroClienteStateStatus.loaded:
-          break;
-        case CadastroClienteStateStatus.error:
-          Messages.showErrors(state.message!, context);
-          Navigator.of(context).pop(true);
-        case CadastroClienteStateStatus.success:
-          Messages.showSuccess(state.message!, context);
-          Navigator.of(context).pushNamed(
-            RouteGeneratorKeys.visulizarCliente,
-            arguments: {
-              'id': null,
-              'cliente': state.clienteSalva,
-            },
-          );
-      }
-    });
+    final CadastroPfVm(
+      :register,
+      :updateStateEndereco,
+    ) = ref.watch(
+      cadastroPfVmProvider.notifier,
+    );
+
+    final CadastroPfState cadastroVm = ref.watch(
+      cadastroPfVmProvider,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -98,7 +70,7 @@ class _CadastroClienteEnderecoPageState
                 ),
                 FormBuilderTextField(
                   name: 'cep',
-                  initialValue: enderecoVm.enderecoForm?.cep,
+                  initialValue: cadastroVm.cliente!.endereco?.cep,
                   inputFormatters: [MaskTextInputFormatter(mask: '##.###-###')],
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
@@ -112,7 +84,7 @@ class _CadastroClienteEnderecoPageState
                 ),
                 FormBuilderTextField(
                   name: 'logradouro',
-                  initialValue: enderecoVm.enderecoForm?.logradouro,
+                  initialValue: cadastroVm.cliente!.endereco?.logradouro,
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'Logradouro',
@@ -128,7 +100,7 @@ class _CadastroClienteEnderecoPageState
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'numero',
-                        initialValue: enderecoVm.enderecoForm?.numero,
+                        initialValue: cadastroVm.cliente!.endereco?.numero,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: InputDecoration(
                           labelText: 'Numéro',
@@ -146,7 +118,7 @@ class _CadastroClienteEnderecoPageState
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'complemento',
-                        initialValue: enderecoVm.enderecoForm?.complemento,
+                        initialValue: cadastroVm.cliente!.endereco?.complemento,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Complemento',
@@ -165,7 +137,7 @@ class _CadastroClienteEnderecoPageState
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'bairro',
-                        initialValue: enderecoVm.enderecoForm?.bairro,
+                        initialValue: cadastroVm.cliente!.endereco?.bairro,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: InputDecoration(
                           labelText: 'Bairro',
@@ -183,7 +155,7 @@ class _CadastroClienteEnderecoPageState
                     Flexible(
                       child: FormBuilderTextField(
                         name: 'estado',
-                        initialValue: enderecoVm.enderecoForm?.estado,
+                        initialValue: cadastroVm.cliente!.endereco?.estado,
                         onTapOutside: (_) => context.unfocus(),
                         decoration: const InputDecoration(
                           labelText: 'Estado',
@@ -199,7 +171,7 @@ class _CadastroClienteEnderecoPageState
                 ),
                 FormBuilderTextField(
                   name: 'referencia',
-                  initialValue: enderecoVm.enderecoForm?.referencia,
+                  initialValue: cadastroVm.cliente!.endereco?.referencia,
                   onTapOutside: (_) => context.unfocus(),
                   decoration: const InputDecoration(
                     labelText: 'Referencia',
@@ -226,7 +198,9 @@ class _CadastroClienteEnderecoPageState
                   case (false || null):
                     break;
                   case (true):
-                    await updateStateEndereco(formKey.currentState!.value);
+                    await updateStateEndereco(
+                      enderecoJson: formKey.currentState!.value,
+                    );
                     navigator.pop();
                     break;
                 }
@@ -245,23 +219,27 @@ class _CadastroClienteEnderecoPageState
                   case (false || null):
                     break;
                   case (true):
-                    ClienteModel? clienteSalva = await registerCliente(
-                      formKey.currentState!.value,
+                    await register(
+                      enderecoJson: formKey.currentState!.value,
                     );
 
-                    if (clienteSalva != null) {
-                      navigator.pushNamed(
-                        RouteGeneratorKeys.visulizarCliente,
-                        arguments: {
-                          'id': null,
-                          'cliente': clienteSalva,
-                        },
-                      );
-                    } else {
-                      navigator.pushNamed(
-                        RouteGeneratorKeys.home,
-                      );
-                    }
+                    // if (clienteSalva != null) {
+                    //   navigator.pushNamed(
+                    //     RouteGeneratorKeys.visulizarCliente,
+                    //     arguments: {
+                    //       'id': null,
+                    //       'cliente': clienteSalva,
+                    //     },
+                    //   );
+                    // } else {
+                    //   navigator.pushNamed(
+                    //     RouteGeneratorKeys.home,
+                    //   );
+                    // }
+
+                    navigator.pushNamed(
+                      RouteGeneratorKeys.home,
+                    );
                     break;
                 }
               },

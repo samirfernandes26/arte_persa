@@ -68,23 +68,40 @@ final cadastroServicoServiceProvider =
 );
 
 typedef CadastroServicoServiceRef = ProviderRef<CadastroServicoService>;
-String _$cadastroClienteServiceHash() =>
-    r'537765c2f101a2b7ed2b6394377ace77cc524da8';
+String _$cadastroClientePfServiceHash() =>
+    r'6dfdf196c1b30ffa510ceffb8c64ec05eb59ac10';
 
-/// See also [cadastroClienteService].
-@ProviderFor(cadastroClienteService)
-final cadastroClienteServiceProvider =
-    Provider<CadastroClienteService>.internal(
-  cadastroClienteService,
-  name: r'cadastroClienteServiceProvider',
+/// See also [cadastroClientePfService].
+@ProviderFor(cadastroClientePfService)
+final cadastroClientePfServiceProvider =
+    Provider<CadastroClientePfService>.internal(
+  cadastroClientePfService,
+  name: r'cadastroClientePfServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$cadastroClienteServiceHash,
+      : _$cadastroClientePfServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef CadastroClienteServiceRef = ProviderRef<CadastroClienteService>;
+typedef CadastroClientePfServiceRef = ProviderRef<CadastroClientePfService>;
+String _$cadastroClientePjServiceHash() =>
+    r'c5aa25b27126b5c736e47f2209c87be35257216c';
+
+/// See also [cadastroClientePjService].
+@ProviderFor(cadastroClientePjService)
+final cadastroClientePjServiceProvider =
+    Provider<CadastroClientePjService>.internal(
+  cadastroClientePjService,
+  name: r'cadastroClientePjServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$cadastroClientePjServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CadastroClientePjServiceRef = ProviderRef<CadastroClientePjService>;
 String _$firebaseStorageServiceHash() =>
     r'f6f764bca9494877a2c642ed61b71c687226b498';
 

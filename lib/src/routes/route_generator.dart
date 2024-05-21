@@ -1,5 +1,7 @@
 // Flutter Framework
-import 'package:arte_persa/src/pages/vizualizar_cliente/vizualizar_cliente_page.dart';
+import 'package:arte_persa/src/pages/cadastro_pf/cadastro_pf_endereco_page.dart';
+import 'package:arte_persa/src/pages/cadastro_pf/cadastro_pf_page.dart';
+import 'package:arte_persa/src/pages/cadastro_pj/cadastro_pj_endereco_page.dart';
 import 'package:flutter/material.dart';
 
 // Páginas de Autenticação e Inicialização
@@ -8,8 +10,6 @@ import 'package:arte_persa/src/pages/splash/splash_page.dart';
 
 // Páginas de Cadastro
 import 'package:arte_persa/src/pages/cadastro/cadastro_page.dart';
-import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_page.dart';
-import 'package:arte_persa/src/pages/cadastro_cliente/cadastro_cliente_endereco_page.dart';
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_page.dart';
 
 // Página Principal
@@ -33,8 +33,10 @@ sealed class RouteGeneratorKeys {
   static const cadastrar = '/cadastrar';
   static const cadastroServico = '/cadastroServico';
   static const servicos = '/servicos';
-  static const cadastroCliente = '/cadastroCliente';
-  static const cadastroClienteEndereco = '/cadastroClienteEndereco';
+  static const cadastroClientePf = '/cadastroClientePf';
+  static const cadastroClientePj = '/cadastroClientePj';
+  static const cadastroEnderecoPf = '/cadastroEnderecoPf';
+  static const cadastroEnderecoPj = '/cadastroEnderecoPj';
   static const ordemDeServicoPage = '/ordemDeServicoPage';
   static const ordemDeServicoObservacao = '/ordemDeServicoObservacao';
   static const ordemDeServicoServicosPage = '/OrdemDeServicoServicosPage';
@@ -78,16 +80,28 @@ class RouteGenerator {
           builder: (context) => const ServicosPage(),
         );
 
-      case RouteGeneratorKeys.cadastroCliente:
+      case RouteGeneratorKeys.cadastroClientePf:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => const CadastroClientePage(),
+          builder: (context) => const CadastroPfPage(),
         );
 
-      case RouteGeneratorKeys.cadastroClienteEndereco:
+      case RouteGeneratorKeys.cadastroClientePj:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => const CadastroClienteEnderecoPage(),
+          builder: (context) => const CadastroPfPage(),
+        );
+
+      case RouteGeneratorKeys.cadastroEnderecoPf:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const CadastroPfEnderecoPage(),
+        );
+
+      case RouteGeneratorKeys.cadastroEnderecoPj:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) => const CadastroPjEnderecoPage(),
         );
 
       case RouteGeneratorKeys.ordemDeServicoPage:
@@ -126,11 +140,11 @@ class RouteGenerator {
           builder: (context) => const VisulizarOrdemDeServico(),
         );
 
-      case RouteGeneratorKeys.visulizarCliente:
-        return MaterialPageRoute(
-          settings: settings,
-          builder: (context) => const vizualizarClientePage(),
-        );
+      // case RouteGeneratorKeys.visulizarCliente:
+      //   return MaterialPageRoute(
+      //     settings: settings,
+      //     builder: (context) => const vizualizarClientePage(),
+      //   );
 
       default:
         return _errorRoute();

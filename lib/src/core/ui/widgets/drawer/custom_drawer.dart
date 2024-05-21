@@ -98,7 +98,7 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
               color: Colors.white,
             ),
             title: const Text(
-              'Cadastrar Cliente',
+              'Cadastrar Cliente PF',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -106,7 +106,27 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
             ),
             onTap: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                RouteGeneratorKeys.cadastroCliente,
+                RouteGeneratorKeys.cadastroClientePf,
+                (route) => false,
+              );
+            },
+          ),
+          ListTile(
+            selected: widget.currentPage == 1,
+            leading: const Icon(
+              Icons.person_add_sharp,
+              color: Colors.white,
+            ),
+            title: const Text(
+              'Cadastrar Cliente PJ',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+            onTap: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                RouteGeneratorKeys.cadastroClientePj,
                 (route) => false,
               );
             },

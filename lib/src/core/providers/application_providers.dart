@@ -7,14 +7,15 @@ import 'package:arte_persa/src/services/auth/auth_service_impl.dart';
 import 'package:arte_persa/src/services/cadastro/cadastro_service.dart';
 import 'package:arte_persa/src/services/cadastro/cadastro_service_imp.dart';
 
-import 'package:arte_persa/src/services/cadastro_cliente_service/cadastro_cliente_service.dart';
-import 'package:arte_persa/src/services/cadastro_cliente_service/cadastro_cliente_service_imp.dart';
-
 import 'package:arte_persa/src/services/cadastro_servico_service/cadastro_servico_service.dart';
 import 'package:arte_persa/src/services/cadastro_servico_service/cadastro_servico_service_imp.dart';
+import 'package:arte_persa/src/services/cliente/pf/cadastro_cliente_pf_service_impl.dart';
+import 'package:arte_persa/src/services/cliente/pj/cadastro_cliente_pj_service_impl.dart';
 
 import 'package:arte_persa/src/services/firebase_storage_service/firebase_storage_service.dart';
 import 'package:arte_persa/src/services/firebase_storage_service/firebase_storage_service_imp.dart';
+import 'package:arte_persa/src/services/interfaces/cliente/pf/cadastro_cliente_pf_service.dart';
+import 'package:arte_persa/src/services/interfaces/cliente/pj/cadastro_cliente_pj_service.dart';
 
 import 'package:arte_persa/src/services/ordem_de_servico_service/ordem_de_servico_service.dart';
 import 'package:arte_persa/src/services/ordem_de_servico_service/ordem_de_servico_service_imp.dart';
@@ -40,8 +41,14 @@ CadastroServicoService cadastroServicoService(CadastroServicoServiceRef ref) =>
     CadastroServicoServiceImp();
 
 @Riverpod(keepAlive: true)
-CadastroClienteService cadastroClienteService(CadastroClienteServiceRef ref) =>
-    CadastroClienteServiceImp();
+CadastroClientePfService cadastroClientePfService(
+        CadastroClientePfServiceRef ref) =>
+    CadastroClientePfServiceImpl();
+
+@Riverpod(keepAlive: true)
+CadastroClientePjService cadastroClientePjService(
+        CadastroClientePjServiceRef ref) =>
+    CadastroClientePjServiceImpl();
 
 @Riverpod(keepAlive: true)
 FirebaseStorageService firebaseStorageService(FirebaseStorageServiceRef ref) =>

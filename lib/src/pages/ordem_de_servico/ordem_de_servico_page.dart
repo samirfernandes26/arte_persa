@@ -90,30 +90,30 @@ class _OrdemDeServicoState extends ConsumerState<OrdemDeServico> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                FormBuilderDropdown(
-                  name: 'cliente',
-                  decoration: const InputDecoration(
-                    labelText: 'Selecione um cliente',
-                  ),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),
-                  items: ordemDeServicoVm.clientes?.map(
-                        (cliente) {
-                          return DropdownMenuItem(
-                            value: cliente,
-                            child: Text(
-                              cliente.nome!,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          );
-                        },
-                      ).toList() ??
-                      [],
-                ),
+                // FormBuilderDropdown(
+                //   name: 'cliente',
+                //   decoration: const InputDecoration(
+                //     labelText: 'Selecione um cliente',
+                //   ),
+                //   style: const TextStyle(
+                //     fontWeight: FontWeight.w500,
+                //   ),
+                //   items: ordemDeServicoVm.clientes?.map(
+                //         (cliente) {
+                //           return DropdownMenuItem(
+                //             value: cliente,
+                //             child: Text(
+                //               cliente.nome,
+                //               style: const TextStyle(
+                //                 fontSize: 16,
+                //                 color: Colors.black87,
+                //               ),
+                //             ),
+                //           );
+                //         },
+                //       ).toList() ??
+                //       [],
+                // ),
                 const SizedBox(
                   height: 16,
                 ),

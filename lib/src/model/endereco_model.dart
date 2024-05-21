@@ -7,13 +7,13 @@ class EnderecoModel {
   EnderecoModel({
     this.id,
     this.userId,
-    this.cep,
-    this.logradouro,
-    this.numero,
-    this.complemento,
-    this.bairro,
-    this.estado,
-    this.referencia,
+    required this.cep,
+    required this.logradouro,
+    required this.numero,
+    required this.complemento,
+    required this.bairro,
+    required this.estado,
+    required this.referencia,
     this.latitude,
     this.longitude,
   });
@@ -23,19 +23,19 @@ class EnderecoModel {
   @JsonKey(name: 'user_id')
   String? userId;
 
-  String? cep;
+  String cep;
 
-  String? logradouro;
+  String logradouro;
 
-  String? numero;
+  String numero;
 
-  String? complemento;
+  String complemento;
 
-  String? bairro;
+  String bairro;
 
-  String? estado;
+  String estado;
 
-  String? referencia;
+  String referencia;
 
   double? latitude;
 

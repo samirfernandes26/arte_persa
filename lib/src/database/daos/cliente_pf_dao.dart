@@ -1,21 +1,22 @@
-import 'package:arte_persa/src/model/cliente_model.dart';
+import 'package:arte_persa/src/model/cliente_pf_model.dart';
 import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-sealed class ClienteDao {
-  static Future<List<ClienteModel>> getAll() async {
-    List<ClienteModel> clientes = [];
+sealed class ClientePfDao {
+  static Future<List<ClientePfModel>> getAll() async {
+    List<ClientePfModel> clientes = [];
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
-    final collectionCliente = fireStore.collection(
-      'clientes',
+    CollectionReference<Map<String, dynamic>> collectionCliente =
+        fireStore.collection(
+      'clientes_pf',
     );
 
     QuerySnapshot<Map<String, dynamic>> snapshotCliente =
         await collectionCliente.get();
 
     for (var docCliente in snapshotCliente.docs) {
-      ClienteModel cliente = ClienteModel.fromJson(
+      ClientePfModel cliente = ClientePfModel.fromJson(
         docCliente.data(),
       );
 
@@ -41,19 +42,19 @@ sealed class ClienteDao {
     return clientes;
   }
 
-  static Future<ClienteModel?> getById(dynamic clienteId) async {
+  static Future<ClientePfModel?> getById(dynamic clienteId) async {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       DocumentReference clienteRef = firestore
           .collection(
-            'clientes',
+            'clientes_pf',
           )
           .doc(clienteId);
 
       DocumentSnapshot clienteSnapshot = await clienteRef.get();
 
       if (clienteSnapshot.exists) {
-        ClienteModel cliente = ClienteModel.fromJson(
+        ClientePfModel cliente = ClientePfModel.fromJson(
           clienteSnapshot.data() as Map<String, dynamic>,
         );
 
@@ -82,11 +83,11 @@ sealed class ClienteDao {
 
   static Future<void> update({
     required String clienteId,
-    required ClienteModel clienteAtualizado,
+    required ClientePfModel clienteAtualizado,
   }) async {
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
     DocumentReference clienteRef =
-        fireStore.collection('clientes').doc(clienteId);
+        fireStore.collection('clientes_pf').doc(clienteId);
 
     await clienteRef.update(clienteAtualizado.toJson());
   }
@@ -95,7 +96,7 @@ sealed class ClienteDao {
   static Future<void> deletarCliente(String clienteId) async {
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
     DocumentReference clienteRef =
-        fireStore.collection('clientes').doc(clienteId);
+        fireStore.collection('clientes_pf').doc(clienteId);
 
     await clienteRef.delete();
   }

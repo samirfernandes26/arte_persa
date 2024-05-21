@@ -1,11 +1,7 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:arte_persa/src/core/ui/widgets/drawer/custom_drawer.dart';
-import 'package:arte_persa/src/model/cliente_model.dart';
-import 'package:arte_persa/src/model/endereco_model.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,28 +18,28 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   final formKey = GlobalKey<FormBuilderState>();
 
-  Future<void> testes() async {
-    List<ClienteModel> clientes = [];
-    FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    final collectionCliente = fireStore.collection('clientes');
-    QuerySnapshot<Map<String, dynamic>> snapshotCliente =
-        await collectionCliente.get();
+  // Future<void> testes() async {
+  //   List<ClienteModel> clientes = [];
+  //   FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  //   final collectionCliente = fireStore.collection('clientes');
+  //   QuerySnapshot<Map<String, dynamic>> snapshotCliente =
+  //       await collectionCliente.get();
 
-    for (var docCliente in snapshotCliente.docs) {
-      ClienteModel cliente = ClienteModel.fromJson(docCliente.data());
+  //   for (var docCliente in snapshotCliente.docs) {
+  //     ClienteModel cliente = ClienteModel.fromJson(docCliente.data());
 
-      QuerySnapshot<Map<String, dynamic>> snapshotEndereco =
-          await docCliente.reference.collection('enderecos').limit(1).get();
+  //     QuerySnapshot<Map<String, dynamic>> snapshotEndereco =
+  //         await docCliente.reference.collection('enderecos').limit(1).get();
 
-      if (snapshotEndereco.docs.isNotEmpty) {
-        EnderecoModel endereco =
-            EnderecoModel.fromJson(snapshotEndereco.docs.first.data());
-        cliente.endereco = endereco;
-      }
+  //     if (snapshotEndereco.docs.isNotEmpty) {
+  //       EnderecoModel endereco =
+  //           EnderecoModel.fromJson(snapshotEndereco.docs.first.data());
+  //       cliente.endereco = endereco;
+  //     }
 
-      clientes.add(cliente);
-    }
-  }
+  //     clientes.add(cliente);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

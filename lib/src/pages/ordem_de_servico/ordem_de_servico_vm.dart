@@ -16,7 +16,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'dart:ui' as ui;
 
 import 'package:arte_persa/src/pages/ordem_de_servico/ordem_de_servico_state.dart';
-import 'package:arte_persa/src/model/cliente_model.dart';
 import 'package:arte_persa/src/model/item_model.dart';
 import 'package:arte_persa/src/model/servico_model.dart';
 import 'package:arte_persa/src/model/image_model.dart';
@@ -54,30 +53,31 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
     final loaderHandler = AsyncLoaderHandler()..start();
 
     List<ServicoModel> servicos = [];
-    List<ClienteModel> clientes = [];
+    // List<ClienteModel> clientes = [];
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
     final collectionServicos = fireStore.collection('servicos');
-    final collectionCliente = fireStore.collection('clientes');
+    // final collectionCliente = fireStore.collection('clientes');
 
     QuerySnapshot<Map<String, dynamic>> snapshotServico =
         await collectionServicos.get();
-    QuerySnapshot<Map<String, dynamic>> snapshotCliente =
-        await collectionCliente.get();
+
+    // QuerySnapshot<Map<String, dynamic>> snapshotCliente =
+    //     await collectionCliente.get();
 
     for (var servico in snapshotServico.docs) {
       servicos.add(ServicoModel.fromJson(servico.data()));
     }
 
-    for (var servico in snapshotCliente.docs) {
-      clientes.add(ClienteModel.fromJson(servico.data()));
-    }
+    // for (var servico in snapshotCliente.docs) {
+    //   clientes.add(ClienteModel.fromJson(servico.data()));
+    // }
 
     servicos.sort((a, b) => a.nomeDoServico.compareTo(b.nomeDoServico));
 
     state = state.copyWith(
       servicos: servicos,
-      clientes: clientes,
+      // clientes: clientes,
       status: OrdemDeServicoStateStatus.loaded,
     );
 
@@ -194,29 +194,29 @@ class OrdemDeServicoVm extends _$OrdemDeServicoVm {
   cadastroDeItem(Map<String, dynamic> data) {
     final itemForm = ItemForm.fromJson(data);
 
-    late ClienteModel? clienteSelecionando;
-    late OrdemDeServicoForm? ordemdeServicoForm;
+    // late ClienteModel? clienteSelecionando;
+    // late OrdemDeServicoForm? ordemdeServicoForm;
 
     if (data['cliente'] != null) {
-      clienteSelecionando = data['cliente'];
+      // clienteSelecionando = data['cliente'];
     }
 
     state = state.copyWith(
       itemForm: itemForm.copyWith(fotoProduto: state.image),
       image: null,
-      clienteSelecionando: clienteSelecionando,
+      // clienteSelecionando: clienteSelecionando,
     );
 
     final fotoProduto = state.itemForm?.fotoProduto;
 
-    ordemdeServicoForm = OrdemDeServicoForm(
-      clienteId: clienteSelecionando!.id,
-      numeroOs: state.numeroOs,
-    );
+    // ordemdeServicoForm = OrdemDeServicoForm(
+    //   clienteId: clienteSelecionando!.id,
+    //   numeroOs: state.numeroOs,
+    // );
 
     state = state.copyWith(
       fotoProduto: fotoProduto,
-      ordemdeServicoForm: ordemdeServicoForm,
+      // ordemdeServicoForm: ordemdeServicoForm,
     );
   }
 

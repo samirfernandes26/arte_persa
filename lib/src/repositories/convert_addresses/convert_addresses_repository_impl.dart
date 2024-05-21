@@ -7,8 +7,9 @@ import 'package:arte_persa/src/repositories/convert_addresses/convert_addresses_
 
 class ConvertAddressesRepositoryImpl implements ConvertAddressesRepository {
   @override
-  Future<Map<String, dynamic>> convertAddressesToGeolocation(
-      {required String endereco}) async {
+  Future<Map<String, dynamic>> convertAddressesToGeolocation({
+    required String endereco,
+  }) async {
     Uri url = _constructGeocodingURL(endereco);
 
     try {

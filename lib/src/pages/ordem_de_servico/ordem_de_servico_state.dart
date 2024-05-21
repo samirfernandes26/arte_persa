@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:arte_persa/src/core/helpers/json_converter.dart';
-import 'package:arte_persa/src/model/cliente_model.dart';
 import 'package:arte_persa/src/model/faturamento_model.dart';
 import 'package:arte_persa/src/model/image_model.dart';
 import 'package:arte_persa/src/model/item_model.dart';
@@ -31,8 +30,8 @@ class OrdemDeServicoState {
   OrdemDeServicoState({
     required this.status,
     this.servicos,
-    this.clientes,
-    this.clienteSelecionando,
+    // this.clientes,
+    // this.clienteSelecionando,
     this.message,
     this.loading,
     this.ordemdeServico,
@@ -51,11 +50,11 @@ class OrdemDeServicoState {
   OrdemDeServicoModel? ordemdeServico;
   FaturamentoModel? faturaOs;
   List<ItemModel>? itens;
-  ClienteModel? clienteSelecionando;
+  // ClienteModel? clienteSelecionando;
 
   ObservacaoModel? observacao;
   List<ServicoModel>? servicos;
-  List<ClienteModel>? clientes;
+  // List<ClienteModel>? clientes;
   ItemForm? itemForm;
   List<ObservacaoModel>? observacoesModelList;
   ImageModel? image;
@@ -70,9 +69,9 @@ class OrdemDeServicoState {
   OrdemDeServicoState copyWith({
     OrdemDeServicoStateStatus? status,
     List<ServicoModel>? servicos,
-    List<ClienteModel>? clientes,
+    // List<ClienteModel>? clientes,
     List<ItemModel>? itens,
-    ClienteModel? clienteSelecionando,
+    // ClienteModel? clienteSelecionando,
     OrdemDeServicoForm? ordemdeServicoForm,
     FaturamentoModel? faturaOs,
     ItemForm? itemForm,
@@ -88,9 +87,9 @@ class OrdemDeServicoState {
     return OrdemDeServicoState(
         status: status ?? this.status,
         servicos: servicos ?? this.servicos,
-        clientes: clientes ?? this.clientes,
+        // clientes: clientes ?? this.clientes,
         itens: itens ?? this.itens,
-        clienteSelecionando: clienteSelecionando ?? this.clienteSelecionando,
+        // clienteSelecionando: clienteSelecionando ?? this.clienteSelecionando,
         ordemdeServicoForm: ordemdeServicoForm ?? this.ordemdeServicoForm,
         faturaOs: faturaOs ?? this.faturaOs,
         itemForm: itemForm ?? this.itemForm,
