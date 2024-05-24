@@ -18,7 +18,7 @@ class CadastroServiceImp implements CadastroService {
 
       final rest = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: usuario.email,
-        password: usuario.senha,
+        password: usuario.senha!,
       );
 
       rest.user?.updateDisplayName(usuario.nome);

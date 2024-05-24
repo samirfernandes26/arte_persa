@@ -1,5 +1,4 @@
 import 'package:arte_persa/src/core/extension/string_extention.dart';
-import 'package:arte_persa/src/core/helpers/date_string_to_datetime_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'usuario_model.g.dart';
@@ -10,7 +9,7 @@ class UsuarioModel {
   UsuarioModel({
     this.id,
     required this.email,
-    required this.senha,
+    this.senha,
     required this.nome,
     required this.sobrenome,
     required this.cpf,
@@ -25,7 +24,7 @@ class UsuarioModel {
 
   String? id;
   String email;
-  String senha;
+  String? senha;
   String nome;
 
   @JsonKey(name: 'sobre_nome')
@@ -46,15 +45,13 @@ class UsuarioModel {
   bool contatoDoisWhatsapp;
 
   @JsonKey(name: 'data_nascimento')
-  DateTime dataNascimento;
+  String dataNascimento;
 
   @JsonKey(name: 'created_at')
-  @DateStringToDateTimeConverter()
-  DateTime? createdAt;
+  String? createdAt;
 
   @JsonKey(name: 'updated_at')
-  @DateStringToDateTimeConverter()
-  DateTime? updatedAt;
+  String? updatedAt;
 
   Map<String, dynamic> toJson() => _$UsuarioModelToJson(this);
 
@@ -72,8 +69,7 @@ class UsuarioModel {
     ..contatoUmWhatsapp = json['contato_um_whatsapp'] ?? contatoUmWhatsapp
     ..telefoneContatoDois = json['telefone_contato_dois'] ?? telefoneContatoDois
     ..contatoDoisWhatsapp = json['contato_dois_whatsapp'] ?? contatoDoisWhatsapp
-    ..dataNascimento =
-        json['data_nascimento']?.toString().toDateTime ?? dataNascimento
-    ..createdAt = json['created_at']?.toString().toDateTime ?? createdAt
-    ..updatedAt = json['updated_at']?.toString().toDateTime ?? updatedAt;
+    ..dataNascimento = json['data_nascimento'] ?? dataNascimento
+    ..createdAt = json['created_at'] ?? createdAt
+    ..updatedAt = json['updated_at'] ?? updatedAt;
 }

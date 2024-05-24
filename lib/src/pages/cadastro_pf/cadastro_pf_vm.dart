@@ -16,43 +16,44 @@ class CadastroPfVm extends _$CadastroPfVm {
 
   Future<void> loadData() async {}
 
-  Future<void> register({
+  Future<ClientePfModel?> register({
     required Map<String, dynamic> enderecoJson,
   }) async {
     final loaderHandler = AsyncLoaderHandler()..start();
-
-    // Either<ServiceException, ClientePfModel> response;
 
     final ClientePfModel cliente = state.cliente!;
     cliente.endereco = EnderecoModel.fromJson(enderecoJson);
 
     state = state.copyWith(cliente: cliente);
 
-    if (cliente.id == null) {
-      Either<ServiceException, ClientePfModel> response = await ref
-          .read(cadastroClientePfServiceProvider)
-          .execute(cliente: cliente);
-    } else {}
+    // if (cliente.id == null) {
+    //   Either<ServiceException, ClientePfModel> response = await ref
+    //       .read(cadastroClientePfServiceProvider)
+    //       .execute(cliente: cliente);
+    // } else {}
 
-    // switch (response) {
-    //   case Success():
-    //     state = state.copyWith(
-    //       status: CadastroClienteStateStatus.success,
-    //       message: 'Cliente cadastrado com sucesso',
-    //       clienteSalva: response.right,
-    //     );
-    loaderHandler.close();
-    //     return response.right;
+    Either<ServiceException, ClientePfModel> response = await ref
+        .read(cadastroClientePfServiceProvider)
+        .execute(cliente: cliente);
 
-    //   case Failure(exception: ServiceException(:final message)):
-    //     state = state.copyWith(
-    //       status: CadastroClienteStateStatus.error,
-    //       message: message,
-    //     );
-    //     loaderHandler.close();
-    //     return null;
-    // }
-    // return
+    switch (response) {
+      case Success():
+        state = state.copyWith(
+          status: CadastroPfStatus.success,
+          message: 'Cliente cadastrado com sucesso',
+          cliente: response.right,
+        );
+
+        return response.right;
+
+      case Failure(exception: ServiceException(:final message)):
+        state = state.copyWith(
+          status: CadastroPfStatus.error,
+          message: message,
+        );
+
+        return null;
+    }
   }
 
   Future<void> updateStateCliente({

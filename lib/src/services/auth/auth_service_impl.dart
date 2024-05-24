@@ -9,6 +9,7 @@ import 'package:arte_persa/src/services/auth/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthServiceImpl implements AuthService {
@@ -29,7 +30,6 @@ class AuthServiceImpl implements AuthService {
           (await fireStore.collection('usuarios').doc(rest.user?.uid).get())
               .data();
 
-
       final androidDeviceInfo = await DeviceInfoPlugin().androidInfo;
       final sharedPreferences = await SharedPreferences.getInstance();
 
@@ -42,9 +42,31 @@ class AuthServiceImpl implements AuthService {
         deviceUuid,
       );
 
-      sharedPreferences.setString(LocalStorageKeys.userInfo, json.encode(user));
+      user!.forEach(
+        (key, value) {
+          if (value is DateTime) {
+            user[key] = value.toIso8601String();
+          }
+        },
+      );
 
-      return Success(UsuarioModel.fromJson(user!));
+      user['data_nascimento'] = DateFormat('dd/MM/yyyy HH:mm:ss')
+          .format((user['data_nascimento'] as Timestamp).toDate())
+          .toString();
+
+      user['created_at'] = DateFormat('dd/MM/yyyy HH:mm:ss')
+          .format((user['created_at'] as Timestamp).toDate())
+          .toString();
+
+      user['updated_at'] = DateFormat('dd/MM/yyyy HH:mm:ss')
+          .format((user['updated_at'] as Timestamp).toDate())
+          .toString();
+
+      sharedPreferences.setString(LocalStorageKeys.userInfo, jsonEncode(user));
+
+      UsuarioModel userModel = UsuarioModel.fromJson(user);
+
+      return Success(userModel);
     } on Exception catch (e) {
       log('Erro ao logar', error: e);
 
@@ -56,5 +78,3 @@ class AuthServiceImpl implements AuthService {
     }
   }
 }
-
-

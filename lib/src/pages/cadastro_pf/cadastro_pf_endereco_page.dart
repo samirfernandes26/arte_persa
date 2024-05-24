@@ -1,9 +1,11 @@
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
 import 'package:arte_persa/src/core/ui/widgets/buttons/buttons.dart';
+import 'package:arte_persa/src/model/cliente_pf_model.dart';
 import 'package:arte_persa/src/pages/cadastro_pf/cadastro_pf_state.dart';
 import 'package:arte_persa/src/pages/cadastro_pf/cadastro_pf_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
+import 'package:asyncstate/asyncstate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -219,23 +221,23 @@ class _CadastroPfEnderecoPageState
                   case (false || null):
                     break;
                   case (true):
-                    await register(
+                    ClientePfModel? result = await register(
                       enderecoJson: formKey.currentState!.value,
-                    );
+                    ).asyncLoader();
 
-                    // if (clienteSalva != null) {
-                    //   navigator.pushNamed(
-                    //     RouteGeneratorKeys.visulizarCliente,
-                    //     arguments: {
-                    //       'id': null,
-                    //       'cliente': clienteSalva,
-                    //     },
-                    //   );
-                    // } else {
-                    //   navigator.pushNamed(
-                    //     RouteGeneratorKeys.home,
-                    //   );
-                    // }
+                    if (result != null) {
+                      navigator.pushNamed(
+                        RouteGeneratorKeys.visulizarCliente,
+                        arguments: {
+                          'id': result.id,
+                          'cliente': result,
+                        },
+                      );
+                    } else {
+                      navigator.pushNamed(
+                        RouteGeneratorKeys.home,
+                      );
+                    }
 
                     navigator.pushNamed(
                       RouteGeneratorKeys.home,
