@@ -6,26 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:arte_persa/src/core/ui/helpers/messages.dart';
-import 'package:arte_persa/src/pages/cadastro/cadastro_state.dart';
+import 'package:arte_persa/src/pages/cadastro_co/cadastro_co_state.dart';
 import 'package:arte_persa/src/core/ui/constants.dart';
-import 'package:arte_persa/src/pages/cadastro/cadastro_vm.dart';
+import 'package:arte_persa/src/pages/cadastro_co/cadastro_co_vm.dart';
 import 'package:arte_persa/src/routes/route_generator.dart';
 import 'package:arte_persa/src/core/extension/context_extension.dart';
 
-class CadastroPage extends ConsumerStatefulWidget {
-  const CadastroPage({
+class CadastroCoPage extends ConsumerStatefulWidget {
+  const CadastroCoPage({
     super.key,
   });
 
   @override
-  ConsumerState<CadastroPage> createState() => _CadastroPageState();
+  ConsumerState<CadastroCoPage> createState() => _CadastroPageState();
 }
 
-class _CadastroPageState extends ConsumerState<CadastroPage> {
+class _CadastroPageState extends ConsumerState<CadastroCoPage> {
   final formKey = GlobalKey<FormBuilderState>();
-
-  bool checkTeleconeConatatoUm = false;
-  bool checkTeleconeConatatoDois = false;
 
   @override
   void dispose() {
@@ -40,20 +37,28 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
   @override
   Widget build(BuildContext context) {
     final navigator = Navigator.of(context);
-    final CadastroVm(
-      :salvaUsuario,
-    ) = ref.read(cadastroVmProvider.notifier);
 
-    ref.listen(cadastroVmProvider, (_, state) async {
+    final CadastroCoVm(
+      :salvaUsuario,
+      :updateContatoWhatsapp,
+    ) = ref.read(
+      cadastroCoVmProvider.notifier,
+    );
+
+    final CadastroCoState cadastroVm = ref.watch(
+      cadastroCoVmProvider,
+    );
+
+    ref.listen(cadastroCoVmProvider, (_, state) async {
       switch (state.status) {
-        case CadastroStatus.initial:
+        case CadastroCoStatus.initial:
           break;
-        case CadastroStatus.loaded:
+        case CadastroCoStatus.loaded:
           break;
-        case CadastroStatus.error:
+        case CadastroCoStatus.error:
           Messages.showErrors(state.message!, context);
           Navigator.of(context).pop(true);
-        case CadastroStatus.success:
+        case CadastroCoStatus.success:
           Messages.showSuccess(state.message!, context);
           Navigator.of(context).popAndPushNamed(
             RouteGeneratorKeys.authLogin,
@@ -193,16 +198,17 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        // Atualiza o estado do checkbox quando clicado
-                        setState(() {
-                          checkTeleconeConatatoUm = !checkTeleconeConatatoUm;
-                        });
+                        updateContatoWhatsapp(
+                          tipoContato: 1,
+                          whatsapp: cadastroVm.telefoneContatoUmWhatsapp,
+                        );
                       },
                       child: SizedBox(
                         width: 48,
                         height: 48,
                         child: Opacity(
-                          opacity: checkTeleconeConatatoUm ? 0.25 : 1.0,
+                          opacity:
+                              cadastroVm.telefoneContatoUmWhatsapp ? 1.0 : 0.25,
                           child: Image.asset(
                             ImagesConstants.whatsapp,
                             fit: BoxFit.cover,
@@ -235,17 +241,18 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        // Atualiza o estado do checkbox quando clicado
-                        setState(() {
-                          checkTeleconeConatatoDois =
-                              !checkTeleconeConatatoDois;
-                        });
+                        updateContatoWhatsapp(
+                          tipoContato: 2,
+                          whatsapp: cadastroVm.telefoneContatoDoisWhatsapp,
+                        );
                       },
                       child: SizedBox(
                         width: 48,
                         height: 48,
                         child: Opacity(
-                          opacity: checkTeleconeConatatoDois ? 0.25 : 1.0,
+                          opacity: cadastroVm.telefoneContatoDoisWhatsapp
+                              ? 1.0
+                              : 0.25,
                           child: Image.asset(
                             ImagesConstants.whatsapp,
                             fit: BoxFit.cover,
@@ -302,7 +309,9 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
               case (true):
                 await salvaUsuario(formKey.currentState!.value);
                 navigator.pushNamedAndRemoveUntil(
-                    RouteGeneratorKeys.authLogin, (route) => false);
+                  RouteGeneratorKeys.home,
+                  (route) => false,
+                );
                 break;
             }
           }, //loginUser,

@@ -9,7 +9,7 @@ import 'package:arte_persa/src/pages/login/login_page.dart';
 import 'package:arte_persa/src/pages/splash/splash_page.dart';
 
 // Páginas de Cadastro
-import 'package:arte_persa/src/pages/cadastro/cadastro_page.dart';
+import 'package:arte_persa/src/pages/cadastro_co/cadastro_co_page.dart';
 import 'package:arte_persa/src/pages/cadastro_servico/cadastro_servico_page.dart';
 
 // Página Principal
@@ -62,7 +62,7 @@ class RouteGenerator {
       case RouteGeneratorKeys.cadastrar:
         return MaterialPageRoute(
           settings: settings,
-          builder: (context) => const CadastroPage(),
+          builder: (context) => const CadastroCoPage(),
         );
       case RouteGeneratorKeys.home:
         return MaterialPageRoute(

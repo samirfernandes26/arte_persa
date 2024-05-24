@@ -92,7 +92,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           height: 16,
                         ),
                         Button(
-                          textButton: 'Cadastrar',
+                          textButton: 'Entrar',
                           colorText: Colors.white,
                           colorButton: const Color(0xFF008000),
                           onPressed: () async {
@@ -107,12 +107,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
                                 if (rest) {
                                   navigator.pushNamedAndRemoveUntil(
-                                      RouteGeneratorKeys.cadastroServico,
+                                      RouteGeneratorKeys.home,
                                       (route) => false);
                                 }
                                 // navigator.pop();
                                 break;
                             }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        Button(
+                          textButton: 'Cadastrar',
+                          colorText: Colors.white,
+                          colorButton: const Color(0xFF008000),
+                          onPressed: () async {
+                            navigator.pushNamedAndRemoveUntil(
+                                RouteGeneratorKeys.cadastrar, (route) => false);
                           },
                         ),
                       ],

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cadastro_state.dart';
+part of 'cadastro_co_state.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

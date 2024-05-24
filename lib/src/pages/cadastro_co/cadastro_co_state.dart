@@ -2,44 +2,57 @@ import 'package:arte_persa/src/model/usuario_model.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'cadastro_state.g.dart';
+part 'cadastro_co_state.g.dart';
 
-enum CadastroStatus {
+enum CadastroCoStatus {
   initial,
   loaded,
   success,
   error,
 }
 
-class CadastroState {
-  CadastroState({
+class CadastroCoState {
+  CadastroCoState({
     required this.status,
+    required this.telefoneContatoUmWhatsapp,
+    required this.telefoneContatoDoisWhatsapp,
     this.form,
     this.message,
     this.usuario,
   });
 
-  CadastroState.initial()
+  CadastroCoState.initial()
       : this(
-          status: CadastroStatus.initial,
+          status: CadastroCoStatus.initial,
+          telefoneContatoUmWhatsapp: false,
+          telefoneContatoDoisWhatsapp: false,
         );
 
-  CadastroStatus status;
+  CadastroCoStatus status;
   CadastroForm? form;
   String? message;
   UsuarioModel? usuario;
+  bool telefoneContatoUmWhatsapp;
+  bool telefoneContatoDoisWhatsapp;
 
-  CadastroState copyWith({
-    CadastroStatus? status,
+  CadastroCoState copyWith({
+    CadastroCoStatus? status,
     CadastroForm? form,
     String? message,
     UsuarioModel? usuario,
-  }) => CadastroState(
-    status: status ?? this.status,
-    form: form ?? this.form,
-    message: message ?? this.message,
-    usuario: usuario ?? this.usuario,
-  );
+    bool? telefoneContatoUmWhatsapp,
+    bool? telefoneContatoDoisWhatsapp,
+  }) =>
+      CadastroCoState(
+        status: status ?? this.status,
+        form: form ?? this.form,
+        message: message ?? this.message,
+        usuario: usuario ?? this.usuario,
+        telefoneContatoUmWhatsapp:
+            telefoneContatoUmWhatsapp ?? this.telefoneContatoUmWhatsapp,
+        telefoneContatoDoisWhatsapp:
+            telefoneContatoDoisWhatsapp ?? this.telefoneContatoDoisWhatsapp,
+      );
 }
 
 @JsonSerializable()

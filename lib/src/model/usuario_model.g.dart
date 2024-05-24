@@ -9,36 +9,36 @@ part of 'usuario_model.dart';
 UsuarioModel _$UsuarioModelFromJson(Map<String, dynamic> json) => UsuarioModel(
       id: json['id'] as String?,
       email: json['email'] as String,
-      senha: json['senha'] as String?,
-      token: json['token'] as String?,
-      nome: json['nome'] as String?,
-      sobrenome: json['sobrenome'] as String?,
-      cpf: json['cpf'] as String?,
-      telefoneContatoUm: json['telefone_contato_um'] as String?,
+      senha: json['senha'] as String,
+      nome: json['nome'] as String,
+      sobrenome: json['sobre_nome'] as String,
+      cpf: json['cpf'] as String,
+      telefoneContatoUm: json['telefone_contato_um'] as String,
+      contatoUmWhatsapp: json['contato_um_whatsapp'] as bool,
       telefoneContatoDois: json['telefone_contato_dois'] as String?,
-      dataNascimento: json['data_nascimento'] == null
-          ? null
-          : DateTime.parse(json['data_nascimento'] as String),
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null
-          ? null
-          : DateTime.parse(json['updated_at'] as String),
+      contatoDoisWhatsapp: json['contato_dois_whatsapp'] as bool,
+      dataNascimento: DateTime.parse(json['data_nascimento'] as String),
+      createdAt: const DateStringToDateTimeConverter()
+          .fromJson(json['created_at'] as String?),
+      updatedAt: const DateStringToDateTimeConverter()
+          .fromJson(json['updated_at'] as String?),
     );
 
 Map<String, dynamic> _$UsuarioModelToJson(UsuarioModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
-      'token': instance.token,
       'senha': instance.senha,
       'nome': instance.nome,
-      'sobrenome': instance.sobrenome,
+      'sobre_nome': instance.sobrenome,
       'cpf': instance.cpf,
       'telefone_contato_um': instance.telefoneContatoUm,
+      'contato_um_whatsapp': instance.contatoUmWhatsapp,
       'telefone_contato_dois': instance.telefoneContatoDois,
-      'data_nascimento': instance.dataNascimento?.toIso8601String(),
-      'created_at': instance.createdAt?.toIso8601String(),
-      'updated_at': instance.updatedAt?.toIso8601String(),
+      'contato_dois_whatsapp': instance.contatoDoisWhatsapp,
+      'data_nascimento': instance.dataNascimento.toIso8601String(),
+      'created_at':
+          const DateStringToDateTimeConverter().toJson(instance.createdAt),
+      'updated_at':
+          const DateStringToDateTimeConverter().toJson(instance.updatedAt),
     };
