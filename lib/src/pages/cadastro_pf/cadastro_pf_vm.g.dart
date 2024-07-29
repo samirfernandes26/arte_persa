@@ -6,7 +6,7 @@ part of 'cadastro_pf_vm.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cadastroPfVmHash() => r'2f8d0e332ee0de3cff024f827886395836f63e73';
+String _$cadastroPfVmHash() => r'8af7cba833203813119681dd95a0c0d145c5713e';
 
 /// See also [CadastroPfVm].
 @ProviderFor(CadastroPfVm)

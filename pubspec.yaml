@@ -37,14 +37,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.7
   validatorless: ^1.2.3
-  firebase_core: ^2.25.4
-  firebase_auth: ^4.17.4
-  firebase_database: ^10.2.5
-  firebase_storage: ^11.6.6
-  cloud_firestore: ^4.15.5
+  firebase_core: ^3.2.0
+  firebase_auth: ^5.1.2
+  firebase_database: ^11.0.3
+  firebase_storage: ^12.1.1
+  cloud_firestore: ^5.1.0
   riverpod_annotation: ^2.1.4
   uuid: ^4.2.1
-  intl: ^0.18.1
+  intl: ^0.19.0
   dio: ^5.3.2
   flutter_riverpod: ^2.3.10
   shared_preferences: ^2.2.1
@@ -55,16 +55,16 @@ dependencies:
   path_provider: ^2.1.1
   path: ^1.8.3
   flutter_form_builder: ^9.1.1
-  form_builder_validators: ^9.0.0
-  flutter_date_range_picker: ^0.0.14
+  form_builder_validators: ^11.0.0
+  flutter_date_range_picker: ^0.1.1
   drift_dev: ^2.11.2
   week_of_year: ^2.2.0
-  syncfusion_flutter_charts: ^23.1.38
-  device_info_plus: ^9.1.1
+  syncfusion_flutter_charts: ^26.2.5+1
+  device_info_plus: ^10.1.1
   mask_text_input_formatter: ^2.5.0
   flutter_localizations:
     sdk: flutter
-  lottie: ^2.7.0
+  lottie: ^3.1.2
   internet_connection_checker: ^1.0.0+1
   multiple_search_selection: ^2.5.5
   faker: ^2.1.0
@@ -76,16 +76,16 @@ dependencies:
   permission_handler: ^11.1.0
   path_provider_platform_interface: ^2.1.1
   permission_handler_platform_interface: ^4.0.2
-  package_info_plus: ^7.0.0
+  package_info_plus: ^8.0.1
   percent_indicator: ^4.2.3
   json_annotation: ^4.8.1
   image_picker: ^1.0.7
   flutter_signature_pad: ^3.0.1
   flutter_rating_bar: ^4.0.1
-  geolocator: ^11.0.0
+  geolocator: ^12.0.0
   geocoding: ^3.0.0
   url_launcher: ^6.2.5
-  http: ^0.13.3
+  http: ^1.2.2
   google_maps_flutter: ^2.5.3
   # google_maps_flutter_platform_interface: ^2.6.0
   # google_maps_flutter_android: ^2.7.0
@@ -100,7 +100,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
   build_runner: ^2.4.8
   riverpod_lint: ^2.0.3
   riverpod_generator: ^2.3.1
