@@ -6,10 +6,10 @@ import 'package:arte_persa/src/core/ui/widgets/components/painel_page_scaffold/p
 import 'package:arte_persa/src/core/ui/widgets/components/painel_styles/painel_styles.dart';
 import 'package:arte_persa/src/core/ui/widgets/headers/painel_brand_header/painel_brand_header.dart';
 import 'package:arte_persa/src/core/ui/widgets/search/painel_search_field/painel_search_field.dart';
+import 'package:arte_persa/src/screens/ordens_servico/nova_ordem_servico_item_screen.dart';
 import 'package:arte_persa/src/screens/painel/painel_navigation.dart';
 import 'package:arte_persa/src/screens/painel/painel_session.dart';
 import 'package:arte_persa/src/screens/servicos/servicos_mock_data.dart';
-import 'package:arte_persa/src/shared/infra/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 
 class ServicosScreen extends StatefulWidget {
@@ -116,8 +116,10 @@ class _ServicosScreenState extends State<ServicosScreen> {
                   username: username,
                   leading: PainelAddActionButton(
                     onTap: () {
-                      Navigator.of(context).pushNamed(
-                        RouteGeneratorKeys.tiposServicos,
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const NovaOrdemServicoItemScreen(),
+                        ),
                       );
                     },
                   ),

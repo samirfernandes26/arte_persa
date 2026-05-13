@@ -4,6 +4,7 @@ import 'package:arte_persa/src/core/ui/widgets/components/painel_background_scaf
 import 'package:arte_persa/src/core/ui/widgets/components/painel_page_scaffold/painel_page_scaffold.dart';
 import 'package:arte_persa/src/core/ui/widgets/components/painel_styles/painel_styles.dart';
 import 'package:arte_persa/src/core/ui/widgets/headers/painel_overview_header/painel_overview_header.dart';
+import 'package:arte_persa/src/screens/ordens_servico/nova_ordem_servico_item_screen.dart';
 import 'package:arte_persa/src/screens/painel/painel_mock_data.dart';
 import 'package:arte_persa/src/screens/painel/painel_navigation.dart';
 import 'package:arte_persa/src/screens/painel/painel_session.dart';
@@ -37,7 +38,11 @@ class _PainelScreenState extends State<PainelScreen> {
   void _handleActionTap(PainelActionData action) {
     switch (action.type) {
       case PainelActionType.novoServico:
-        Navigator.of(context).pushNamed(RouteGeneratorKeys.tiposServicos);
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => const NovaOrdemServicoItemScreen(),
+          ),
+        );
       case PainelActionType.cadastroClientes:
         Navigator.of(context).pushNamed(RouteGeneratorKeys.cadastroCliente);
       case PainelActionType.meusClientes:
