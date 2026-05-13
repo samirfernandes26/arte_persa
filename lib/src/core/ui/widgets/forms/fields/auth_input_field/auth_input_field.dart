@@ -1,4 +1,4 @@
-import 'package:arte_persa/src/screens/autenticacao/widgets/auth_styles.dart';
+import 'package:arte_persa/src/core/ui/widgets/components/auth_styles/auth_styles.dart';
 import 'package:flutter/material.dart';
 
 class AuthInputField extends StatelessWidget {

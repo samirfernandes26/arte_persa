@@ -1,3 +1,5 @@
+export 'auth_input_field/auth_input_field.dart';
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';

@@ -1,6 +1,12 @@
+import 'package:arte_persa/src/core/ui/widgets/buttons/auth_primary_button/auth_primary_button.dart';
+import 'package:arte_persa/src/core/ui/widgets/buttons/auth_text_action/auth_text_action.dart';
+import 'package:arte_persa/src/core/ui/widgets/cards/auth_card/auth_card.dart';
+import 'package:arte_persa/src/core/ui/widgets/components/auth_background_scaffold/auth_background_scaffold.dart';
+import 'package:arte_persa/src/core/ui/widgets/components/auth_styles/auth_styles.dart';
+import 'package:arte_persa/src/core/ui/widgets/forms/fields/auth_input_field/auth_input_field.dart';
+import 'package:arte_persa/src/core/ui/widgets/headers/auth_brand_header/auth_brand_header.dart';
 import 'package:arte_persa/src/screens/autenticacao/autenticacao_screen_state.dart';
 import 'package:arte_persa/src/screens/autenticacao/autenticacao_screen_vm.dart';
-import 'package:arte_persa/src/screens/autenticacao/widgets/widgets.dart';
 import 'package:arte_persa/src/shared/infra/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

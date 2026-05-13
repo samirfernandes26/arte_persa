@@ -1,4 +1,6 @@
 import 'package:arte_persa/src/screens/autenticacao/autenticacao_screen.dart';
+import 'package:arte_persa/src/screens/painel/painel_navigation.dart';
+import 'package:arte_persa/src/screens/painel/painel_placeholder_screen.dart';
 import 'package:arte_persa/src/screens/painel/painel_screen.dart';
 import 'package:arte_persa/src/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,10 @@ sealed class RouteGeneratorKeys {
   static const path = '/';
   static const authLogin = '/auth/login';
   static const painel = '/painel';
+  static const servicos = '/painel/servicos';
+  static const clientes = '/painel/clientes';
+  static const agendas = '/painel/agendas';
+  static const perfil = '/painel/perfil';
 }
 
 sealed class RouteGenerator {
@@ -28,6 +34,26 @@ sealed class RouteGenerator {
         return _materialPageRoute(settings, const AutenticacaoScreen());
       case RouteGeneratorKeys.painel:
         return _materialPageRoute(settings, const PainelScreen());
+      case RouteGeneratorKeys.servicos:
+        return _materialPageRoute(
+          settings,
+          const PainelPlaceholderScreen(item: PainelDrawerItem.servicos),
+        );
+      case RouteGeneratorKeys.clientes:
+        return _materialPageRoute(
+          settings,
+          const PainelPlaceholderScreen(item: PainelDrawerItem.clientes),
+        );
+      case RouteGeneratorKeys.agendas:
+        return _materialPageRoute(
+          settings,
+          const PainelPlaceholderScreen(item: PainelDrawerItem.agendas),
+        );
+      case RouteGeneratorKeys.perfil:
+        return _materialPageRoute(
+          settings,
+          const PainelPlaceholderScreen(item: PainelDrawerItem.perfil),
+        );
       default:
         return _errorRoute(settings);
     }

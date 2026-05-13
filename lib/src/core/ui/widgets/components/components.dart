@@ -1,3 +1,10 @@
+export 'auth_background_scaffold/auth_background_scaffold.dart';
+export 'auth_styles/auth_styles.dart';
+export 'painel_background_scaffold/painel_background_scaffold.dart';
+export 'painel_page_scaffold/painel_page_scaffold.dart';
+export 'painel_styles/painel_styles.dart';
+export 'painel_user_avatar/painel_user_avatar.dart';
+
 import 'package:flutter/material.dart';
 
 Row labelRow(

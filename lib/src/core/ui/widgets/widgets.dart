@@ -5,6 +5,7 @@ export 'chip/chip.dart';
 export 'collapse/collapse.dart';
 export 'components/components.dart';
 export 'drawer/drawer_widget.dart';
+export 'drawer/painel_drawer/painel_drawer.dart';
 export 'forms/forms.dart';
 export 'headers/headers.dart';
 export 'icons/icons.dart';
