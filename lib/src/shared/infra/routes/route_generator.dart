@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 sealed class RouteGeneratorKeys {
   static const path = '/';
-  static const home = '/home';
-  static const mapa = '/mapa';
+  static const painel = '/painel';
 }
 
 sealed class RouteGenerator {
@@ -15,9 +14,7 @@ sealed class RouteGenerator {
   static Route generateRoute<T>(RouteSettings settings) {
     switch (settings.name) {
       case RouteGeneratorKeys.path:
-        return _errorRoute(); //_materialPageRoute<T>(settings, const SplashScreen());
-      case RouteGeneratorKeys.home:
-        return _errorRoute(); //_materialPageRoute(settings, const HomeScreen());
+        return _materialPageRoute<T>(settings, const SplashScreen());
 
       default:
         return _errorRoute();

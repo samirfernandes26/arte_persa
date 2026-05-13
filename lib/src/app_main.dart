@@ -15,7 +15,7 @@ class AppMain extends StatelessWidget {
       builder: (AsyncNavigatorObserver asyncNavigatorObserver) {
         return MaterialApp(
           debugShowCheckedModeBanner: kDebugMode,
-          title: "VersaSaúde ACS",
+          title: "arte persa",
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

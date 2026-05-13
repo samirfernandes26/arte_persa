@@ -1,0 +1,44 @@
+import 'package:fp/fp.dart';
+
+class MunicipiosSelectState<T> with NullableMixin {
+  int page;
+  int pageSize;
+  int totalPages;
+  T? selected;
+  String? selectedLabel;
+  String? search;
+
+  MunicipiosSelectState({
+    required this.page,
+    required this.pageSize,
+    required this.totalPages,
+    this.selected,
+    this.selectedLabel,
+    this.search,
+  });
+
+  MunicipiosSelectState.initial()
+      : page = 1,
+        pageSize = 25,
+        totalPages = 0,
+        search = null,
+        selected = null,
+        selectedLabel = null;
+
+  MunicipiosSelectState copyWith({
+    Nullable<int>? page,
+    Nullable<int>? pageSize,
+    Nullable<int>? totalPages,
+    Nullable<T>? selected,
+    Nullable<T>? selectedLabel,
+    Nullable<String>? search,
+  }) =>
+      MunicipiosSelectState(
+        page: handleNullable(page, this.page),
+        pageSize: handleNullable(pageSize, this.pageSize),
+        totalPages: handleNullable(totalPages, this.totalPages),
+        selected: handleNullable(selected, this.selected),
+        selectedLabel: handleNullable(selectedLabel, this.selectedLabel),
+        search: handleNullable(search, this.search),
+      );
+}
