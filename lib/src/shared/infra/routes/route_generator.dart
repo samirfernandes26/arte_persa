@@ -1,4 +1,5 @@
 import 'package:arte_persa/src/screens/autenticacao/autenticacao_screen.dart';
+import 'package:arte_persa/src/screens/clientes/clientes_screen.dart';
 import 'package:arte_persa/src/screens/painel/painel_navigation.dart';
 import 'package:arte_persa/src/screens/painel/painel_placeholder_screen.dart';
 import 'package:arte_persa/src/screens/painel/painel_screen.dart';
@@ -40,10 +41,7 @@ sealed class RouteGenerator {
           const PainelPlaceholderScreen(item: PainelDrawerItem.servicos),
         );
       case RouteGeneratorKeys.clientes:
-        return _materialPageRoute(
-          settings,
-          const PainelPlaceholderScreen(item: PainelDrawerItem.clientes),
-        );
+        return _materialPageRoute(settings, const ClientesScreen());
       case RouteGeneratorKeys.agendas:
         return _materialPageRoute(
           settings,
