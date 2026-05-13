@@ -8,6 +8,7 @@ import 'package:arte_persa/src/core/ui/widgets/search/clientes_search_field/clie
 import 'package:arte_persa/src/screens/clientes/clientes_mock_data.dart';
 import 'package:arte_persa/src/screens/painel/painel_navigation.dart';
 import 'package:arte_persa/src/screens/painel/painel_session.dart';
+import 'package:arte_persa/src/shared/infra/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 
 class ClientesScreen extends StatefulWidget {
@@ -89,8 +90,8 @@ class _ClientesScreenState extends State<ClientesScreen> {
                 ClientesOverviewHeader(
                   username: username,
                   onCreateTap: () {
-                    _showMessage(
-                      'Cadastro de novo cliente ainda não está disponível.',
+                    Navigator.of(context).pushNamed(
+                      RouteGeneratorKeys.cadastroCliente,
                     );
                   },
                 ),

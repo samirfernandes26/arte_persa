@@ -1,5 +1,7 @@
 import 'package:arte_persa/src/screens/autenticacao/autenticacao_screen.dart';
+import 'package:arte_persa/src/screens/clientes/cadastro_cliente_screen.dart';
 import 'package:arte_persa/src/screens/clientes/clientes_screen.dart';
+import 'package:arte_persa/src/screens/colaboradores/cadastro_colaborador_screen.dart';
 import 'package:arte_persa/src/screens/painel/painel_navigation.dart';
 import 'package:arte_persa/src/screens/painel/painel_placeholder_screen.dart';
 import 'package:arte_persa/src/screens/painel/painel_screen.dart';
@@ -12,6 +14,8 @@ sealed class RouteGeneratorKeys {
   static const painel = '/painel';
   static const servicos = '/painel/servicos';
   static const clientes = '/painel/clientes';
+  static const cadastroCliente = '/painel/clientes/cadastro';
+  static const cadastroColaborador = '/painel/colaboradores/cadastro';
   static const agendas = '/painel/agendas';
   static const perfil = '/painel/perfil';
 }
@@ -42,6 +46,13 @@ sealed class RouteGenerator {
         );
       case RouteGeneratorKeys.clientes:
         return _materialPageRoute(settings, const ClientesScreen());
+      case RouteGeneratorKeys.cadastroCliente:
+        return _materialPageRoute(settings, const CadastroClienteScreen());
+      case RouteGeneratorKeys.cadastroColaborador:
+        return _materialPageRoute(
+          settings,
+          const CadastroColaboradorScreen(),
+        );
       case RouteGeneratorKeys.agendas:
         return _materialPageRoute(
           settings,

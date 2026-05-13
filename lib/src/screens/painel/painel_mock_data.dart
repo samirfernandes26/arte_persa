@@ -14,14 +14,25 @@ class PainelMetricData {
 
 class PainelActionData {
   const PainelActionData({
+    required this.type,
     required this.label,
     required this.icon,
     required this.backgroundColor,
   });
 
+  final PainelActionType type;
   final String label;
   final IconData icon;
   final Color backgroundColor;
+}
+
+enum PainelActionType {
+  novoServico,
+  cadastroClientes,
+  meusClientes,
+  agendamentos,
+  cadastroColaborador,
+  controleFinanceiro,
 }
 
 class PainelAppointmentData {
@@ -59,31 +70,37 @@ sealed class PainelMockData {
 
   static const actions = <PainelActionData>[
     PainelActionData(
+      type: PainelActionType.novoServico,
       label: 'Novo\nserviço',
       icon: Icons.add_circle_outline_rounded,
       backgroundColor: Color(0xFFF8F0D7),
     ),
     PainelActionData(
+      type: PainelActionType.cadastroClientes,
       label: 'Cadastro de\nclientes',
       icon: Icons.person_add_alt_1_outlined,
       backgroundColor: Color(0xFFFFFFFF),
     ),
     PainelActionData(
+      type: PainelActionType.meusClientes,
       label: 'Meus\nclientes',
       icon: Icons.groups_2_outlined,
       backgroundColor: Color(0xFFE2D8C8),
     ),
     PainelActionData(
+      type: PainelActionType.agendamentos,
       label: 'Agendamentos',
       icon: Icons.event_outlined,
       backgroundColor: Color(0xFFE7DDD0),
     ),
     PainelActionData(
+      type: PainelActionType.cadastroColaborador,
       label: 'Cadastro de\ncolaborador',
       icon: Icons.group_add_outlined,
       backgroundColor: Color(0xFFF7F0D7),
     ),
     PainelActionData(
+      type: PainelActionType.controleFinanceiro,
       label: 'Controle\nFinanceiro',
       icon: Icons.account_balance_wallet_outlined,
       backgroundColor: Color(0xFFE8CBA5),

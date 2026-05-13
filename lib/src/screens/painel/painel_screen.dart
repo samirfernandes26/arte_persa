@@ -7,6 +7,7 @@ import 'package:arte_persa/src/core/ui/widgets/headers/painel_overview_header/pa
 import 'package:arte_persa/src/screens/painel/painel_mock_data.dart';
 import 'package:arte_persa/src/screens/painel/painel_navigation.dart';
 import 'package:arte_persa/src/screens/painel/painel_session.dart';
+import 'package:arte_persa/src/shared/infra/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 
 class PainelScreen extends StatefulWidget {
@@ -31,6 +32,19 @@ class _PainelScreenState extends State<PainelScreen> {
         content: Text('$label ainda não está disponível nesta versão.'),
       ),
     );
+  }
+
+  void _handleActionTap(PainelActionData action) {
+    switch (action.type) {
+      case PainelActionType.cadastroClientes:
+        Navigator.of(context).pushNamed(RouteGeneratorKeys.cadastroCliente);
+      case PainelActionType.meusClientes:
+        Navigator.of(context).pushNamed(RouteGeneratorKeys.clientes);
+      case PainelActionType.cadastroColaborador:
+        Navigator.of(context).pushNamed(RouteGeneratorKeys.cadastroColaborador);
+      default:
+        _showUnavailableMessage(action.label.replaceAll('\n', ' '));
+    }
   }
 
   @override
@@ -67,9 +81,7 @@ class _PainelScreenState extends State<PainelScreen> {
 
                     return PainelActionCard(
                       data: action,
-                      onTap: () => _showUnavailableMessage(
-                        action.label.replaceAll('\n', ' '),
-                      ),
+                      onTap: () => _handleActionTap(action),
                     );
                   },
                 ),
