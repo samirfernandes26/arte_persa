@@ -5,7 +5,10 @@ import 'package:arte_persa/src/screens/colaboradores/cadastro_colaborador_screen
 import 'package:arte_persa/src/screens/painel/painel_navigation.dart';
 import 'package:arte_persa/src/screens/painel/painel_placeholder_screen.dart';
 import 'package:arte_persa/src/screens/painel/painel_screen.dart';
+import 'package:arte_persa/src/screens/servicos/cadastro_tipo_servico_screen.dart';
+import 'package:arte_persa/src/screens/servicos/servicos_screen.dart';
 import 'package:arte_persa/src/screens/splash/splash_screen.dart';
+import 'package:arte_persa/src/screens/servicos/tipos_servicos_screen.dart';
 import 'package:flutter/material.dart';
 
 sealed class RouteGeneratorKeys {
@@ -13,6 +16,8 @@ sealed class RouteGeneratorKeys {
   static const authLogin = '/auth/login';
   static const painel = '/painel';
   static const servicos = '/painel/servicos';
+  static const tiposServicos = '/painel/servicos/tipos';
+  static const cadastroTipoServico = '/painel/servicos/tipos/cadastro';
   static const clientes = '/painel/clientes';
   static const cadastroCliente = '/painel/clientes/cadastro';
   static const cadastroColaborador = '/painel/colaboradores/cadastro';
@@ -40,9 +45,13 @@ sealed class RouteGenerator {
       case RouteGeneratorKeys.painel:
         return _materialPageRoute(settings, const PainelScreen());
       case RouteGeneratorKeys.servicos:
+        return _materialPageRoute(settings, const ServicosScreen());
+      case RouteGeneratorKeys.tiposServicos:
+        return _materialPageRoute(settings, const TiposServicosScreen());
+      case RouteGeneratorKeys.cadastroTipoServico:
         return _materialPageRoute(
           settings,
-          const PainelPlaceholderScreen(item: PainelDrawerItem.servicos),
+          const CadastroTipoServicoScreen(),
         );
       case RouteGeneratorKeys.clientes:
         return _materialPageRoute(settings, const ClientesScreen());

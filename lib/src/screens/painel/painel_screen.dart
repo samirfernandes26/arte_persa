@@ -36,6 +36,8 @@ class _PainelScreenState extends State<PainelScreen> {
 
   void _handleActionTap(PainelActionData action) {
     switch (action.type) {
+      case PainelActionType.novoServico:
+        Navigator.of(context).pushNamed(RouteGeneratorKeys.tiposServicos);
       case PainelActionType.cadastroClientes:
         Navigator.of(context).pushNamed(RouteGeneratorKeys.cadastroCliente);
       case PainelActionType.meusClientes:

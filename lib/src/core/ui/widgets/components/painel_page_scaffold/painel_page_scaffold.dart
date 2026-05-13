@@ -10,12 +10,14 @@ class PainelPageScaffold extends StatelessWidget {
     required this.username,
     required this.body,
     this.showDrawerButton = true,
+    this.floatingActionButton,
   });
 
   final PainelDrawerItem selectedItem;
   final String username;
   final Widget body;
   final bool showDrawerButton;
+  final Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class PainelPageScaffold extends StatelessWidget {
         selectedItem: selectedItem,
         username: username,
       ),
+      floatingActionButton: floatingActionButton,
       appBar: showDrawerButton
           ? AppBar(
               backgroundColor: Colors.transparent,
