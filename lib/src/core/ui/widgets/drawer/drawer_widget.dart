@@ -1,6 +1,6 @@
 import 'package:device_client_information/device_client_information.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 enum MenuItem {

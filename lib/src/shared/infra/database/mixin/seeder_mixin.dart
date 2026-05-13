@@ -1,4 +1,4 @@
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 import 'package:drift/drift.dart';
 
 mixin SeederMixin {

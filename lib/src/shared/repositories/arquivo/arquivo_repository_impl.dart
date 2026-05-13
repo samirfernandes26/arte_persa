@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
 

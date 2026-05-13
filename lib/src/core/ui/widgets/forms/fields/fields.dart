@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
-import 'package:form_builder_custom/form_builder_custom.dart';
+import 'package:arte_persa/src/core/ui/widgets/forms/form_builder_custom.dart';
 
-typedef InputOption<T> = ({T value, String description});
+typedef InputOption<T> = OptionField<T>;
 
 Widget selectCustomField<T>(
   BuildContext context, {

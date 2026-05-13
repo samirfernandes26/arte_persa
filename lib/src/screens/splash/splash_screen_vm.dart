@@ -1,33 +1,16 @@
-import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+enum SplashState { auth, logged }
 
-part 'splash_screen_vm.g.dart';
+class SplashScreenVm {
+  static const _loggedInKey = 'session.logged_in';
 
-enum SplashState { initial, logged, error }
+  Future<SplashState> loadInitialState() async {
+    await Future<void>.delayed(const Duration(milliseconds: 900));
 
-@riverpod
-class SplashScreenVm extends _$SplashScreenVm {
-  @override
-  Future<SplashState> build() async {
-    try {
-      await ref.read(getMeProvider.future);
+    final preferences = await SharedPreferences.getInstance();
+    final isLoggedIn = preferences.getBool(_loggedInKey) ?? false;
 
-      await getFirebaseRemoteConfigs();
-
-      return SplashState.logged;
-    } catch (e) {
-      log('SplashScreenVm:build', error: e);
-      return SplashState.error;
-    }
-  }
-
-  Future<void> getFirebaseRemoteConfigs() async {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-
-    await remoteConfig.setDefaults(RemoteConfigs.defaultValues);
-
-    await remoteConfig.fetchAndActivate();
+    return isLoggedIn ? SplashState.logged : SplashState.auth;
   }
 }

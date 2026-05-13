@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:device_client_information/device_client_information.dart';
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

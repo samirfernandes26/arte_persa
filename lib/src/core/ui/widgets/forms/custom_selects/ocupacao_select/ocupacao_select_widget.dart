@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lazy_list_view/lazy_list_view.dart';
+import 'package:arte_persa/src/core/ui/widgets/lazy_list_view/lazy_list_view.dart';
 
 class OcupacaoSelectWidget<T> extends ConsumerStatefulWidget {
   const OcupacaoSelectWidget({super.key, this.initialValue});

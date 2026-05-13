@@ -1,76 +1,98 @@
-import 'package:asyncstate/asyncstate.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:arte_persa/src/screens/splash/splash_screen_vm.dart';
+import 'package:arte_persa/src/shared/infra/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreen extends ConsumerStatefulWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  ConsumerState<SplashScreen> createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ConsumerState<SplashScreen> {
-  var _scale = 10.0;
-  var _animationOpacityLogo = 0.0;
-
-  double get _logoAnimationWidth => 320 * _scale;
+class _SplashScreenState extends State<SplashScreen> {
+  late final Future<SplashState> _initialStateFuture;
+  bool _redirected = false;
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        _animationOpacityLogo = 1.0;
-        _scale = 1.0;
-      });
-    });
-
     super.initState();
+    _initialStateFuture = SplashScreenVm().loadInitialState();
+  }
+
+  void _redirect(SplashState state) {
+    if (_redirected) {
+      return;
+    }
+
+    _redirected = true;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+
+      final route = switch (state) {
+        SplashState.logged => RouteGeneratorKeys.painel,
+        SplashState.auth => RouteGeneratorKeys.authLogin,
+      };
+
+      Navigator.of(context).pushReplacementNamed(route);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final splashScreenVm = ref.watch(splashScreenVmProvider);
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(ImagesConstants.backgroundImg),
-            fit: BoxFit.cover,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF102542),
+              Color(0xFF1E3A5F),
+              Color(0xFFF6E7CB),
+            ],
           ),
         ),
         child: Center(
-          child: AnimatedOpacity(
-            duration: const Duration(seconds: 3),
-            opacity: _animationOpacityLogo,
-            curve: Curves.easeIn,
-            child: AnimatedContainer(
-              width: _logoAnimationWidth,
-              duration: const Duration(seconds: 3),
-              curve: Curves.linearToEaseOut,
+          child: FutureBuilder<SplashState>(
+            future: _initialStateFuture,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                _redirect(snapshot.data!);
+              }
 
-              onEnd: () async {
-                await ref.read(seedsHandlerProvider).execute().asyncLoader();
-
-                splashScreenVm.whenOrNull(
-                  error: (error, stackTrace) => (error, stackTrace) {},
-                  data: (data) async {
-                    switch (data) {
-                      case SplashState.logged:
-                        context.navigator.pushNamedAndRemoveUntil(
-                          RouteGeneratorKeys.painel,
-                          (_) => false,
-                        );
-                      default:
-                        context.navigator.pushNamedAndRemoveUntil(
-                          RouteGeneratorKeys.authLogin,
-                          (_) => false,
-                        );
-                    }
-                  },
-                );
-              },
-            ),
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 28,
+                      vertical: 18,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.24),
+                      ),
+                    ),
+                    child: const Text(
+                      'Arte Persa',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  const CircularProgressIndicator(color: Colors.white),
+                ],
+              );
+            },
           ),
         ),
       ),

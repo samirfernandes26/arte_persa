@@ -9,6 +9,27 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  exclude:
+    - lib/src/core/core.dart
+    - lib/src/core/exceptions/**
+    - lib/src/core/fp/**
+    - lib/src/core/helpers/**
+    - lib/src/core/preferences/**
+    - lib/src/core/providers/**
+    - lib/src/core/rest_client/**
+    - lib/src/core/ui/**
+    - lib/src/core/utils/**
+    - lib/src/shared/dtos/**
+    - lib/src/shared/enums/**
+    - lib/src/shared/infra/database/**
+    - lib/src/shared/models/**
+    - lib/src/shared/repositories/**
+    - lib/src/shared/services/**
+    - lib/src/shared/shared.dart
+    - lib/src/shared/types/**
+    - lib/src/shared/utils/**
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`

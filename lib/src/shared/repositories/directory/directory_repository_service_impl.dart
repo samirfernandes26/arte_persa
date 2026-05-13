@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DirectoryRepositoryImpl implements DirectoryRepository {

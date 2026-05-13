@@ -1,4 +1,4 @@
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 
 class PaisesSelectState<T> with NullableMixin {
   int page;

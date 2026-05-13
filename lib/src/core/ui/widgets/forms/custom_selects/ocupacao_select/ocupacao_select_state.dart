@@ -1,4 +1,4 @@
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 
 class OcupacaoSelectState<T> with NullableMixin {
   int page;

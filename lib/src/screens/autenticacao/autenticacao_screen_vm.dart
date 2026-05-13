@@ -1,48 +1,46 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'package:form_builder_custom/form_builder_custom.dart';
-import 'package:fp/fp.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:arte_persa/src/screens/autenticacao/autenticacao_screen_state.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-part 'autenticacao_screen_vm.g.dart';
+final autenticacaoScreenVmProvider =
+    StateNotifierProvider<AutenticacaoScreenVm, AutenticacaoScreenState>((ref) {
+  return AutenticacaoScreenVm();
+});
 
-@Riverpod()
-class AutenticacaoScreenVm extends _$AutenticacaoScreenVm {
-  @override
-  AutenticacaoScreenState build() => AutenticacaoScreenState.initial();
+class AutenticacaoScreenVm extends StateNotifier<AutenticacaoScreenState> {
+  AutenticacaoScreenVm() : super(const AutenticacaoScreenState.initial());
 
-  List<Map<String, dynamic>> municipios = [];
-
-  final _municipiosController = StreamController<List<Option<String>>>();
-
-  Stream<List<Option<String>>> get municipiosStream =>
-      _municipiosController.stream;
-
-  Future<void> dispose() async {
-    await _municipiosController.close();
-  }
+  static const _loggedInKey = 'session.logged_in';
+  static const _usernameKey = 'session.username';
 
   void toogleShowPassword() {
     state = state.copyWith(showPassword: !state.showPassword);
   }
 
   Future<void> handleSignIn(Map<String, dynamic> form) async {
-    final response = await ref.read(loginServiceProvider).execute(form);
+    final usuario = (form['usuario'] ?? '').toString().trim();
+    final senha = (form['senha'] ?? '').toString().trim();
 
-    switch (response) {
-      case Success():
-        state = state.copyWith(
-          message: 'Usuário logado com sucesso',
-          status: AutenticacaoScreenStatus.success,
-        );
-      case Failure(exception: ServiceException(:final message)):
-        state = state.copyWith(
-          message: message,
-          status: AutenticacaoScreenStatus.error,
-        );
+    if (usuario.isEmpty || senha.isEmpty) {
+      state = state.copyWith(
+        status: AutenticacaoScreenStatus.error,
+        message: 'Informe usuário e senha para continuar.',
+      );
+      return;
     }
+
+    state = state.copyWith(
+      status: AutenticacaoScreenStatus.loading,
+      message: null,
+    );
+
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setBool(_loggedInKey, true);
+    await preferences.setString(_usernameKey, usuario);
+
+    state = state.copyWith(
+      status: AutenticacaoScreenStatus.success,
+      message: 'Login realizado com sucesso.',
+    );
   }
 }

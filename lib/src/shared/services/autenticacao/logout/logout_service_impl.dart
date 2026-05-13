@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogoutServiceImpl implements LogoutService {

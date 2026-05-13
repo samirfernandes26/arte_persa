@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CarregarArquivoServiceImpl implements CarregarArquivoService {

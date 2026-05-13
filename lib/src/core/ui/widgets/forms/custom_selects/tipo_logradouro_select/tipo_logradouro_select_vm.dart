@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:lazy_list_view/lazy_list_view.dart';
+import 'package:arte_persa/src/core/ui/widgets/lazy_list_view/lazy_list_view.dart';
 
 part 'tipo_logradouro_select_vm.g.dart';
 

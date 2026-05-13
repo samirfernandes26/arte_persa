@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:fp/fp.dart';
+import 'package:arte_persa/src/core/fp/fp.dart';
+import 'package:arte_persa/src/core/exceptions/service_exception.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:geolocator_service/src/interface/geolocator_service.dart';
+import 'package:arte_persa/src/shared/services/geolocator/geolocator_service_interface.dart';
 
 class GeolocatorServiceImpl implements GeolocatorService {
   GeolocatorServiceImpl();

@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 sealed class AppTheme {
   static final ElevatedButtonThemeData _elevatedButtonThemeData =
       ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(56),
-          backgroundColor: Colors.blueAccent,
-          textStyle: const TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-      );
+    style: ElevatedButton.styleFrom(
+      minimumSize: const Size.fromHeight(56),
+      backgroundColor: Colors.blueAccent,
+      textStyle: const TextStyle(
+        fontSize: 16,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
+  );
 
   static const _erroTextStyle = TextStyle(fontSize: 14);
 
@@ -63,10 +63,6 @@ sealed class AppTheme {
       errorStyle: _erroTextStyle,
     ),
     elevatedButtonTheme: _elevatedButtonThemeData,
-    // TODO verificar
-    // cardTheme: const CardTheme(
-    //   color: Colors.white,
-    // ),
     popupMenuTheme: PopupMenuThemeData(
       color: _colorScheme.surface,
       textStyle: TextStyle(color: _colorScheme.secondary),
@@ -105,10 +101,6 @@ sealed class AppTheme {
       errorStyle: _erroTextStyle.copyWith(color: Colors.redAccent),
     ),
     elevatedButtonTheme: _elevatedButtonThemeData,
-    // TODO verificar
-    // cardTheme: CardTheme(
-    //   color: Colors.grey.shade800,
-    // ),
     popupMenuTheme: PopupMenuThemeData(
       color: _colorScheme.onSurface,
       textStyle: const TextStyle(color: Colors.white70),

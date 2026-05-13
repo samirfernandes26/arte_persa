@@ -1,29 +1,26 @@
 enum AutenticacaoScreenStatus {
-  intial,
-  loaded,
+  initial,
+  loading,
   error,
   success;
 }
 
 class AutenticacaoScreenState {
-  AutenticacaoScreenStatus status;
-
-  String? message;
-
-  bool showPassword;
-
-  AutenticacaoScreenState.initial()
-      : this(
-          status: AutenticacaoScreenStatus.intial,
-          message: null,
-          showPassword: false,
-        );
-
-  AutenticacaoScreenState({
+  const AutenticacaoScreenState({
     required this.status,
     required this.showPassword,
     this.message,
   });
+
+  const AutenticacaoScreenState.initial()
+      : this(
+          status: AutenticacaoScreenStatus.initial,
+          showPassword: false,
+        );
+
+  final AutenticacaoScreenStatus status;
+  final String? message;
+  final bool showPassword;
 
   AutenticacaoScreenState copyWith({
     AutenticacaoScreenStatus? status,
@@ -32,7 +29,7 @@ class AutenticacaoScreenState {
   }) {
     return AutenticacaoScreenState(
       status: status ?? this.status,
-      message: message ?? this.message,
+      message: message,
       showPassword: showPassword ?? this.showPassword,
     );
   }
