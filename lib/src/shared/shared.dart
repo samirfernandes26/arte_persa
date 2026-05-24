@@ -1,2 +1,2 @@
-export './dtos/dtos.dart';
 export './enums/enums.dart';
+export './models/models.dart';
