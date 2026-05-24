@@ -12,6 +12,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - lib/src/core/core.dart
+    - '**/*.g.dart'
     - lib/src/core/exceptions/**
     - lib/src/core/fp/**
     - lib/src/core/helpers/**
